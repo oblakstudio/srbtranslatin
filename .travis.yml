@@ -2,10 +2,10 @@ language: php
 php:
   - '7.1'
 
-before_script:
-  composer self-update
-  nvm install lts/*
-  npm i -g gulp
+before_install:
+  - composer self-update
+  - nvm install lts/*
+  - npm i -g gulp
 
 install:
   composer install --prefer-dist --no-dev --no-interaction

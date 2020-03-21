@@ -21,5 +21,6 @@ deploy:
     secure: hsIihbmeOmXGEXk7vTcccKLrNlwJXBR9Tf/G5+Ajn6MpYyV4MMdHdg8EW5GoSpoWQc4lxUgBfIjkSjwWkvI6qQz6B3dDGv8sZ9k40WfV0kJ5N5W4rPKUId316SS3dzhnuwKZSMn/QKUG/RHueUEplevlUehsmfB9KlpdxGY/gHgGHmkZStwd7mFZWXvjUdZUjHm1IkCpD7PLuJaqOgORI/DfC6MV8Gf/yQcPnzXgFp0cu4xZePzzO3gVJ63bvE54Wg7p5q5Ia9zclDgoZokE7x0S+vcFNhQj9J/OWJqY5uLvHn3Pi0HhvoozOZQxEYm7j3mR7VbYRgJsxWN4eRZRXhC8i2iM4t/Q386zFzC00AAsprouDuCr05aKuSGbp8N/kQZi0aLdECUqGbRX/evSYZqhkNQ/Upfxmw5ZXYB1hWZ6IRmT8r0eBYSk+5DgCG75yEdtWZinttaStxqDc66qlotOlnhBweRYfZODek1Lmb69uwbfZleSQRmsRFkL91n1s+qpvNEacnWocHYWv8zHeEe0P5urNQrY9sjosKsX6P6P0xyF+T4RLBWzqqpUb+qIIq5TR/zlDQ3LrkpXg0U8cF6373CYjjclCmAXdYAyZaEN3fQZHetiS/nVpjUXGU/Lj+6kTIxionsVUQttl8P6ZM7fZSnVQFDFplj+9lzTzQI=
   on:
     repo: seebeen/SrbTransLatin
+    file: ./
     tags: true
     all_branches: true

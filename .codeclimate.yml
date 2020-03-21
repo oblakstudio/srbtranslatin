@@ -1,0 +1,23 @@
+---
+engines:
+  csslint:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - javascript
+      - php
+  fixme:
+    enabled: true
+  phpmd:
+    enabled: true
+ratings:
+  paths:
+  - "**.scss"
+  - "**.js"
+  - "**.php"
+checks:
+  method-lines:
+    config:
+      threshold: 50

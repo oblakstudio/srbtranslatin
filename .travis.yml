@@ -23,10 +23,10 @@ before_deploy:
   - cp -avr vendor srbtranslatin/
   - cp srbtranslatin.php srbtranslatin/
   - cp readme.txt srbtranslatin/
-    - zip -r ./srbtranslatin-$TRAVIS_TAG.zip srbtranslatin/*
+  - zip -r ./srbtranslatin-$TRAVIS_TAG.zip srbtranslatin/*
 
 deploy:
-  provider: srbtranslatins
+  provider: releases
   skip_cleanup: true
   file: srbtranslatin-$TRAVIS_TAG.zip
   api_key:

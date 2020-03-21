@@ -3,11 +3,6 @@ language: php
 php:
 - '7.1'
 
-branches:
-  only:
-    - master
-    - trunk
-    - /^release\/*/
 
 before_install:
 - composer self-update

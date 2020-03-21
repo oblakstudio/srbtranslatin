@@ -27,5 +27,4 @@ deploy:
   on:
     repo: seebeen/SrbTransLatin
     tags: true
-    branch: master
-    draft: true
+    all_branches: true

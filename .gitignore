@@ -2,8 +2,8 @@ node_modules
 node_modules/*
 assets
 assets/*
-package-lock.json
-composer.lock
 vendor
 vendor/
 vendor/*
+package-lock.json
+composer.lock

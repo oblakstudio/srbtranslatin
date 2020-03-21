@@ -24,7 +24,7 @@ before_deploy:
   - cp srbtranslatin.php release/
   - cp readme.txt release/
   - tar -czf ./$TRAVIS_TAG.tar.gz release/*
-  - zip -r ./$TRAVIS_TAG.tar.gz release/*
+  - zip -r ./$TRAVIS_TAG.zip release/*
 
 deploy:
   provider: releases

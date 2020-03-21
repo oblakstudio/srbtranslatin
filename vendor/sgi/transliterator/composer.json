@@ -1,0 +1,21 @@
+{
+    "name": "sgi/transliterator",
+    "description": "This Module Transliterates Cyrillic to Latin script",
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "6"
+    },
+    "autoload": {
+        "psr-4": {
+            "SGI\\": "src/"   
+        }
+    },
+    "license": "GPL-2.0-only",
+    "authors": [
+        {
+            "name": "Sibin Grasic",
+            "email": "sg@sgi.io"
+        }
+    ],
+    "minimum-stability": "stable"
+}

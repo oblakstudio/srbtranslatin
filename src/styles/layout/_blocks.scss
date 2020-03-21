@@ -1,0 +1,47 @@
+#srbtranslatin{
+
+    .nav-tab-wrapper {
+        width: calc(100% - 25px);
+    }
+
+    .stl-wrapper {
+        padding-top:0;
+        display:block;
+        padding-right:25px;
+
+        &:after {
+            visibility: hidden;
+            display: block;
+            font-size: 0;
+            content: " ";
+            clear: both;
+            height: 0;
+        }
+
+        .stl-content{
+            width: calc(100% - 326px);
+            border-right: 1px solid #ccc;
+            padding-top:10px;
+            float:left;
+
+            form {
+
+                h2:nth-child(5){
+                    margin-top:15px;
+                    padding:0;
+                }
+
+            }
+
+        }
+
+        .stl-sidebar {
+            padding-top:10px;
+            width:300px;
+            float:left;
+            padding-left:25px;
+        }
+
+    }
+
+}

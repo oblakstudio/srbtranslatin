@@ -1,0 +1,17 @@
+{
+    "autoload": {
+        "files": [
+            "lib/Core/Utils.php",
+            "lib/Core/Compat.php",
+            "lib/Admin/Utils.php",
+            "lib/Frontend/Utils.php"
+        ],
+        "psr-4": {
+            "SGI\\STL\\": "lib/"   
+        }
+    },
+    "require": {
+        "simplehtmldom/simplehtmldom": "dev-master",
+        "sgi/transliterator": "^1.0"
+    }
+}

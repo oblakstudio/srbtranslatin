@@ -8,9 +8,9 @@ before_install:
   - npm i -g gulp
 
 install:
-  composer install --prefer-dist --no-dev --no-interaction
-  npm i
-  gulp
+  - composer install --prefer-dist --no-dev --no-interaction
+  - npm i
+  - gulp
 
 script:
   echo ''

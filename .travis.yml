@@ -18,6 +18,6 @@ deploy:
   file: "./*"
   on:
     repo: seebeen/SrbTransLatin
-    tags: trues
+    tags: true
     all_branches: true
     draft: true

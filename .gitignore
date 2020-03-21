@@ -5,4 +5,5 @@ assets/*
 package-lock.json
 composer.lock
 vendor
+vendor/
 vendor/*

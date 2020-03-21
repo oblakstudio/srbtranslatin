@@ -38,7 +38,7 @@
     "jshint-stylish": "2.2.1",
     "lazypipe": "^1.0.1",
     "merge-stream": "^1.0.0",
-    "minimist": "1.2.0",
+    "minimist": "1.2.5",
     "run-sequence": "2.2.1",
     "traverse": "^0.6.6",
     "webpack": "^4.41.6",

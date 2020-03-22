@@ -1,7 +1,10 @@
 # SrbTransLatin - Serbian Latinisation
 
 [![Build Status](https://travis-ci.org/seebeen/SrbTransLatin.svg?branch=master)](https://travis-ci.org/seebeen/SrbTransLatin)
+[![Latest Stable Version](https://poser.pugx.org/sgi/srbtranslatin/v/stable)](https://packagist.org/packages/sgi/srbtranslatin)
+[![License](https://poser.pugx.org/sgi/srbtranslatin/license)](https://packagist.org/packages/sgi/srbtranslatin)
 [![Maintainability](https://api.codeclimate.com/v1/badges/48c1c02c637f48135b1a/maintainability)](https://codeclimate.com/github/seebeen/SrbTransLatin/maintainability)
+
 
 ## Welcome to the SrbTransLatin GitHub Repository
 

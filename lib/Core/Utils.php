@@ -19,9 +19,6 @@ function get_default_config()
 {
 
     return [
-        'versions'       =>[
-            '2.0'
-        ],
         'migrated'       => false,
         'core'  => [
             'script'     => 'cir',

@@ -48,14 +48,14 @@ class Pages
             [&$this, 'settings_page']
         );
 
-        add_submenu_page(
-            'stl',
-            __('System Status - SrbTransLatin', DOMAIN),
-            __('System Status', DOMAIN),
-            'manage_options',
-            'stl_status',
-            [&$this, 'settings_page']
-        );
+        // add_submenu_page(
+        //     'stl',
+        //     __('System Status - SrbTransLatin', DOMAIN),
+        //     __('System Status', DOMAIN),
+        //     'manage_options',
+        //     'stl_status',
+        //     [&$this, 'settings_page']
+        // );
 
         remove_submenu_page('stl', 'stl');
 

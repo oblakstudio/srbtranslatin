@@ -5,7 +5,7 @@
  * Description:       SrbTransLatin - Serbian Latinisation plugin allows you to have a website in both cyrillic and latin scripts
  * Author:            Sibin Grasic
  * Author URI:        https://sgi.io
- * Version:           2.0
+ * Version:           2.0.1
  * Requires at least: 4.8
  * Requires PHP:      7.0
  * Text Domain:       SrbTransLatin
@@ -20,7 +20,7 @@ use \SGI\STL\Core\Bootstrap as STL;
 !defined(__NAMESPACE__ . '\FILE')     && define(__NAMESPACE__ . '\FILE', __FILE__);                   // Define Main plugin file
 !defined(__NAMESPACE__ . '\BASENAME') && define(__NAMESPACE__ . '\BASENAME', plugin_basename(FILE));  // Define Basename
 !defined(__NAMESPACE__ . '\PATH')     && define(__NAMESPACE__ . '\PATH', plugin_dir_path( FILE ));    // Define internal path
-!defined(__NAMESPACE__ . '\VERSION')  && define (__NAMESPACE__ . '\VERSION', '2.0');                // Define internal version
+!defined(__NAMESPACE__ . '\VERSION')  && define (__NAMESPACE__ . '\VERSION', '2.0.1');                // Define internal version
 !defined(__NAMESPACE__ . '\DOMAIN')   && define (__NAMESPACE__ . '\DOMAIN', 'SrbTransLatin');         // Define Text domain
 
 // Bootstrap the plugin

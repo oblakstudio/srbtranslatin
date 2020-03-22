@@ -106,8 +106,6 @@ class Settings
 
             foreach ($array as $opt) :
 
-
-
                 if (in_array($opt, $expert_settings)) :
 
                     if ($this->expert_enable) :
@@ -152,10 +150,6 @@ class Settings
             $opts['file']['delim'] = $prev_config['file']['delim'];
 
         endif;
-
-        $opts['core']['versions'] = [
-            '2.0'
-        ];
 
         return $opts;
 

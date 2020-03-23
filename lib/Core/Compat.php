@@ -4,6 +4,9 @@ use function SGI\STL\Core\Utils\{
     get_stl_config,
     get_script
 };
+
+use function SGI\STL\Frontend\Utils\script_selector;
+
 use const SGI\STL\DOMAIN;
 
 /**
@@ -118,5 +121,12 @@ function stl_get_script_identifier()
     );
 
     return get_stl_config()['core']['param'];
+
+}
+
+function stl_show_selector($p_selection_type = 'oneline', $p_oneline_separator = ' | ', $p_cirilica_title = 'ћирилица', $p_latinica_title = 'латиница', $p_inactive_script_only = false, $p_show_only_on_wpml_languages = '')
+{
+
+    script_selector($p_selection_type, $p_oneline_separator, $p_cirilica_title, $p_latinica_title, $p_inactive_script_only, $p_show_only_on_wpml_languages);
 
 }

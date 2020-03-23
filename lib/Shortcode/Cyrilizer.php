@@ -24,7 +24,7 @@ class Cyrilizer implements Shortcode
 
     }
 
-    public function shortcode_callback($atts, ?string $content)
+    public function shortcode_callback($atts, $content)
     {
 
         $script = get_script();

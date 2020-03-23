@@ -104,6 +104,13 @@ Feel free to contact me via e-mail, and I'll see if I can assist you for your sp
 
 == Changelog ==
 
+= 2.0.2 =
+
+Bug Fixes:
+* Fixed PHP Fatal Error on certain hosting configurations
+* Fixed PHP notices on certaing PHP configurations
+* Fixed legacy script selector function
+
 = 2.0.1 =
 Release date: March 22nd, 2020
 

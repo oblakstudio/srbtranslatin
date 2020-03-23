@@ -117,7 +117,7 @@ class Handler
     {
 
         $this->stl['core']['script'] = $this->stl_old['stl_default_language'];
-        $this->stl['core']['cookie'] = $this->stl_old['stl_use_cookie'];
+        $this->stl['core']['cookie'] = true;
         $this->stl['core']['param']  = $this->stl_old['stl_lang_identificator'];
         $this->stl['file']['names']  = ($this->stl_old['stl_sanitize_file_names']) ? true : false;
         $this->stl['file']['delim']  = $this->stl_old['file_lang_delimiter'];

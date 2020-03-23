@@ -20,7 +20,7 @@ class Translator implements Shortcode
 
     }
 
-    public function shortcode_callback($atts, ?string $content)
+    public function shortcode_callback($atts, $content)
     {
 
         shortcode_atts([

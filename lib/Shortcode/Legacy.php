@@ -9,7 +9,7 @@ trait Legacy
 
     private $name;
 
-    public function legacy_callback($atts, ?string $content)
+    public function legacy_callback($atts, string $content)
     {
 
         trigger_error(

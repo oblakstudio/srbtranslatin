@@ -34,7 +34,7 @@ class Info implements Shortcode, Multicode
 
     }
 
-    public function multicode_callback($atts, ?string $content, ?string $shortcode)
+    public function multicode_callback($atts, $content, $shortcode)
     {
 
         switch ($shortcode) :
@@ -67,7 +67,7 @@ class Info implements Shortcode, Multicode
 
     }
 
-    public function shortcode_callback($atts, ?string $content)
+    public function shortcode_callback($atts, $content)
     {
 
         shortcode_atts([

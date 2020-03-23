@@ -16,7 +16,7 @@ class Selective_Output implements Shortcode, Multicode
 
     }
 
-    public function multicode_callback($atts, ?string $content, ?string $shortcode)
+    public function multicode_callback($atts, $content, $shortcode)
     {
 
         $atts = ($shortcode == 'stl_cyrillic') ? ['script' => 'cir'] : ['script' => 'lat'];
@@ -25,7 +25,7 @@ class Selective_Output implements Shortcode, Multicode
 
     }
 
-    public function shortcode_callback($atts, ?string $content)
+    public function shortcode_callback($atts, $content)
     {
 
         shortcode_atts([

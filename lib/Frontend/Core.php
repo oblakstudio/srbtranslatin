@@ -2,7 +2,7 @@
 
 namespace SGI\STL\Frontend;
 
-use SGI\STL\Core\Language_Manager   as LM,
+use SGI\STL\Core\LanguageManager   as LM,
     SGI\STL\Shortcode\Cyrilizer     as Cyrilizer,
     SGI\STL\Shortcode\Translator    as Translator,
     simplehtmldom\HtmlDocument      as sHTMLd;

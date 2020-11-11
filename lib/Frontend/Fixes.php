@@ -3,6 +3,7 @@
 namespace SGI\STL\Frontend;
 
 use function SGI\STL\Utils\getOptions,
+             SGI\STL\Utils\get_script,
              SGI\STL\Utils\transliterate,
              SGI\STL\Utils\multiscript_sql_query;
 
@@ -36,7 +37,7 @@ class Fixes
             return $languages;
         endif;
 
-        $active = $this->lm->get_script();
+        $active = get_script();
 
         $cir = $lat = $languages['sr'];
 

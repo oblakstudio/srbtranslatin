@@ -91,6 +91,7 @@ class Bootstrap
     {
 
         new Frontend\Core();
+        new Frontend\Fixes();
 
         new Shortcode\Info();
         new Shortcode\Cyrilizer();

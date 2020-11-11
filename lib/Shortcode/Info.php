@@ -2,13 +2,6 @@
 
 namespace SGI\STL\Shortcode;
 
-// use function SGI\STL\Core\Compat\{
-//     stl_get_script_identifier,
-//     stl_get_current_script,
-//     stl_get_cyrillic_id,
-//     stl_get_latin_id
-// };
-
 use function SGI\STL\Utils\{
     get_script,
     get_script_param

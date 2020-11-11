@@ -116,11 +116,19 @@ class Core
 
     public function settings_page()
     {
+        
+        printf(
+            '<h1>%s</h1>',
+            get_admin_page_title()
+        );
 
-        $template_file = PATH."templates/settings/page.php";
+        echo '<form method="POST" action="options.php">';
 
-        include $template_file;
+        settings_fields('stl_settings');
+        do_settings_sections('stl_settings');
+        submit_button();
 
+        echo '</form>';
     }
 
 

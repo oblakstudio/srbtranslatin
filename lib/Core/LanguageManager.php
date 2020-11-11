@@ -115,20 +115,7 @@ class LanguageManager
 
         $req_script = $_REQUEST[$this->opts['core']['param']] ?? false;
 
-
-        if ($req_script) :
-
-            if ($this->opts['core']['cookie']) :
-
-                return $this->set_cookie($req_script);
-
-            else :
-
-                return $req_script;
-
-            endif;
-
-        else :
+        if (!$req_script) :
 
             if ($this->opts['core']['cookie']) :
 
@@ -136,14 +123,19 @@ class LanguageManager
                         $lang :
                         $this->set_cookie($this->opts['core']['script']);
 
-            else :
-
-                return $this->opts['core']['script'];
-
             endif;
+
+            return $this->opts['core']['script'];
 
         endif;
 
+        if ($this->opts['core']['cookie']) :
+
+            return $this->set_cookie($req_script);
+
+        endif;
+
+        return $req_script;
 
     }
 

@@ -15,8 +15,6 @@ class Cyrilizer
     public function __construct()
     {
 
-        $this->name = 'lang';
-
         add_shortcode('stl_cyr', [&$this, 'shortcodeCallback']);
         add_shortcode('stl_cyrillic', [&$this, 'shortcodeCallback']);
 

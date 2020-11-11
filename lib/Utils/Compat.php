@@ -1,13 +1,24 @@
 <?php
 
-use function SGI\STL\Core\Utils\{
-    get_stl_config,
-    get_script
+use SGI\STL\Core\Bootstrap;
+
+use function SGI\STL\Utils\{
+    getOptions,
+    get_script,
+    is_cyrillic,
+    script_selector,
+    is_latin
 };
 
-use function SGI\STL\Frontend\Utils\script_selector;
-
-use const SGI\STL\DOMAIN;
+/**
+ * Function which returns plugin class instance
+ *
+ * @return Bootstrap
+ */
+function STL()
+{
+    return Bootstrap::getInstance();
+}
 
 /**
  * @deprecated 
@@ -120,7 +131,7 @@ function stl_get_script_identifier()
         E_USER_DEPRECATED
     );
 
-    return get_stl_config()['core']['param'];
+    return getOptions()['core']['param'];
 
 }
 

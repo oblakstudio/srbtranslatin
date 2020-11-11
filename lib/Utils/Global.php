@@ -1,21 +1,18 @@
 <?php
 
-namespace SGI\STL\Core\Utils;
+namespace SGI\STL\Utils;
 
-use SGI\STL\Core\Language_Manager   as LM,
+use SGI\STL\Core\LanguageManager   as LM,
     SGI\Transliterator              as Transliterator;
 
-function get_stl_config()
-{
-
-    return get_option(
-        'sgi/stl/opt',
-        get_default_config()
-    );
-
-}
-
-function get_default_config()
+/**
+ * Returns default plugin options
+ * 
+ * @return array Default plugin options
+ * 
+ * @since 2.0
+ */
+function getDefaultOptions() : array
 {
 
     return [
@@ -50,11 +47,33 @@ function get_default_config()
 
 }
 
+/**
+ * Returns plugin options saved in the database. Fallbacks to sane defaults
+ * 
+ * @return array Plugin options
+ * 
+ * @since 2.0
+ */
+function getOptions() : array
+{
+
+    return get_option(
+        'sgi/stl/opt',
+        getDefaultOptions()
+    );
+
+}
+
 function get_script()
 {
 
     return LM::get_instance()->get_script();
 
+}
+
+function get_script_param()
+{
+    return LM::get_instance()->get_script_param();
 }
 
 function is_serbian()
@@ -83,7 +102,7 @@ function is_latin()
 
 function get_query_param()
 {
-    return get_stl_config()['core']['param'];
+    return getOptions()['core']['param'];
 }
 
 function transliterate($content, $cut = false)

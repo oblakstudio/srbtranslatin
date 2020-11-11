@@ -1,16 +1,28 @@
 <?php
 
-namespace SGI\STL\Frontend\Utils;
+namespace SGI\STL\Utils;
 
-use const SGI\STL\{
-    DOMAIN,
-    PATH
-};
+function get_selector_template (string $template, array $args)
+{
 
-use function SGI\STL\Core\Utils\{
-    get_stl_config,
-    get_script
-};
+    $template_file = PATH."templates/selector/{$template}.php";
+
+    /**
+     * Filters the Template file for the selector, if you want to roll your own
+     *
+     * @since 2.0.0
+     *
+     * @param template_file - Template file for the oneline selector
+     */
+    $template_file = apply_filters("sgi/stl/selector/template/{$template}", $template_file);
+
+    ob_start();
+
+    include $template_file;
+
+    return ob_get_clean();
+
+}
 
 function get_current_url()
 {
@@ -61,7 +73,7 @@ function script_selector(
     endif;
 
     $base_url = (empty($base_url)) ? get_current_url() : $base_url;
-    $config   = get_stl_config();
+    $config   = getOptions();
 
     $args = wp_parse_args($args, [
         'selector_type' => 'oneline',
@@ -99,27 +111,5 @@ function script_selector(
     $html .= '</div>';
 
     echo $html;
-
-}
-
-function get_selector_template (string $template, array $args)
-{
-
-    $template_file = PATH."templates/selector/{$template}.php";
-
-    /**
-     * Filters the Template file for the selector, if you want to roll your own
-     *
-     * @since 2.0.0
-     *
-     * @param template_file - Template file for the oneline selector
-     */
-    $template_file = apply_filters("sgi/stl/selector/template/{$template}", $template_file);
-
-    ob_start();
-
-    include $template_file;
-
-    return ob_get_clean();
 
 }

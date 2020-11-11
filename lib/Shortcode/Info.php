@@ -9,65 +9,24 @@ namespace SGI\STL\Shortcode;
 //     stl_get_latin_id
 // };
 
-use function SGI\STL\Core\Utils\{
+use function SGI\STL\Utils\{
     get_script,
     get_script_param
 };
 
-class Info implements Shortcode, Multicode
+class Info
 {
-
-    use Legacy;
-
 
     public function __construct()
     {
 
-       $this->name = 'stl_get_*';
+       add_shortcode('stl_info', [&$this, 'shortcodeCallback']);
 
-       add_shortcode('stl_info', [&$this, 'shortcode_callback']);
-
-       add_shortcode('stl_get_current_script', [&$this, 'multicode_callback']);
-       add_shortcode('stl_get_script_identificator', [&$this, 'multicode_callback']);
-       add_shortcode('stl_get_cyrillic_id', [&$this, 'multicode_callback']);
-       add_shortcode('stl_get_latin_id', [&$this, 'multicode_callback']);
+       
 
     }
 
-    public function multicode_callback($atts, $content, $shortcode)
-    {
-
-        switch ($shortcode) :
-
-            case 'stl_get_current_script' :
-
-                return stl_get_current_script();
-                break;
-
-            case 'stl_get_script_identificator' :
-
-                return stl_get_script_identifier(); 
-                break;
-
-            case 'stl_get_cyrillic_id' :
-
-                return stl_get_cyrillic_id();
-                break;
-
-            case 'stl_get_latin_id' :
-
-                return stl_get_latin_id();
-                break;
-
-            default :
-                return null;
-                break;
-
-        endswitch;
-
-    }
-
-    public function shortcode_callback($atts, $content)
+    public function shortcodeCallback($atts, $content)
     {
 
         shortcode_atts([

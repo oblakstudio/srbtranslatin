@@ -5,10 +5,11 @@ namespace SGI\STL\Admin;
 use const SGI\STL\{
     BASENAME,
     VERSION,
-    DOMAIN
+    DOMAIN,
+    PATH
 };
 
-use function SGI\STL\Core\Utils\get_stl_config;
+use function SGI\STL\Utils\getOptions;
 
 use SGI\Transliterator;
 
@@ -20,20 +21,24 @@ class Core
     public function __construct()
     {
 
-        $this->opts = get_stl_config();
+        $this->opts = getOptions();
 
         // Add action link
-        add_filter('plugin_action_links_'.BASENAME, [&$this,'plugin_links'], 20, 3);
+        add_filter('plugin_action_links_' . BASENAME, [&$this,'pluginLinks'], 20, 1);
 
         // Add meta links
-        add_filter('plugin_row_meta', [&$this,'plugin_meta'], 20, 4);
+        add_filter('plugin_row_meta', [&$this,'pluginMeta'], 20, 2);
+
+        // Add Menu pages
+        add_action('admin_menu', [&$this, 'addMenuPages'], 10);
+
 
         //Filename transliteration
-        add_filter('sanitize_file_name', array(&$this, 'sanitize_file_name'),50,2);
+        //add_filter('sanitize_file_name', array(&$this, 'sanitize_file_name'),50,2);
 
     }
 
-    public function plugin_links($links, $plugin_file, $plugin_data)
+    public function pluginLinks($links)
     {
 
         $links[] = sprintf(
@@ -46,11 +51,12 @@ class Core
 
     }
 
-    public function plugin_meta($plugin_meta, $plugin_file, $plugin_data, $status)
+    public function pluginMeta($plugin_meta, $plugin_file)
     {
 
-        if ($plugin_file != 'srbtranslatin/srbtranslatin.php')
+        if ($plugin_file != 'srbtranslatin/srbtranslatin.php') :
             return $plugin_meta;
+        endif;
 
         $plugin_meta[] = sprintf(
             '<a href="%s" target="_blank">%s</a>',
@@ -77,6 +83,43 @@ class Core
         $filename = Transliterator::cir_to_cut_lat($filename);
 
         return $filename;
+
+    }
+
+    public function addMenuPages()
+    {
+
+        $image = file_get_contents(PATH . 'assets/img/stl-logo.svg');
+
+        add_menu_page(
+            __('Latinisation', DOMAIN),
+            __('Latinisation', DOMAIN),
+            'manage_options',
+            'stl',
+            function(){},
+            'data:image/svg+xml;base64,'.base64_encode($image),
+            99
+        ); 
+
+        add_submenu_page(
+            'stl',
+            __('Settings - SrbTransLatin', DOMAIN),
+            __('Settings', DOMAIN),
+            'manage_options',
+            'stl_settings',
+            [&$this, 'settings_page']
+        );
+
+        remove_submenu_page('stl', 'stl');
+
+    }
+
+    public function settings_page()
+    {
+
+        $template_file = PATH."templates/settings/page.php";
+
+        include $template_file;
 
     }
 

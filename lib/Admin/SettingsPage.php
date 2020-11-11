@@ -4,14 +4,14 @@ namespace SGI\STL\Admin;
 
 use SGI\STL\Admin\Settings as Settings;
 
-use function SGI\STL\Core\Utils\{
-    get_stl_config,
+use function SGI\STL\Utils\{
+    getOptions,
     is_wpml_active
 };
 
 use const SGI\STL\DOMAIN;
 
-class Settings
+class SettingsPage
 {
 
     use Settings\Generator,
@@ -30,7 +30,7 @@ class Settings
     public function __construct()
     {
 
-        $this->opts = get_stl_config();
+        $this->opts = getOptions();
 
         /**
          * Enables changing of expert settings
@@ -72,7 +72,7 @@ class Settings
     public function sanitize_opts($opts)
     {
 
-        $prev_config = get_stl_config();
+        $prev_config = getOptions();
 
         $checkboxes = [
             'core' => [

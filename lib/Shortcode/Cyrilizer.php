@@ -2,29 +2,27 @@
 
 namespace SGI\STL\Shortcode;
 
-use function SGI\STL\Core\Utils\{
+use function SGI\STL\Utils\{
     get_script,
     is_serbian
 };
 
-class Cyrilizer implements Shortcode
+class Cyrilizer
 {
 
-    use Transliterable,
-        Legacy;
+    use Transliterable;
 
     public function __construct()
     {
 
         $this->name = 'lang';
 
-        add_shortcode('stl_cyr', [&$this, 'shortcode_callback']);
-        add_shortcode('srlat_cyr', [&$this, 'legacy_callback']);
-        add_shortcode('lang', [&$this, 'legacy_callback']);
+        add_shortcode('stl_cyr', [&$this, 'shortcodeCallback']);
+        add_shortcode('stl_cyrillic', [&$this, 'shortcodeCallback']);
 
     }
 
-    public function shortcode_callback($atts, $content)
+    public function shortcodeCallback($atts, $content)
     {
 
         $script = get_script();

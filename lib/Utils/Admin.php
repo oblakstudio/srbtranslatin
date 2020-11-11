@@ -1,13 +1,17 @@
 <?php
 
-namespace SGI\STL\Admin\Utils;
+namespace SGI\STL\Utils;
 
-use const SGI\STL\{
-    VERSION,
-    PATH
-};
+use const SGI\STL\VERSION;
 
-function get_stl_version()
+/**
+ * Return current version of the plugin
+ * 
+ * @return string SrbTransLatin verstion
+ * 
+ * @since 2.0
+ */
+function getVersion()
 {
 
     $installed_ver = get_option('sgi/stl/ver');
@@ -28,18 +32,5 @@ function get_settings_template(string $section)
     $template_file = PATH."templates/settings/{$section}.php";
 
     include $template_file;    
-
-}
-
-function get_stl_settings()
-{
-
-    return [
-        'stl_general'  => '',
-        'stl_advanced' => '',
-        'stl_media'    => '',
-        'stl_ml'       => 'Multilanguage'
-
-    ];
 
 }

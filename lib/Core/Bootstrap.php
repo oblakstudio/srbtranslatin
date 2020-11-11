@@ -8,7 +8,6 @@ use SGI\STL\{
     Ajax      as Ajax,
     Frontend  as Frontend,
     Shortcode as Shortcode,
-    Widget    as Widget
 };
 
 use const SGI\STL\{
@@ -17,10 +16,18 @@ use const SGI\STL\{
     DOMAIN
 };
 
+/**
+ * Main plugin class which loads all needed frontend and backend functionalities
+ */
 class Bootstrap
 {
 
-    public function __construct()
+    /**
+     * @var Bootstrap Class instance
+     */
+    private static $instance = null;
+
+    private function __construct()
     {
         
         add_action('wp_loaded', [&$this, 'load_textdomain']);
@@ -35,6 +42,17 @@ class Bootstrap
 
         add_action('init', [&$this, 'load_frontend']);
         add_action('widgets_init', [&$this, 'load_widgets']);
+
+    }
+
+    public static function getInstance()
+    {
+
+        if (self::$instance == null) :
+            self::$instance = new self;
+        endif;
+
+        return self::$instance;
 
     }
 
@@ -57,9 +75,8 @@ class Bootstrap
         new Update\Handler();
 
         new Admin\Core();
-        new Admin\Pages();
         new Admin\Scripts();
-        new Admin\Settings();
+        new Admin\SettingsPage();
 
         new Admin\TinyMCE();
 
@@ -79,6 +96,7 @@ class Bootstrap
         new Shortcode\Cyrilizer();
         new Shortcode\Translator();
         new Shortcode\Selective_Output();
+        new Shortcode\LegacyShortcodes();
 
     }
 

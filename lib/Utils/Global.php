@@ -2,7 +2,7 @@
 
 namespace SGI\STL\Utils;
 
-use SGI\STL\Core\Language_Manager   as LM,
+use SGI\STL\Core\LanguageManager   as LM,
     SGI\Transliterator              as Transliterator;
 
 /**

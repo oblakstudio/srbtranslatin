@@ -95,7 +95,7 @@ class Bootstrap
         new Shortcode\Info();
         new Shortcode\Cyrilizer();
         new Shortcode\Translator();
-        new Shortcode\Selective_Output();
+        new Shortcode\SelectiveOutput();
         new Shortcode\LegacyShortcodes();
 
     }

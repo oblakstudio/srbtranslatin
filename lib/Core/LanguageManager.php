@@ -4,7 +4,7 @@ namespace SGI\STL\Core;
 
 use function SGI\STL\Utils\getOptions;
 
-class Language_Manager
+class LanguageManager
 {
 
     private static $instance;

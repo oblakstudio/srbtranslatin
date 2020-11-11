@@ -2,7 +2,7 @@
 
 namespace SGI\STL\Core;
 
-use function SGI\STL\Core\Utils\get_stl_config;
+use function SGI\STL\Utils\getOptions;
 
 class Language_Manager
 {
@@ -18,7 +18,7 @@ class Language_Manager
     private function __construct()
     {
 
-        $this->opts = get_stl_config();
+        $this->opts = getOptions();
 
         $this->in_serbian = $this->multilanguage_check();
         $this->script     = $this->determine_script();
@@ -28,9 +28,11 @@ class Language_Manager
     public static function get_instance()
     {
 
-        return (self::$instance === null) ?
-                self::$instance = new self() :
-                self::$instance;
+        if (self::$instance == null) :
+            self::$instance = new self;
+        endif;
+
+        return self::$instance;
 
     }
 
@@ -47,7 +49,9 @@ class Language_Manager
     private function set_cookie($script)
     {
 
-        setcookie("stl_script", $script, strtotime("+3 months"), "/");
+        $domain = parse_url(home_url())['host'];
+
+        setcookie("stl_script", $script, strtotime("+3 months"), "/", $domain, is_ssl());
 
         return $script;
 
@@ -79,34 +83,15 @@ class Language_Manager
             $cur_lang = \pll_current_language('locale');
 
             if ($cur_lang == 'sr_RS') :
-
-                $in_serbian = true;
-
-            else : 
-
-                $in_serbian = false;
-
+                return true;
             endif;
 
+            return false;
 
-        elseif (function_exists('\qtranxf_getLanguage')) :
+        endif;
 
-            $cur_lang = \qtranxf_getLanguage();
-
-            if ($cur_lang == 'sr') :
-
-                $in_serbian = true;
-
-            else : 
-
-                $in_serbian = false;
-
-            endif; 
-
-        elseif (self::is_wpml_active()) :
-
-            $in_serbian = (\ICL_LANGUAGE_CODE == 'sr') ? true : false;
-
+        if (self::is_wpml_active()) :
+            return (\ICL_LANGUAGE_CODE == 'sr') ? true : false;
         endif;
 
         return $in_serbian;

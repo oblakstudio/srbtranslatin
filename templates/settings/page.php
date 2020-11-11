@@ -2,10 +2,7 @@
 
 use const SGI\STL\DOMAIN;
 
-use function SGI\STL\Admin\Utils\{
-    get_stl_settings,
-    get_settings_template
-};
+use function SGI\STL\Utils\get_settings_template;
 
 $page = $_GET['page'] ?? 'stl_settings';
 

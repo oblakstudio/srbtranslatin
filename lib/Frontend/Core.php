@@ -7,29 +7,51 @@ use SGI\STL\Core\Language_Manager   as LM,
     SGI\STL\Shortcode\Translator    as Translator,
     simplehtmldom\HtmlDocument      as sHTMLd;
 
-use function SGI\STL\Core\Utils\{
-    get_stl_config,
-    transliterate,
-    multiscript_sql_query
-};
+use function SGI\STL\Utils\getOptions,
+             SGI\STL\Utils\transliterate,
+             SGI\STL\Utils\multiscript_sql_query;
 
-use function SGI\STL\Frontend\Utils\menu_selector;
 
 class Core
 {
 
     private $opts;
 
+    /**
+     * @var LM
+     */
     private $lm;
 
     private $shortcodes;
 
+    /**
+     * @var array List of actions and hooks to apply the action on
+     * 
+     * @since 2.4
+     */
+    private static $actions = [
+        'buffer_start' => ['wp_head', 'rss_head', 'atom_head', 'rdf_head', 'rss2_head'],
+        'buffer_end'   => ['wp_footer', 'rss_footer', 'atom_footer', 'rdf_footer', 'rss2_footer']
+    ];
+
+    /**
+     * @var array List of filters and hooks to apply the filter on
+     * 
+     * @since 2.4
+     */
+    private static $filters = [
+        'convert_script' => ['gettext', 'ngettext', 'gettext_with_context', 'ngettext_with_context']
+    ];
+
     public function __construct()
     {
 
+        if (is_admin())
+            return;
+
         $this->lm = LM::get_instance();
 
-        $this->opts = get_stl_config();
+        $this->opts = getOptions();
 
         $this->shortcodes = [];
 
@@ -44,63 +66,43 @@ class Core
          */
         $filter_priority = apply_filters('sgi/stl/filter_priority', $filter_priority);
 
+        add_filter('posts_search', [&$this,'fix_search'], $filter_priority, 2);
+
+        if ($this->lm->is_wpml_active() && $this->opts['ml']['wpml']) :
+            add_filter('icl_ls_languages', [&$this, 'extend_wpml_ls'], $filter_priority, 1);
+        endif;
+       
+
         if ($this->lm->get_script() == 'lat' && $this->lm->in_serbian) :
 
-            add_action('wp_head', [&$this,'buffer_start'], $filter_priority);
-            add_action('wp_footer', [&$this,'buffer_end'], $filter_priority);
-            
-            add_action('rss_head', [&$this,'buffer_start'], $filter_priority);       
-            add_action('rss_footer', [&$this,'buffer_end'], $filter_priority);       
+            foreach (self::$actions as $function => $hooks) :
+                foreach ($hooks as $hook) :
+                    add_action($hook, [&$this, $function], $filter_priority);
+                endforeach;
+            endforeach;
 
-            add_action('atom_head', [&$this,'buffer_start'], $filter_priority);      
-            add_action('atom_footer', [&$this,'buffer_end'], $filter_priority);      
-            
-            add_action('rdf_head', [&$this,'buffer_start'], $filter_priority);       
-            add_action('rdf_footer', [&$this,'buffer_end'], $filter_priority);       
-            
-            add_action('rss2_head', [&$this,'buffer_start'], $filter_priority);      
-            add_action('rss2_footer', [&$this,'buffer_end'], $filter_priority);  
-
-            add_filter('gettext', [&$this, 'convert_script'], $filter_priority);
-            add_filter('ngettext', [&$this, 'convert_script'], $filter_priority);
-            add_filter('gettext_with_context', [&$this, 'convert_script'], $filter_priority);
-            add_filter('ngettext_with_context', [&$this, 'convert_script'], $filter_priority);
+            foreach (self::$filters as $function => $hooks) :
+                foreach ($hooks as $hook) :
+                    add_filter($hook, [&$this, $function], $filter_priority);
+                endforeach;
+            endforeach;
 
             // Change Page title on latin
             if (!current_theme_supports( 'title-tag' )) :
-
                 add_filter('wp_title', [&$this,'convert_title'], $filter_priority, 3);
-
             else :
-
                 add_filter('pre_get_document_title', [&$this,'convert_title'], $filter_priority, 3);
                 add_filter('document_title_parts', [&$this,'convert_title_parts'], $filter_priority, 3);
-
             endif;
 
             // Change Script Specific images in content
             if ($this->opts['file']['translit'] && $this->opts['file']['content']) :
-
                 add_filter('the_content', [&$this, 'change_image_urls'], $filter_priority, 1);
-
             endif;
 
         endif;
 
-        if ($this->lm->is_wpml_active() && $this->opts['ml']['wpml']) :
-
-            add_filter('icl_ls_languages', [&$this, 'extend_wpml_ls'], $filter_priority, 1);
-
-        endif;
-
-        add_filter('posts_search', [&$this,'fix_search'], $filter_priority, 2);
-
-
-        // if (!is_wpml_active()) :
-
-        //     add_filter('wp_nav_menu_items', [&$this,'extend_menu'], 100, 2);
-
-        // endif;
+        
 
     }
 
@@ -156,11 +158,12 @@ class Core
     {
 
         $shtmld = new sHTMLd($output);
+        $delim  = $this->opts['file']['delim'];
 
         foreach ($shtmld->find('img') as $img) :
 
-            $img->src    = str_replace("{$this->opts['file']['delim']}cir", "{$this->opts['file']['delim']}lat", $img->src);
-            $img->srcset = str_replace("{$this->opts['file']['delim']}cir", "{$this->opts['file']['delim']}lat", $img->srcset);
+            $img->src    = str_replace("{$delim}cir", "{$delim}lat", $img->src);
+            $img->srcset = str_replace("{$delim}cir", "{$delim}lat", $img->srcset);
 
         endforeach;
 
@@ -240,14 +243,5 @@ class Core
 
 
     }
-
-    // public function extend_menu($items, \stdClass $args)
-    // {
-
-    //     return ($args->theme_location != $this->opts['menu']['selector']) ?
-    //             $items :
-    //             $items . menu_selector($args);
-
-    // }
 
 }

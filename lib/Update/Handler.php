@@ -2,8 +2,10 @@
 
 namespace SGI\STL\Update;
 
-use function SGI\STL\Admin\Utils\get_stl_version,
-             SGI\STL\Core\Utils\get_stl_config;
+use function SGI\STL\Utils\{
+    getVersion,
+    getOptions
+};
 
 /**
  * Class which handles plugin updates and migrations (STL-old -> STL and SRLat -> STL)
@@ -44,8 +46,8 @@ class Handler
     public function __construct()
     {
 
-        $this->stl     = get_stl_config();
-        $this->stl_ver = get_stl_version();
+        $this->stl     = getOptions();
+        $this->stl_ver = getVersion();
 
         $migrated = get_option('sgi/stl/migrated');
 

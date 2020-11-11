@@ -4,7 +4,7 @@ namespace SGI\STL\Shortcode;
 
 use function SGI\STL\Utils\get_script;
 
-class Selective_Output
+class SelectiveOutput
 {
 
     public function __construct()

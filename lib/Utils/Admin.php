@@ -3,6 +3,7 @@
 namespace SGI\STL\Utils;
 
 use const SGI\STL\VERSION;
+use const SGI\STL\PATH;
 
 /**
  * Return current version of the plugin

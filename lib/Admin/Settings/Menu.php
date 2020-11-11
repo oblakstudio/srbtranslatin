@@ -4,7 +4,7 @@ namespace SGI\STL\Admin\Settings;
 
 use const SGI\STL\DOMAIN;
 
-use function SGI\STL\Core\Utils\is_wpml_active;
+use function SGI\STL\Utils\is_wpml_active;
 
 trait Menu
 {

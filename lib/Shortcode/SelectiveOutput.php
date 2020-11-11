@@ -10,12 +10,12 @@ class SelectiveOutput
     public function __construct()
     {
 
-        add_shortcode('stl_show', [&$this, 'shortcode_callback']);
+        add_shortcode('stl_show', [&$this, 'shortcodeCallback']);
 
     }
 
 
-    public function shortcode_callback($atts, $content)
+    public function shortcodeCallback($atts, $content)
     {
 
         shortcode_atts([

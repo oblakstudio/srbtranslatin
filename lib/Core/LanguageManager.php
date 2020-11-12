@@ -38,12 +38,7 @@ class LanguageManager
 
     private function get_cookie()
     {
-
-        if (!$this->opts['core']['cookie'])
-            return false;
-
-        return $_COOKIE['stl_script'] ?? false;
-        
+        return $_COOKIE['stl_script'] ?? false;       
     }
 
     private function set_cookie($script)
@@ -117,21 +112,9 @@ class LanguageManager
 
         if (!$req_script) :
 
-            if ($this->opts['core']['cookie']) :
-
-                return ($lang = $this->get_cookie()) ?
-                        $lang :
-                        $this->set_cookie($this->opts['core']['script']);
-
-            endif;
-
-            return $this->opts['core']['script'];
-
-        endif;
-
-        if ($this->opts['core']['cookie']) :
-
-            return $this->set_cookie($req_script);
+            return ($lang = $this->get_cookie()) ?
+                    $lang :
+                    $this->set_cookie($this->opts['core']['script']);
 
         endif;
 

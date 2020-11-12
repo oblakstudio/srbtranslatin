@@ -40,10 +40,20 @@ class TinyMCE
         printf(
             '<script type="text/javascript">
                 var stl = {
-                    button_icon: "%s"
+                    button_icon: "%s",
+                    title: "%s",
+                    label: "%s",
+                    cyr: "%s",
+                    show: "%s",
+                    translit: "%s"
                 }
             </script>',
-            plugins_url( "assets/img/stl-cyr.png", BASENAME)
+            plugins_url( "assets/img/stl-cyr.png", BASENAME),
+            __('SrbTransLatin - shortcodes', 'SrbTransLatin'),
+            __('Select a shortcode', 'SrbTransLatin'),
+            __('Forced Cyrillic', 'SrbTransLatin'),
+            __('Selective output', 'SrbTransLatin'),
+            __('Special transliteration', 'SrbTransLatin')
         );
 
     }

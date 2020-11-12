@@ -30,8 +30,6 @@ class Bootstrap
     private function __construct()
     {
         
-        add_action('wp_loaded', [&$this, 'load_textdomain']);
-
         if (is_admin()) :
             add_action('init', [&$this, 'load_admin']);
         endif;
@@ -53,19 +51,6 @@ class Bootstrap
         endif;
 
         return self::$instance;
-
-    }
-
-    public function load_textdomain()
-    {
-
-        $domain_path = basename(dirname(FILE)).'/languages';
-
-        load_plugin_textdomain(
-            DOMAIN,
-            false,
-            $domain_path
-        );
 
     }
 

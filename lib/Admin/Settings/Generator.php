@@ -12,7 +12,7 @@ trait Generator
             '<select name="%s" class="%s" %s>',
             $name,
             $class,
-            (!$enabled) ? 'readonly' : ''
+            ''
         );
 
         foreach ($options as $opt_value => $opt_label) :
@@ -45,7 +45,7 @@ trait Generator
             $name,
             $name,
             checked($value, true, false),
-            (!$enabled) ? 'readonly' : '',
+            '',
             $label,
             $description
         );
@@ -60,7 +60,7 @@ trait Generator
             <p class="description">%s</p>',
             $name,
             $value,
-            (!$enabled) ? 'readonly' : '',
+            '',
             $description
         );
 

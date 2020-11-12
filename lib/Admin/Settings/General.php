@@ -35,15 +35,6 @@ trait General
             $this->opts['core']['param']
         );
 
-        add_settings_field(
-            'stl_core_cookie',
-            __('Cookie', 'SrbTransLatin'),
-            [&$this, 'callback_option_cookie'],
-            'stl_settings',
-            'stl_settings_core',
-            $this->opts['core']['cookie']
-        );
-
     }
 
     public function callback_section_core()

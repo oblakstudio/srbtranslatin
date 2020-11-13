@@ -95,9 +95,7 @@ function getOptions() : array
 
 function get_script()
 {
-
     return LM::get_instance()->get_script();
-
 }
 
 function get_script_param()
@@ -112,9 +110,7 @@ function is_serbian()
 
 function is_wpml_active()
 {
-
     return LM::is_wpml_active();
-
 }
 
 function is_cyrillic()
@@ -124,9 +120,7 @@ function is_cyrillic()
 
 function is_latin()
 {
-
     return (get_script() == 'lat') ? true : false;
-
 }
 
 function get_query_param()
@@ -134,7 +128,14 @@ function get_query_param()
     return getOptions()['core']['param'];
 }
 
-function transliterate($content, $cut = false)
+/**
+ * Main transliteration function which converts cyrillic script to latin
+ * 
+ * @param  null|string  $content String to transliterate
+ * @param  bool         $cut     Flag determining if transliteration is done to "cut" latin script
+ * @return null|string           Transliterated script
+ */
+function transliterate(?string $content, bool $cut = false)
 {
 
     return (!$cut) ? 
@@ -145,7 +146,14 @@ function transliterate($content, $cut = false)
 
 }
 
-function reverse_transliterate($content)
+/**
+ * Reverse transliteration function - Transliterates content from latin to cyrillic
+ * 
+ * @param  mixed  $content Content to perform reverse transliteration on
+ * 
+ * @return string          Reverse-transliterated content
+ */
+function reverse_transliterate($content) : string
 {
 
      return Transliterator::lat_to_cir($content);
@@ -179,10 +187,6 @@ function modifySearchQuery(string $search) : string
         $search_like_orig,
         $search_like_tran
     );
-
-    echo '<pre>';
-    var_dump($search_term, $query);
-    echo '</pre>';
 
     return $query;
 

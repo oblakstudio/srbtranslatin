@@ -31,6 +31,7 @@ function getDefaultOptions() : array
         'fixes' =>[
             'permalinks' => (get_option('WPLANG') == 'sr_RS') ? false : true, 
             'search'     => true,
+            'ajax'       => false,
         ],
         'menu'  => [
             'extend'     => true,

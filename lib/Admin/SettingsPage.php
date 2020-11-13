@@ -78,7 +78,8 @@ class SettingsPage
             ],
             'fixes' => [
                 'permalinks',
-                'search'
+                'search',
+                'ajax'
             ],
             'ml'    => [
                 'wpml'

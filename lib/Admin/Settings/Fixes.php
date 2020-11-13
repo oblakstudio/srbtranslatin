@@ -45,6 +45,15 @@ trait Fixes
             $this->opts['fixes']['search']
         );
 
+        add_settings_field(
+            'stl_fixes_ajax',
+            __('Fix Ajax', DOMAIN),
+            [&$this, 'callback_option_ajax'],
+            'stl_settings',
+            'stl_settings_fixes',
+            $this->opts['fixes']['ajax']
+        );
+
     }
 
     public function callback_option_permalinks($permalinks)
@@ -85,6 +94,19 @@ trait Fixes
             true,
             __('Enable search using latin script', DOMAIN),
             __('Enables searching for posts using both cyrillic and latin script', DOMAIN)
+        );
+
+    }
+
+    public function callback_option_ajax($ajax)
+    {
+
+        self::checkbox(
+            $ajax,
+            'sgi/stl/opt[fixes][ajax]',
+            true,
+            __('Enable transliterate ajax calls', DOMAIN),
+            __('Transliterate ajax calls', DOMAIN)
         );
 
     }

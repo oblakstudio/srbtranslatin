@@ -2,6 +2,11 @@
 
 namespace SGI\STL\Utils;
 
+use const SGI\STL\{
+    PATH AS PATH,
+    DOMAIN AS DOMAIN
+};
+
 function get_selector_template (string $template, array $args)
 {
 

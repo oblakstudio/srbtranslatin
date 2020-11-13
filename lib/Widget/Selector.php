@@ -4,7 +4,7 @@ namespace SGI\STL\Widget;
 
 use const SGI\STL\DOMAIN;
 
-use function SGI\STL\Frontend\Utils\script_selector;
+use function SGI\STL\Utils\script_selector;
 
 class Selector extends \WP_Widget
 {

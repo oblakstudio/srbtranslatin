@@ -2,10 +2,7 @@
 
 namespace SGI\STL\Utils;
 
-use const SGI\STL\{
-    PATH AS PATH,
-    DOMAIN AS DOMAIN
-};
+use const SGI\STL\PATH;
 
 function get_selector_template (string $template, array $args)
 {
@@ -70,7 +67,7 @@ function script_selector(
         trigger_error(
             __(
                 sprintf('You are using an old way calling the function %s, please read the documentation to see new function parameters', __FUNCTION__),
-                DOMAIN
+                'SrbTransLatin'
             ),
             E_USER_DEPRECATED
         );

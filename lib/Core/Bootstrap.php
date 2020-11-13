@@ -30,18 +30,16 @@ class Bootstrap
     private function __construct()
     {
         
-        add_action('wp_loaded', [&$this, 'load_textdomain']);
-
         if (is_admin()) :
-            add_action('init', [&$this, 'load_admin']);
+            add_action('init', [&$this, 'loadAdmin']);
         endif;
 
         if (wp_doing_ajax()) :
-            add_action('init', [&$this, 'load_ajax']);
+            add_action('init', [&$this, 'loadAjax']);
         endif;
 
-        add_action('init', [&$this, 'load_frontend']);
-        add_action('widgets_init', [&$this, 'load_widgets']);
+        add_action('init', [&$this, 'loadFrontend']);
+        add_action('widgets_init', [&$this, 'loadWidgets']);
 
     }
 
@@ -56,41 +54,29 @@ class Bootstrap
 
     }
 
-    public function load_textdomain()
-    {
-
-        $domain_path = basename(dirname(FILE)).'/languages';
-
-        load_plugin_textdomain(
-            DOMAIN,
-            false,
-            $domain_path
-        );
-
-    }
-
-    public function load_admin()
+    public function loadAdmin()
     {
 
         new Update\Handler();
 
         new Admin\Core();
-        new Admin\Scripts();
+        new Admin\TinyMCE();
         new Admin\SettingsPage();
 
-        new Admin\TinyMCE();
-
     }
 
-    public function load_ajax()
+    public function loadAjax()
     {
 
+        new Ajax\Engine();
+
     }
 
-    public function load_frontend()
+    public function loadFrontend()
     {
 
         new Frontend\Core();
+        new Frontend\Fixes();
 
         new Shortcode\Info();
         new Shortcode\Cyrilizer();
@@ -100,7 +86,7 @@ class Bootstrap
 
     }
 
-    public function load_widgets()
+    public function loadWidgets()
     {
 
         register_widget('SGI\STL\Widget\Selector');

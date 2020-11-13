@@ -12,14 +12,14 @@ trait Files
 
         add_settings_section(
             'stl_settings_file',
-            __('File and Media Settings', DOMAIN),
+            __('File and Media Settings', 'SrbTransLatin'),
             [&$this, 'callback_section_files'],
             'stl_settings'
         );
 
         add_settings_field(
             'stl_file_names',
-            __('Fix Filenames', DOMAIN),
+            __('Fix Filenames', 'SrbTransLatin'),
             [&$this, 'callback_option_names'],
             'stl_settings',
             'stl_settings_file',
@@ -28,7 +28,7 @@ trait Files
 
         add_settings_field(
             'stl_file_translit',
-            __('Latin speficic filenames', DOMAIN),
+            __('Latin speficic filenames', 'SrbTransLatin'),
             [&$this, 'callback_option_translit'],
             'stl_settings',
             'stl_settings_file',
@@ -40,7 +40,7 @@ trait Files
 
         add_settings_field(
             'stl_file_delim',
-            __('Filename delimiter', DOMAIN),
+            __('Filename delimiter', 'SrbTransLatin'),
             [&$this, 'callback_option_delim'],
             'stl_settings',
             'stl_settings_file',
@@ -49,7 +49,7 @@ trait Files
 
         // add_settings_field(
         //     'stl_core_content',
-        //     __('Cookie', DOMAIN),
+        //     __('Cookie', 'SrbTransLatin'),
         //     [&$this, 'callback_option_content'],
         //     'stl_settings',
         //     'stl_settings_file',
@@ -63,7 +63,7 @@ trait Files
 
         printf(
             '<p>%s</p>',
-            __('File & Media settings control filename transliteration and media saving', DOMAIN)
+            __('File & Media settings control filename transliteration and media saving', 'SrbTransLatin')
         );
 
     }
@@ -74,9 +74,9 @@ trait Files
         self::checkbox(
             $names,
             'sgi/stl/opt[file][names]',
-            $this->expert_enable,
-            __('Transliterate filenames', DOMAIN),
-            __('Enable if you want to convert cyrillic filenames to latin', DOMAIN)
+            true,
+            __('Transliterate filenames', 'SrbTransLatin'),
+            __('Enable if you want to convert cyrillic filenames to latin', 'SrbTransLatin')
         );
 
     }
@@ -88,8 +88,8 @@ trait Files
             $opts['translit'],
             'sgi/stl/opt[file][translit]',
             true,
-            __('Script specific filenames', DOMAIN),
-            __('Enable if you want to have cyrillic and latin versions of an image ', DOMAIN)
+            __('Script specific filenames', 'SrbTransLatin'),
+            __('Enable if you want to have cyrillic and latin versions of an image ', 'SrbTransLatin')
         );
 
         echo '<div class="stl-content-only" style="margin-top:20px;">';
@@ -98,8 +98,8 @@ trait Files
             $opts['names'],
             'sgi/stl/opt[file][content]',
             true,
-            __('Script specific filenames in content only', DOMAIN),
-            __('Enable if you want to limit different filenames to post/page content only', DOMAIN)
+            __('Script specific filenames in content only', 'SrbTransLatin'),
+            __('Enable if you want to limit different filenames to post/page content only', 'SrbTransLatin')
         );
 
         echo '</div>';
@@ -112,9 +112,9 @@ trait Files
         self::input(
             $delim,
             'sgi/stl/opt[file][delim]',
-            $this->expert_enable,
+            false,
             '',
-            __('Filename delimiter - i.e. - myfilename-cir.jpg', DOMAIN)
+            __('Filename delimiter - i.e. - myfilename-cir.jpg', 'SrbTransLatin')
         );
 
     }

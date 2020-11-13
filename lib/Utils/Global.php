@@ -6,6 +6,33 @@ use SGI\STL\Core\LanguageManager   as LM,
     SGI\Transliterator              as Transliterator;
 
 /**
+ * Emulates wp_parse_args for multidimensional arrays
+ * 
+ * @param  array $a Options array
+ * @param  array $b Default options array
+ * @return array    Merged options array
+ * 
+ * @since 2.4
+ */
+function extendedParseArgs(array &$a, array $b) : array
+{
+    $result = $b;
+
+    foreach ($a as $k => &$v) :
+        
+        if ( is_array($v) && isset($result[$k]) ) :
+            $result[$k] = extendedParseArgs($v, $result[$k]);
+            continue;
+        endif;
+            
+        $result[$k] = $v;
+
+    endforeach;
+
+    return $result;
+}
+
+/**
  * Returns default plugin options
  * 
  * @return array Default plugin options
@@ -31,6 +58,7 @@ function getDefaultOptions() : array
         'fixes' =>[
             'permalinks' => (get_option('WPLANG') == 'sr_RS') ? false : true, 
             'search'     => true,
+            'ajax'       => false,
         ],
         'menu'  => [
             'extend'     => true,
@@ -57,18 +85,17 @@ function getDefaultOptions() : array
 function getOptions() : array
 {
 
-    return get_option(
-        'sgi/stl/opt',
-        getDefaultOptions()
-    );
+    $opts     = get_option('sgi/stl/opt',[]);
+    $defaults = getDefaultOptions();
+
+
+    return extendedParseArgs($opts, $defaults);
 
 }
 
 function get_script()
 {
-
     return LM::get_instance()->get_script();
-
 }
 
 function get_script_param()
@@ -83,9 +110,7 @@ function is_serbian()
 
 function is_wpml_active()
 {
-
     return LM::is_wpml_active();
-
 }
 
 function is_cyrillic()
@@ -95,9 +120,7 @@ function is_cyrillic()
 
 function is_latin()
 {
-
     return (get_script() == 'lat') ? true : false;
-
 }
 
 function get_query_param()
@@ -105,7 +128,14 @@ function get_query_param()
     return getOptions()['core']['param'];
 }
 
-function transliterate($content, $cut = false)
+/**
+ * Main transliteration function which converts cyrillic script to latin
+ * 
+ * @param  null|string  $content String to transliterate
+ * @param  bool         $cut     Flag determining if transliteration is done to "cut" latin script
+ * @return null|string           Transliterated script
+ */
+function transliterate(?string $content, bool $cut = false)
 {
 
     return (!$cut) ? 
@@ -116,65 +146,48 @@ function transliterate($content, $cut = false)
 
 }
 
-function reverse_transliterate($content)
+/**
+ * Reverse transliteration function - Transliterates content from latin to cyrillic
+ * 
+ * @param  mixed  $content Content to perform reverse transliteration on
+ * 
+ * @return string          Reverse-transliterated content
+ */
+function reverse_transliterate($content) : string
 {
 
      return Transliterator::lat_to_cir($content);
     
 }
 
-function multiscript_sql_query($search)
+/**
+ * Enables searching for cyrilic post title/content using latin script
+ *
+ * @param  string $search Search string to modify
+ * @return string         SQL used in the WHERE clause of \WP_Query
+ * 
+ * @since 2.0
+ */
+function modifySearchQuery(string $search) : string
 {
 
     global $wpdb;
 
     $search_term = $_GET['s'];
 
-    if (preg_match('/\s/',$search_term)) :
+    $search_term = rtrim(ltrim($search_term));
 
-        $search_term = rtrim($search_term);
-        $search_expl = explode(' ', $search_term);
+    $search_like_orig = '%' . $wpdb->esc_like($search_term) . '%';
+    $search_like_tran = '%' . $wpdb->esc_like( reverse_transliterate($search_term) ) . '%';
 
-        $search = 'AND ('; $first = true;
+    $query = $wpdb->prepare(
+        " AND ({$wpdb->posts}.post_title LIKE %s OR {$wpdb->posts}.post_title LIKE %s OR {$wpdb->posts}.post_content LIKE %s OR {$wpdb->posts}.post_content LIKE %s)",
+        $search_like_orig,
+        $search_like_tran,
+        $search_like_orig,
+        $search_like_tran
+    );
 
-        foreach ($search_expl as $word ) :
-
-            if (!$first) :
-
-                $search .= ' AND ';
-                
-            endif;
-            $first = false;
-
-            $lat_word = reverse_transliterate($word);
-
-            $search .= sprintf(
-                "(%s.post_title LIKE '%%%s%%' OR %s.post_title LIKE '%%%s%%' OR %s.post_content LIKE '%%%s%%' OR %s.post_content LIKE '%%%s%%')",
-                $wpdb->posts,
-                $word,
-                $wpdb->posts,
-                $lat_word,
-                $wpdb->posts,
-                $word,
-                $wpdb->posts,
-                $lat_word
-            );
-
-        endforeach;
-
-        $search .= ')';
-
-    else :
-
-        $search_term = ' \'%'.$_GET['s'].'%\'';
-        $lat_search_term = reverse_transliterate($search_term);
-
-        $search = " AND ( ({$wpdb->posts}.post_title LIKE ${lat_search_term} OR {$wpdb->posts}.post_title LIKE ${search_term} OR {$wpdb->posts}.post_content LIKE ${lat_search_term} OR {$wpdb->posts}.post_content LIKE ${search_term} ) ) ";
-
-    endif;
-
-    //var_dump($search);
-
-    return $search;
+    return $query;
 
 }

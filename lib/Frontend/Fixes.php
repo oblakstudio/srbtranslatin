@@ -3,8 +3,9 @@
 namespace SGI\STL\Frontend;
 
 use function SGI\STL\Utils\getOptions,
+             SGI\STL\Utils\get_script,
              SGI\STL\Utils\transliterate,
-             SGI\STL\Utils\multiscript_sql_query;
+             SGI\STL\Utils\modifySearchQuery;
 
 class Fixes
 {
@@ -36,7 +37,7 @@ class Fixes
             return $languages;
         endif;
 
-        $active = $this->lm->get_script();
+        $active = get_script();
 
         $cir = $lat = $languages['sr'];
 
@@ -74,24 +75,11 @@ class Fixes
     public function fix_search(string $search, \WP_Query $query)
     {
 
-        if (is_admin())
+        if ( !$this->opts['fixes']['search'] || empty($search) ) :
             return $search;
+        endif;
 
-        if (!$this->opts['fixes']['search'])
-            return $search;
-
-        if ( !$query->is_main_query())
-            return $search;
-
-        $g = $_GET['s'] ?? '';
-
-        if ($g == '')
-            return $search;
-
-        if (!is_search())
-            return $search;
-
-        return multiscript_sql_query($search);
+        return modifySearchQuery($search);
 
     }
 

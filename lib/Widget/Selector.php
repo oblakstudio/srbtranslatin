@@ -2,9 +2,8 @@
 
 namespace SGI\STL\Widget;
 
-use const SGI\STL\DOMAIN;
 
-use function SGI\STL\Frontend\Utils\script_selector;
+use function SGI\STL\Utils\script_selector;
 
 class Selector extends \WP_Widget
 {
@@ -15,21 +14,21 @@ class Selector extends \WP_Widget
         $widget_id   = 'sgi_stl_widget';
         $widget_opts = [
             'id_base'     => $widget_id,
-            'description' => __('Serbian Script selection widget', DOMAIN)
+            'description' => __('Serbian Script selection widget', 'SrbTransLatin')
         ];
 
         $this->defaults = [
-            'title'         => __('Script Selection', DOMAIN),
+            'title'         => __('Script Selection', 'SrbTransLatin'),
             'selector_type' => 'oneline',
             'separator'     => '&nbsp;|&nbsp;',
-            'cir_caption'   => __('Ћирилица', DOMAIN),
-            'lat_caption'   => __('Latinica', DOMAIN),
+            'cir_caption'   => __('Ћирилица', 'SrbTransLatin'),
+            'lat_caption'   => __('Latinica', 'SrbTransLatin'),
             'inactive_only' => false,
         ];
 
         parent::__construct(
             $widget_id,
-            __('Serbian Script selector', DOMAIN),
+            __('Serbian Script selector', 'SrbTransLatin'),
             $widget_opts
         );
 
@@ -46,7 +45,7 @@ class Selector extends \WP_Widget
                 <input id="%s" name="%s" value="%s" type="text" class="widefat">
             </p>',
             $this->get_field_id( 'title' ),
-            __('Title', DOMAIN),
+            __('Title', 'SrbTransLatin'),
             $this->get_field_id( 'title' ),
             $this->get_field_name( 'title' ),
             esc_attr( $instance['title'] )
@@ -54,7 +53,7 @@ class Selector extends \WP_Widget
 
         printf(
             '<h4>%s</h4>',
-            __('Link Options', DOMAIN)
+            __('Link Options', 'SrbTransLatin')
         );
 
         printf(
@@ -63,7 +62,7 @@ class Selector extends \WP_Widget
                 <input id="%s" name="%s" value="%s" type="text" class="widefat">
             </p>',
             $this->get_field_id( 'cir_caption' ),
-            __('Link text - Cyrillic', DOMAIN),
+            __('Link text - Cyrillic', 'SrbTransLatin'),
             $this->get_field_id( 'cir_caption' ),
             $this->get_field_name( 'cir_caption' ),
             esc_attr( $instance['cir_caption'] )
@@ -75,7 +74,7 @@ class Selector extends \WP_Widget
                 <input id="%s" name="%s" value="%s" type="text" class="widefat">
             </p>',
             $this->get_field_id( 'lat_caption' ),
-            __('Link text - Latin', DOMAIN),
+            __('Link text - Latin', 'SrbTransLatin'),
             $this->get_field_id( 'lat_caption' ),
             $this->get_field_name( 'lat_caption' ),
             esc_attr( $instance['lat_caption'] )
@@ -83,7 +82,7 @@ class Selector extends \WP_Widget
 
         printf(
             '<h4>%s</h4>',
-            __('Display Options', DOMAIN)
+            __('Display Options', 'SrbTransLatin')
         );
 
         printf(
@@ -94,7 +93,7 @@ class Selector extends \WP_Widget
                 </select>
             </p>',
             $this->get_field_id( 'selector_type' ),
-            __('Selector style', DOMAIN),
+            __('Selector style', 'SrbTransLatin'),
             $this->get_field_id( 'selector_type' ),
             $this->get_field_name( 'selector_type' ),
             $this->selector_select($instance)
@@ -106,7 +105,7 @@ class Selector extends \WP_Widget
                 <input id="%s" name="%s" value="%s" type="text" class="widefat">
             </p>',
             $this->get_field_id( 'separator' ),
-            __('Separator (oneline)', DOMAIN),
+            __('Separator (oneline)', 'SrbTransLatin'),
             $this->get_field_id( 'separator' ),
             $this->get_field_name( 'separator' ),
             esc_attr( $instance['separator'] )
@@ -118,9 +117,9 @@ class Selector extends \WP_Widget
     {
 
         $selectors = [
-            'oneline' => __('One Line', DOMAIN),
-            'list'    => __('Dropdown', DOMAIN),
-            'links'   => __('List', DOMAIN) 
+            'oneline' => __('One Line', 'SrbTransLatin'),
+            'list'    => __('Dropdown', 'SrbTransLatin'),
+            'links'   => __('List', 'SrbTransLatin') 
         ];
 
         $html = '';

@@ -12,8 +12,6 @@ class Translator
     public function __construct()
     {
 
-        $this->name = 'stl_replace';
-
         add_shortcode('stl_translit', [&$this, 'shortcodeCallback']);
 
     }

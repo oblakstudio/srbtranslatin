@@ -2,6 +2,8 @@
 
 namespace SGI\STL\Utils;
 
+use const SGI\STL\PATH;
+
 function get_selector_template (string $template, array $args)
 {
 
@@ -24,7 +26,12 @@ function get_selector_template (string $template, array $args)
 
 }
 
-function get_current_url()
+/**
+ * Returns current url on the website
+ * 
+ * @return string Current URL
+ */
+function get_current_url() : string
 {
 
     global $wp;
@@ -38,13 +45,27 @@ function get_current_url()
 
 }
 
+/**
+ * Function which displays the script selector.
+ * Used by the STL Widget, but can be used anywhere on the website
+ * 
+ * @param array      $args              Options for the script selector
+ * @param mixed|null $base_url          Deprecated - Base URL for the links
+ * @param mixed|null $depr_cyr_caption  Deprecated - Text to use for cyrillic link
+ * @param mixed|null $depr_lat_caption  Deprecated - Text to use for latin link
+ * @param mixed|null $depr_inactive     Deprecated - Show inactive link?
+ * @param mixed|null $depr_wpml         Deprecated - Unknown WPML flag
+ * 
+ * @since 2.0
+ * @todo  Remove deprecated arguments in 2.6
+ */
 function script_selector(
-    $args = [],
-    $base_url = null,
-    $depr_cyr_caption = null,
-    $depr_lat_caption = null,
-    $depr_inactive = null,
-    $depr_wpml = null
+    array $args = [],
+          $base_url = null,
+          $depr_cyr_caption = null,
+          $depr_lat_caption = null,
+          $depr_inactive = null,
+          $depr_wpml = null
 ) {
 
     if (!is_array($args)) :
@@ -65,7 +86,7 @@ function script_selector(
         trigger_error(
             __(
                 sprintf('You are using an old way calling the function %s, please read the documentation to see new function parameters', __FUNCTION__),
-                DOMAIN
+                'SrbTransLatin'
             ),
             E_USER_DEPRECATED
         );
@@ -103,8 +124,6 @@ function script_selector(
         default :
             $html .= get_selector_template('oneline', $args);
             break;
-
-
 
     endswitch;
 

@@ -25,23 +25,13 @@ class SettingsPage
 
     private $opts;
 
-    private $expert_enable;
+
 
     public function __construct()
     {
 
         $this->opts = getOptions();
 
-        /**
-         * Enables changing of expert settings
-         *
-         * @since 2.0.0
-         *
-         * @param expert_enable - Flag which enables expert settings
-         */
-        $expert_enable = apply_filters("sgi/stl/settings/expert", false);
-
-        $this->expert_enable = $expert_enable;
 
         add_action('admin_init', [&$this, 'register_settings']);
 
@@ -88,41 +78,20 @@ class SettingsPage
             ],
             'fixes' => [
                 'permalinks',
-                'search'
+                'search',
+                'ajax'
             ],
             'ml'    => [
                 'wpml'
             ]
         ];
 
-        $expert_settings = [
-            'cookie',
-            'names',
-            'delim',
-            'permalinks'
-        ];
 
         foreach ($checkboxes as $section => $array) :
 
             foreach ($array as $opt) :
 
-                if (in_array($opt, $expert_settings)) :
-
-                    if ($this->expert_enable) :
-
-                        $opts[$section][$opt] = (isset($opts[$section][$opt])) ? true : false;
-
-                    else : 
-
-                        $opts[$section][$opt] = $prev_config[$section][$opt];
-
-                    endif;
-
-                else :
-
                     $opts[$section][$opt] = (isset($opts[$section][$opt])) ? true : false;
-
-                endif;
 
                 if ($opt == 'permalinks') :
 
@@ -145,11 +114,7 @@ class SettingsPage
 
         endforeach;
 
-        if (!$this->expert_enable) :
-
             $opts['file']['delim'] = $prev_config['file']['delim'];
-
-        endif;
 
         return $opts;
 

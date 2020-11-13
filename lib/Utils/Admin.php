@@ -26,12 +26,3 @@ function getVersion()
     return $installed_ver;
 
 }
-
-function get_settings_template(string $section)
-{
-
-    $template_file = PATH."templates/settings/{$section}.php";
-
-    include $template_file;    
-
-}

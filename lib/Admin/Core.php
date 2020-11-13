@@ -4,8 +4,6 @@ namespace SGI\STL\Admin;
 
 use const SGI\STL\{
     BASENAME,
-    VERSION,
-    DOMAIN,
     PATH
 };
 
@@ -34,7 +32,8 @@ class Core
 
 
         //Filename transliteration
-        //add_filter('sanitize_file_name', array(&$this, 'sanitize_file_name'),50,2);
+        add_filter('sanitize_file_name', array(&$this, 'sanitizeFilename'),50,2);
+        add_filter('sanitize_title', [&$this, 'sanitizeTitle'], 100, 2);
 
     }
 
@@ -44,7 +43,7 @@ class Core
         $links[] = sprintf(
             '<a href="%s">%s</a>',
             admin_url('admin.php?page=stl_settings'),
-            __('Settings', DOMAIN)
+            __('Settings', 'SrbTransLatin')
         );
 
         return $links;
@@ -61,28 +60,16 @@ class Core
         $plugin_meta[] = sprintf(
             '<a href="%s" target="_blank">%s</a>',
             'https://sgi.io/plugins/srbtranslatin',
-            __('Documentation', DOMAIN)
+            __('Documentation', 'SrbTransLatin')
         );
 
         $plugin_meta[] = sprintf(
             '<a href="%s" target="_blank"><strong>%s</strong></a>',
             'https://paypal.me/seebeen',
-            __('Donate', DOMAIN)
+            __('Donate', 'SrbTransLatin')
         );
 
         return $plugin_meta;
-
-    }
-
-    public function sanitize_file_name($filename, $filename_raw)
-    {
-
-        if (!$this->opts['file']['names'])
-            return $filename;
-
-        $filename = Transliterator::cir_to_cut_lat($filename);
-
-        return $filename;
 
     }
 
@@ -92,8 +79,8 @@ class Core
         $image = file_get_contents(PATH . 'assets/img/stl-logo.svg');
 
         add_menu_page(
-            __('Latinisation', DOMAIN),
-            __('Latinisation', DOMAIN),
+            __('Latinisation', 'SrbTransLatin'),
+            __('Latinisation', 'SrbTransLatin'),
             'manage_options',
             'stl',
             function(){},
@@ -103,8 +90,8 @@ class Core
 
         add_submenu_page(
             'stl',
-            __('Settings - SrbTransLatin', DOMAIN),
-            __('Settings', DOMAIN),
+            __('Settings - SrbTransLatin', 'SrbTransLatin'),
+            __('Settings', 'SrbTransLatin'),
             'manage_options',
             'stl_settings',
             [&$this, 'settings_page']
@@ -129,6 +116,28 @@ class Core
         submit_button();
 
         echo '</form>';
+    }
+
+    public function sanitizeFilename($filename, $filename_raw)
+    {
+
+        if (!$this->opts['file']['names'])
+            return $filename;
+
+        $filename = Transliterator::cir_to_cut_lat($filename);
+
+        return $filename;
+
+    }
+
+    public function sanitizeTitle($title, $fallback_title)
+    {
+
+        if (!$this->opts['fixes']['permalinks'])
+            return $title;
+
+        return Transliterator::cir_to_cut_lat(($title));
+
     }
 
 

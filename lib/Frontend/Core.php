@@ -27,38 +27,15 @@ class Core
      */
     private $shortcodes;
 
-    /**
-     * @var array List of actions and hooks to apply the action on
-     * 
-     * @since 2.4
-     */
-    private static $actions = [
-        'buffer_start' => ['wp_head', 'rss_head', 'atom_head', 'rdf_head', 'rss2_head'],
-        'buffer_end'   => ['wp_footer', 'rss_footer', 'atom_footer', 'rdf_footer', 'rss2_footer']
-    ];
-
-    /**
-     * @var array List of filters and hooks to apply the filter on
-     * 
-     * @since 2.4
-     */
-    private static $filters = [
-        'convert_script' => ['gettext', 'ngettext', 'gettext_with_context', 'ngettext_with_context']
-    ];
-
     public function __construct()
     {
 
         if (is_admin())
             return;
 
-        $this->lm = LM::get_instance();
-
-        $this->opts = getOptions();
-
+        $this->lm         = LM::get_instance();
+        $this->opts       = getOptions();
         $this->shortcodes = [];
-
-        $filter_priority = 9999;
 
         /**
          * Filters the priorty for transliteration engine
@@ -67,12 +44,24 @@ class Core
          *
          * @param filter_priority Integer defining transliterator priority
          */
-        $filter_priority = apply_filters('sgi/stl/filter_priority', $filter_priority);
+        $filter_priority = apply_filters('sgi/stl/filter_priority', 9999);
 
-
-        if ( $this->lm->get_script() != 'lat' && !$this->lm->in_serbian) :
-            return;
+        if ( $this->lm->get_script() == 'lat' && $this->lm->in_serbian ) :
+            $this->loadTransliterator($filter_priority);
         endif;
+
+    }
+
+    /**
+     * Start the transliteration system.
+     * Function adds all the necessary filters and actions to predefined hooks
+     * 
+     * @param int $filter_priority Priority on which to load actions and filters
+     * 
+     * @since 2.4
+     */
+    public function loadTransliterator(int $filter_priority)
+    {
 
         add_action('wp_head', [&$this, 'buffer_start'], $filter_priority);
         add_action('wp_footer', [&$this, 'buffer_end'], $filter_priority);
@@ -99,16 +88,23 @@ class Core
             add_filter('the_content', [&$this, 'change_image_urls'], $filter_priority, 1);
         endif;
 
-
     }
 
+    /**
+     * Starts output buffering so we have one large string to transliterate
+     * 
+     * @since 2.0
+     */
     public function buffer_start()
     {
-
         ob_start();
-
     }
 
+    /**
+     * Ends output buffering and performs transliteration
+     * 
+     * @since 2.0
+     */
     public function buffer_end()
     {
 
@@ -128,33 +124,9 @@ class Core
 
     }
 
-    public function convert_title($title,$sep = '',$location = '')
-    {
-
-        return $this->convert_script($title);
-
-    }
-
     public function convert_script($content)
     {
-
         return transliterate($content);
-
-    }
-
-    public function convert_title_parts($title)
-    {   
-
-        $newtitle = [];
-
-        foreach ($title as $part => $value) :
-
-            $newtitle[$part] = $this->convert_script($value);
-
-        endforeach;
-
-        return $newtitle;
-
     }
 
     public function change_image_urls($output)

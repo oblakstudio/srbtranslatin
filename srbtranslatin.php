@@ -33,10 +33,10 @@ function run_stl()
     global $wp_version;
 
     if (version_compare( PHP_VERSION, '7.0.0', '<' ))
-        throw new \Exception(__('STL - Serbian Latinisation plugin requires PHP 7.0 or greater.', SrbTransLatin));
+        throw new \Exception(__('STL - Serbian Latinisation plugin requires PHP 7.0 or greater.', 'SrbTransLatin'));
 
     if (version_compare($wp_version, '4.8', '<'))
-        throw new \Exception(__('STL - Serbian Latinisation plugin requires WordPress 4.8.0.', SrbTransLatin));
+        throw new \Exception(__('STL - Serbian Latinisation plugin requires WordPress 4.8.0.', 'SrbTransLatin'));
 
     STL();
 

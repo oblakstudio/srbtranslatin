@@ -34,7 +34,8 @@ class Core
 
 
         //Filename transliteration
-        //add_filter('sanitize_file_name', array(&$this, 'sanitize_file_name'),50,2);
+        add_filter('sanitize_file_name', array(&$this, 'sanitizeFilename'),50,2);
+        add_filter('sanitize_title', [&$this, 'sanitizeTitle'], 100, 2);
 
     }
 
@@ -71,18 +72,6 @@ class Core
         );
 
         return $plugin_meta;
-
-    }
-
-    public function sanitize_file_name($filename, $filename_raw)
-    {
-
-        if (!$this->opts['file']['names'])
-            return $filename;
-
-        $filename = Transliterator::cir_to_cut_lat($filename);
-
-        return $filename;
 
     }
 
@@ -129,6 +118,28 @@ class Core
         submit_button();
 
         echo '</form>';
+    }
+
+    public function sanitizeFilename($filename, $filename_raw)
+    {
+
+        if (!$this->opts['file']['names'])
+            return $filename;
+
+        $filename = Transliterator::cir_to_cut_lat($filename);
+
+        return $filename;
+
+    }
+
+    public function sanitizeTitle($title, $fallback_title)
+    {
+
+        if (!$this->opts['fixes']['permalinks'])
+            return $title;
+
+        return Transliterator::cir_to_cut_lat(($title));
+
     }
 
 

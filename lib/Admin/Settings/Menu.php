@@ -2,8 +2,6 @@
 
 namespace SGI\STL\Admin\Settings;
 
-use const SGI\STL\DOMAIN;
-
 use function SGI\STL\Utils\is_wpml_active;
 
 trait Menu
@@ -13,7 +11,7 @@ trait Menu
     {
         add_settings_section(
             'stl_settings_menu',
-            __('Menu Settings', DOMAIN),
+            __('Menu Settings', 'SrbTransLatin'),
             [&$this, 'callback_section_menu'],
             'stl_settings'
         );
@@ -24,12 +22,12 @@ trait Menu
 
         printf(
             '<p>%s</p>',
-            __('Menu settings control extending and tweaking the script selector in theme menus', DOMAIN)
+            __('Menu settings control extending and tweaking the script selector in theme menus', 'SrbTransLatin')
         );
 
         add_settings_field(
             'stl_menu_enable',
-            __('Extend Nav Menu', DOMAIN),
+            __('Extend Nav Menu', 'SrbTransLatin'),
             [&$this, 'callback_option_extend'],
             'stl_settings',
             'stl_settings_menu',
@@ -38,7 +36,7 @@ trait Menu
 
         add_settings_field(
             'stl_menu_selector',
-            __('Nav Menu to extend', DOMAIN),
+            __('Nav Menu to extend', 'SrbTransLatin'),
             [&$this, 'callback_option_selector'],
             'stl_settings',
             'stl_settings_menu',
@@ -47,7 +45,7 @@ trait Menu
 
         add_settings_field(
             'stl_menu_type',
-            __('Selector type', DOMAIN),
+            __('Selector type', 'SrbTransLatin'),
             [&$this, 'callback_option_type'],
             'stl_settings',
             'stl_settings_menu',
@@ -56,7 +54,7 @@ trait Menu
 
         add_settings_field(
             'stl_menu_label',
-            __('Menu Label', DOMAIN),
+            __('Menu Label', 'SrbTransLatin'),
             [&$this, 'callback_option_label'],
             'stl_settings',
             'stl_settings_menu',
@@ -74,8 +72,8 @@ trait Menu
             $extend,
             'sgi/stl/opt[menu][extend]',
             !$enable_extend,
-            __('Extend menu with script selector', DOMAIN),
-            __('Enables adding script selector to nav menus', DOMAIN)
+            __('Extend menu with script selector', 'SrbTransLatin'),
+            __('Enables adding script selector to nav menus', 'SrbTransLatin')
         );
 
     }
@@ -91,7 +89,7 @@ trait Menu
             'sgi/stl/opt[menu][selector]',
             true,
             '',
-            __('Menu to extend with script selector', DOMAIN),
+            __('Menu to extend with script selector', 'SrbTransLatin'),
             ''
         );
 
@@ -101,8 +99,8 @@ trait Menu
     {
 
         $options = [
-            'dropdown' => __('Dropdown', DOMAIN),
-            'inline'   => __('Inline', DOMAIN)
+            'dropdown' => __('Dropdown', 'SrbTransLatin'),
+            'inline'   => __('Inline', 'SrbTransLatin')
         ];
 
         Generator::select(
@@ -111,7 +109,7 @@ trait Menu
             'sgi/stl/opt[menu][type]',
             true,
             '',
-            __('Menu to extend with script selector', DOMAIN),
+            __('Menu to extend with script selector', 'SrbTransLatin'),
             ''
         );
 
@@ -125,7 +123,7 @@ trait Menu
             'sgi/stl/opt[menu][label]',
             true,
             '',
-            __('Label used for the menu dropdown', DOMAIN)
+            __('Label used for the menu dropdown', 'SrbTransLatin')
         );
 
     }

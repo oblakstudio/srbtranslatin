@@ -118,7 +118,7 @@ class LanguageManager
 
         endif;
 
-        return $req_script;
+        return $this->set_cookie($req_script);
 
     }
 

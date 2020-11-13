@@ -29,7 +29,6 @@
     },
     "require": {
         "simplehtmldom/simplehtmldom": "2.0-RC2",
-        "sgi/transliterator": "^1.0",
-        "sgi/asset-loader": "^1.1"
+        "sgi/transliterator": "^1.0"
     }
 }

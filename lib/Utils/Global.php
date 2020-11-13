@@ -167,10 +167,10 @@ function modifySearchQuery(string $search) : string
 
     $search_term = $_GET['s'];
 
-    $search_term = rtrim(ltrim($search));
+    $search_term = rtrim(ltrim($search_term));
 
     $search_like_orig = '%' . $wpdb->esc_like($search_term) . '%';
-    $search_like_tran = '%' . $wpdb->esc_like( transliterate($search_term) ) . '%';
+    $search_like_tran = '%' . $wpdb->esc_like( reverse_transliterate($search_term) ) . '%';
 
     $query = $wpdb->prepare(
         " AND ({$wpdb->posts}.post_title LIKE %s OR {$wpdb->posts}.post_title LIKE %s OR {$wpdb->posts}.post_content LIKE %s OR {$wpdb->posts}.post_content LIKE %s)",
@@ -179,6 +179,10 @@ function modifySearchQuery(string $search) : string
         $search_like_orig,
         $search_like_tran
     );
+
+    echo '<pre>';
+    var_dump($search_term, $query);
+    echo '</pre>';
 
     return $query;
 

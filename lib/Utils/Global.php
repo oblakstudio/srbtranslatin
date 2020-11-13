@@ -152,58 +152,34 @@ function reverse_transliterate($content)
     
 }
 
-function multiscript_sql_query($search)
+/**
+ * Enables searching for cyrilic post title/content using latin script
+ *
+ * @param  string $search Search string to modify
+ * @return string         SQL used in the WHERE clause of \WP_Query
+ * 
+ * @since 2.0
+ */
+function modifySearchQuery(string $search) : string
 {
 
     global $wpdb;
 
     $search_term = $_GET['s'];
 
-    if (preg_match('/\s/',$search_term)) :
+    $search_term = rtrim(ltrim($search));
 
-        $search_term = rtrim($search_term);
-        $search_expl = explode(' ', $search_term);
+    $search_like_orig = '%' . $wpdb->esc_like($search_term) . '%';
+    $search_like_tran = '%' . $wpdb->esc_like( transliterate($search_term) ) . '%';
 
-        $search = 'AND ('; $first = true;
+    $query = $wpdb->prepare(
+        " AND ({$wpdb->posts}.post_title LIKE %s OR {$wpdb->posts}.post_title LIKE %s OR {$wpdb->posts}.post_content LIKE %s OR {$wpdb->posts}.post_content LIKE %s)",
+        $search_like_orig,
+        $search_like_tran,
+        $search_like_orig,
+        $search_like_tran
+    );
 
-        foreach ($search_expl as $word ) :
-
-            if (!$first) :
-
-                $search .= ' AND ';
-                
-            endif;
-            $first = false;
-
-            $lat_word = reverse_transliterate($word);
-
-            $search .= sprintf(
-                "(%s.post_title LIKE '%%%s%%' OR %s.post_title LIKE '%%%s%%' OR %s.post_content LIKE '%%%s%%' OR %s.post_content LIKE '%%%s%%')",
-                $wpdb->posts,
-                $word,
-                $wpdb->posts,
-                $lat_word,
-                $wpdb->posts,
-                $word,
-                $wpdb->posts,
-                $lat_word
-            );
-
-        endforeach;
-
-        $search .= ')';
-
-    else :
-
-        $search_term = ' \'%'.$_GET['s'].'%\'';
-        $lat_search_term = reverse_transliterate($search_term);
-
-        $search = " AND ( ({$wpdb->posts}.post_title LIKE ${lat_search_term} OR {$wpdb->posts}.post_title LIKE ${search_term} OR {$wpdb->posts}.post_content LIKE ${lat_search_term} OR {$wpdb->posts}.post_content LIKE ${search_term} ) ) ";
-
-    endif;
-
-    //var_dump($search);
-
-    return $search;
+    return $query;
 
 }

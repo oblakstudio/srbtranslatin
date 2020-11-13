@@ -25,20 +25,23 @@ This plugin also fixes searching cyrillic posts using latin script.
 * Works everywhere - Plugin hooks into WordPress core transliterating your content inplace
 * **Auto-Fix permalinks** - Your cyrillic permalinks will be automatically saved as latin (optional)
 * **SEARCH FIX** - Search posts written in cyrillic script using both latin and cyrillic script
-* Lightweight - Plugin does not use any external stylesheets, or js files.
 * **Partial transliteration** - You can selectively choose which parts of your website to keep in cyrilic
-* WPML Compatible - Fully compatible with WPML. Transliteration only works on Serbian portion of your website
-* Script / Language selector - Integrates into WPML language selectors in menu / widget
 * **Widget Ready** - Switch script via sidebar widget
+* **Ajax Transliteration** - Transliterates dynamic parts of your website
+* SEO Friendly - no double content or SERP penalties!
+* Lightweight - Plugin does not use any external stylesheets, or js files.
+* WPML Compatible - Fully compatible with WPML. Transliteration only works when Serbian language is active
+* Polylang compatible - Fully compatible with Polylang. Transliteration only works when Serbian language is active
+* Script / Language selector - Integrates into WPML language selectors in menu / widget
 
 == Documentation ==
 
-If you can't find your anwsers in the FAQ below, documentation can be found [here](https://rtfm.sgi.io/srbtranslatin)
+If you can't find your anwsers in the FAQ below, documentation can be found [here](https://rtfm.oblak.studio/srbtranslatin)
 
 == Authorship ==
 
 Original version of this plugin was developer by [Predrag Supurović](https://pedja.supurovic.net/).
-Plugin development was handed over to [me](https://sgi.io) in march 2020. Since then, I am the sole author and maintainer of the plugin
+Plugin development was handed over to [me](https://oblak.studio) in march 2020. Since then, I am the sole author and maintainer of the plugin
 
 == Installation ==
 
@@ -88,9 +91,13 @@ I'm working on a tool which will convert filenames and post / page content on yo
 
 Temporary fix: redownload all attachments with cyrilic filenames and reupload them. This plugin will do an on-the-fly conversion of filenames.
 
+= Will this plugin transliterate dynamic content (ajax) =
+
+Yes it will. Option was added in version 2.4
+
 = Some parts of my page aren't being transliterated =
 
-Depending on the theme / plugins you're currently using, some content might be generated via javascript / ajax. This plugin works fully on the backend side (content is being transliterated via PHP), so it cannot influence JS generated content and content pulled via ajax calls.
+Depending on the theme / plugins you're currently using, some content might be generated via REST API (wp-json). I'm working on adding the functionality to transliterate REST calls
 
 Feel free to contact me via e-mail, and I'll see if I can assist you for your specific case.
 

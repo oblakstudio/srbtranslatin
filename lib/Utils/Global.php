@@ -6,6 +6,33 @@ use SGI\STL\Core\LanguageManager   as LM,
     SGI\Transliterator              as Transliterator;
 
 /**
+ * Emulates wp_parse_args for multidimensional arrays
+ * 
+ * @param  array $a Options array
+ * @param  array $b Default options array
+ * @return array    Merged options array
+ * 
+ * @since 2.4
+ */
+function extendedParseArgs(array &$a, array $b) : array
+{
+    $result = $b;
+
+    foreach ($a as $k => &$v) :
+        
+        if ( is_array($v) && isset($result[$k]) ) :
+            $result[$k] = extendedParseArgs($v, $result[$k]);
+            continue;
+        endif;
+            
+        $result[$k] = $v;
+
+    endforeach;
+
+    return $result;
+}
+
+/**
  * Returns default plugin options
  * 
  * @return array Default plugin options
@@ -58,10 +85,11 @@ function getDefaultOptions() : array
 function getOptions() : array
 {
 
-    return get_option(
-        'sgi/stl/opt',
-        getDefaultOptions()
-    );
+    $opts     = get_option('sgi/stl/opt',[]);
+    $defaults = getDefaultOptions();
+
+
+    return extendedParseArgs($opts, $defaults);
 
 }
 

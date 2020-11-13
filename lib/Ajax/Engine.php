@@ -50,7 +50,7 @@ class Engine
         $filter_priority = apply_filters('sgi/stl/filter_priority', 9999);
 
 
-        if ( $this->lm->get_script() == 'lat' && $this->lm->in_serbian ) :
+        if ( $this->lm->get_script() == 'lat' && $this->lm->in_serbian && $this->opts['fixes']['ajax']) :
             $this->loadTransliterator($filter_priority);
         endif;
 

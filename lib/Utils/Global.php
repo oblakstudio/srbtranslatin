@@ -2,8 +2,8 @@
 
 namespace SGI\STL\Utils;
 
-use SGI\STL\Core\LanguageManager   as LM,
-    SGI\Transliterator              as Transliterator;
+use SGI\STL\Core\LanguageManager                     as LM,
+    Turanjanin\SerbianTransliterator\Transliterator  as Transliterator;
 
 /**
  * Emulates wp_parse_args for multidimensional arrays
@@ -145,10 +145,8 @@ function transliterate(?string $content, bool $cut = false)
 {
 
     return (!$cut) ? 
-            Transliterator::cir_to_lat($content) :
-            Transliterator::cir_to_cut_lat($content);
-
-    return $content;
+            Transliterator::toLatin($content) :
+            Transliterator::toAsciiLatin($content);
 
 }
 
@@ -162,7 +160,7 @@ function transliterate(?string $content, bool $cut = false)
 function reverse_transliterate($content) : string
 {
 
-     return Transliterator::lat_to_cir($content);
+     return Transliterator::toCyrillic($content);
     
 }
 

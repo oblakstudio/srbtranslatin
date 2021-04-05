@@ -9,7 +9,7 @@ use const SGI\STL\{
 
 use function SGI\STL\Utils\getOptions;
 
-use SGI\Transliterator;
+use Turanjanin\SerbianTransliterator\Transliterator;
 
 class Core
 {
@@ -124,7 +124,7 @@ class Core
         if (!$this->opts['file']['names'])
             return $filename;
 
-        $filename = Transliterator::cir_to_cut_lat($filename);
+        $filename = Transliterator::toAsciiLatin($filename);
 
         return $filename;
 
@@ -136,7 +136,7 @@ class Core
         if (!$this->opts['fixes']['permalinks'])
             return $title;
 
-        return Transliterator::cir_to_cut_lat(($title));
+        return Transliterator::toAsciiLatin(($title));
 
     }
 

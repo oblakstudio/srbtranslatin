@@ -2,8 +2,8 @@
 
 namespace SGI\STL\Utils;
 
-use SGI\STL\Core\LanguageManager   as LM,
-    SGI\Transliterator              as Transliterator;
+use SGI\STL\Core\LanguageManager                     as LM,
+    Turanjanin\SerbianTransliterator\Transliterator  as Transliterator;
 
 /**
  * Emulates wp_parse_args for multidimensional arrays
@@ -43,33 +43,34 @@ function getDefaultOptions() : array
 {
 
     return [
-        'migrated'       => false,
+        'migrated'          => false,
         'core'  => [
-            'script'     => 'cir',
-            'cookie'     => true,
-            'param'      => 'pismo',
+            'origin_script' => 'cir',
+            'script'        => 'cir',
+            'cookie'        => true,
+            'param'         => 'pismo',
         ],
         'file'  => [
-            'names'      => true,
-            'translit'   => true,
-            'content'    => true,
-            'delim'      => '-',
+            'names'         => true,
+            'translit'      => true,
+            'content'       => true,
+            'delim'         => '-',
         ],
         'fixes' =>[
-            'permalinks' => (get_option('WPLANG') == 'sr_RS') ? false : true, 
-            'search'     => true,
-            'ajax'       => false,
+            'permalinks'    => (get_option('WPLANG') == 'sr_RS') ? false : true,
+            'search'        => true,
+            'ajax'          => false,
         ],
         'menu'  => [
-            'extend'     => true,
-            'selector'   => '',
-            'type'       => 'dropdown',
-            'label'      => 'Писмо'
+            'extend'        => true,
+            'selector'      => '',
+            'type'          => 'dropdown',
+            'label'         => 'Писмо'
         ],
         'ml'    => [
-            'wpml'       => true,
-            'pll'        => true,
-            'qtx'        => true
+            'wpml'          => true,
+            'pll'           => true,
+            'qtx'           => true
         ]
     ];
 
@@ -96,6 +97,11 @@ function getOptions() : array
 function get_script()
 {
     return LM::get_instance()->get_script();
+}
+
+function get_origin_script()
+{
+    return LM::get_instance()->get_origin_script();
 }
 
 function get_script_param()
@@ -139,10 +145,8 @@ function transliterate(?string $content, bool $cut = false)
 {
 
     return (!$cut) ? 
-            Transliterator::cir_to_lat($content) :
-            Transliterator::cir_to_cut_lat($content);
-
-    return $content;
+            Transliterator::toLatin($content) :
+            Transliterator::toAsciiLatin($content);
 
 }
 
@@ -156,7 +160,7 @@ function transliterate(?string $content, bool $cut = false)
 function reverse_transliterate($content) : string
 {
 
-     return Transliterator::lat_to_cir($content);
+     return Transliterator::toCyrillic($content);
     
 }
 

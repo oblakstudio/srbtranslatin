@@ -68,6 +68,11 @@ class LanguageManager
 
     }
 
+    public function get_origin_script()
+    {
+        return $this->opts['core']['origin_script'];
+    }
+
     private function multilanguage_check()
     {
 

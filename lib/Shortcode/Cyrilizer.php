@@ -4,6 +4,7 @@ namespace SGI\STL\Shortcode;
 
 use function SGI\STL\Utils\{
     get_script,
+    get_origin_script,
     is_serbian
 };
 
@@ -23,9 +24,10 @@ class Cyrilizer
     public function shortcodeCallback($atts, $content)
     {
 
+        $origin_script = get_origin_script();
         $script = get_script();
 
-        if ($script == 'cir' || !is_serbian())
+        if ($origin_script == $script || !is_serbian())
             return $content;
 
         $uuid = uniqid();

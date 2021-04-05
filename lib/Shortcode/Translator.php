@@ -2,7 +2,10 @@
 
 namespace SGI\STL\Shortcode;
 
-use function SGI\STL\Utils\get_script;
+use function SGI\STL\Utils\{
+    get_script,
+    get_origin_script,
+};
 
 class Translator
 {
@@ -24,8 +27,9 @@ class Translator
         ], $atts);
 
         $script = get_script();
+        $origin_script = get_origin_script();
 
-        if ($script == 'cir')
+        if ($origin_script == $script)
             return $content;
 
         $uuid = uniqid();

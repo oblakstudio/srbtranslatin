@@ -43,33 +43,34 @@ function getDefaultOptions() : array
 {
 
     return [
-        'migrated'       => false,
+        'migrated'          => false,
         'core'  => [
-            'script'     => 'cir',
-            'cookie'     => true,
-            'param'      => 'pismo',
+            'origin_script' => 'cir',
+            'script'        => 'cir',
+            'cookie'        => true,
+            'param'         => 'pismo',
         ],
         'file'  => [
-            'names'      => true,
-            'translit'   => true,
-            'content'    => true,
-            'delim'      => '-',
+            'names'         => true,
+            'translit'      => true,
+            'content'       => true,
+            'delim'         => '-',
         ],
         'fixes' =>[
-            'permalinks' => (get_option('WPLANG') == 'sr_RS') ? false : true, 
-            'search'     => true,
-            'ajax'       => false,
+            'permalinks'    => (get_option('WPLANG') == 'sr_RS') ? false : true,
+            'search'        => true,
+            'ajax'          => false,
         ],
         'menu'  => [
-            'extend'     => true,
-            'selector'   => '',
-            'type'       => 'dropdown',
-            'label'      => 'Писмо'
+            'extend'        => true,
+            'selector'      => '',
+            'type'          => 'dropdown',
+            'label'         => 'Писмо'
         ],
         'ml'    => [
-            'wpml'       => true,
-            'pll'        => true,
-            'qtx'        => true
+            'wpml'          => true,
+            'pll'           => true,
+            'qtx'           => true
         ]
     ];
 
@@ -96,6 +97,11 @@ function getOptions() : array
 function get_script()
 {
     return LM::get_instance()->get_script();
+}
+
+function get_origin_script()
+{
+    return LM::get_instance()->get_origin_script();
 }
 
 function get_script_param()

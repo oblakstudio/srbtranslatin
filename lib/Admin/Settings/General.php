@@ -18,6 +18,15 @@ trait General
         );
 
         add_settings_field(
+            'stl_core_origin_script',
+            __('Original script', 'SrbTransLatin'),
+            [&$this, 'callback_option_origin_script'],
+            'stl_settings',
+            'stl_settings_core',
+            $this->opts['core']['origin_script']
+        );
+
+        add_settings_field(
             'stl_core_script',
             __('Default script', 'SrbTransLatin'),
             [&$this, 'callback_option_script'],
@@ -43,6 +52,26 @@ trait General
         printf(
             '<p>%s</p>',
             __('General settings control main functionality of the plugin', 'SrbTransLatin')
+        );
+
+    }
+
+    public function callback_option_origin_script($script)
+    {
+
+        $options = array(
+            'cir' => __('Cyrillic', 'SrbTransLatin'),
+            'lat' => __('Latin', 'SrbTransLatin')
+        );
+
+        Generator::select(
+            $options,
+            $script,
+            'sgi/stl/opt[core][origin_script]',
+            true,
+            '',
+            __('Main script used on the website', 'SrbTransLatin'),
+            ''
         );
 
     }

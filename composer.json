@@ -1,34 +1,29 @@
 {
-    "name": "sgi/srbtranslatin",
-    "description": "SrbTransLatin - Serbian Latinisation plugin allows you to have a website in both cyrillic and latin scripts",
-    "keywords": [
-        "wordpress",
-        "transliteration",
-        "latinisation"
-    ],
-    "homepage": "https://sgi.io/plugins/srbtranslatin",
     "license": "GPL-2.0-or-later",
-    "authors": [
-        {
-            "name": "Sibin Grasic",
-            "email": "sg@sgi.io",
-            "homepage": "https://sgi.io"
-        }
-    ],
-    "type": "wordpress-plugin",
     "autoload": {
-        "files": [
-            "lib/Utils/Admin.php",
-            "lib/Utils/Global.php",
-            "lib/Utils/Frontend.php",
-            "lib/Utils/Compat.php"
-        ],
         "psr-4": {
-            "SGI\\STL\\": "lib/"   
+            "Oblak\\STL\\": "lib",
+            "Oblak\\WP\\": "settings-manager"
         }
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
-        "simplehtmldom/simplehtmldom": "2.0-RC2",
-        "sgi/transliterator": "^1.0"
+        "php": ">=7.4",
+        "symfony/css-selector": "^5.4",
+        "voku/simple_html_dom": "^4.8",
+        "oblak/transliterator": "^2.0"
+    },
+    "require-dev": {
+        "oblak/wordpress-coding-standard": "*"
+    },
+    "scripts": {},
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "platform": {
+        "php": "7.4"
     }
 }

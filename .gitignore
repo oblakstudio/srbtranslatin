@@ -1,9 +1,9 @@
 node_modules
 node_modules/*
-assets
-assets/*
 vendor
 vendor/
 vendor/*
 package-lock.json
 composer.lock
+lib-old
+settings-manager

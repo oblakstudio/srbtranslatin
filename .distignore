@@ -1,5 +1,8 @@
 .github
-.wordpress-org
+.git/
+.wordpress-org/
+.yarn
+docker_tag
 node_modules
 .codeclimate.yml
 .distinclude

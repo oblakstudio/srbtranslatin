@@ -71,7 +71,6 @@ jobs:
         shell: bash
         run: |
           sh .github/scripts/set-version.sh
-          cp .wordpress-org/readme.txt ./readme.txt > /dev/null
       - name: WordPress Plugin Deploy
         id: deploy
         uses: 10up/action-wordpress-plugin-deploy@stable

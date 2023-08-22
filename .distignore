@@ -1,0 +1,15 @@
+.github
+.wordpress-org
+.codeclimate.yml
+.distinclude
+.editorconfig
+/.gitattributes
+/.gitignore
+/CHANGELOG.md
+/composer.json
+/composer.lock
+package-lock.json
+/package.json
+/phpcs.xml
+/README.md
+/release.config.js

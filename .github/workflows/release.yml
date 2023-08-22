@@ -68,9 +68,10 @@ jobs:
         run: npm run semantic-release
       - name: Setup deploy variables
         id: wpvar
+        shell: bash
         run: |
-          echo "{version}={$(cat /tmp/wp-release/VERSION)}" >> $GITHUB_OUTPUT
-          cp .wordpress-org/readme.txt ./readme.txt
+          sh .github/scripts/set-version.sh
+          cp .wordpress-org/readme.txt ./readme.txt > /dev/null
       - name: WordPress Plugin Deploy
         id: deploy
         uses: 10up/action-wordpress-plugin-deploy@stable
@@ -82,4 +83,3 @@ jobs:
           VERSION: ${{ steps.wpvar.outputs.version }}
         with:
           generate-zip: false
-          dry-run: true

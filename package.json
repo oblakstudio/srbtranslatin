@@ -3,8 +3,8 @@
         "semantic-release": "semantic-release"
     },
     "devDependencies": {
-        "@semantic-release/wordpress": "^1.5.2",
+        "@semantic-release/wordpress": "^1.5.3",
         "semantic-release": "^21.0.9",
-        "semantic-release-wordpress-config": "^1.2"
+        "semantic-release-wordpress-config": "^1.2.1"
     }
 }

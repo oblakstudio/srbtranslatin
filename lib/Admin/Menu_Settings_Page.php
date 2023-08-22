@@ -1,9 +1,8 @@
 <?php
 /**
- * General_Settings_Page class file.
+ * Menu_Settings_Page class file.
  *
  * @package srbtranslatin
- * @since 3.0.0
  */
 
 namespace Oblak\STL\Admin;
@@ -11,7 +10,9 @@ namespace Oblak\STL\Admin;
 use Oblak\WP\Plugin_Settings_Page;
 
 /**
- * Displays general settings
+ * Displays menu settings
+ *
+ * @since 3.0.0
  */
 class Menu_Settings_Page extends Plugin_Settings_Page {
 

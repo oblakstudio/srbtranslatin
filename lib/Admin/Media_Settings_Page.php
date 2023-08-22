@@ -1,9 +1,8 @@
 <?php
 /**
- * General_Settings_Page class file.
+ * Media_Settings_Page class file.
  *
  * @package SrbTransLatin
- * @since 3.0.0
  */
 
 namespace Oblak\STL\Admin;
@@ -11,7 +10,9 @@ namespace Oblak\STL\Admin;
 use Oblak\WP\Plugin_Settings_Page;
 
 /**
- * Displays general settings
+ * Displays media settings
+ *
+ * @since 3.0.0
  */
 class Media_Settings_Page extends Plugin_Settings_Page {
 

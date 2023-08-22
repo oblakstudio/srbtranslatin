@@ -24,10 +24,10 @@ class Shortcode_Manager {
     /**
      * Class constructor
      */
-	public function __construct() {
+    public function __construct() {
         $this->load_shortcode_classes();
-		add_filter( 'encode_shortcode', array( $this, 'get_shortcode_uuid' ) );
-	}
+        add_filter( 'encode_shortcode', array( $this, 'get_shortcode_uuid' ) );
+    }
 
     /**
      * Loads the shortcode classes
@@ -50,13 +50,13 @@ class Shortcode_Manager {
      * @param  string $contents Shortcode content.
      * @return string           Shortcode UUID
      */
-	public function get_shortcode_uuid( $contents ) {
-		$uuid = wp_generate_uuid4();
+    public function get_shortcode_uuid( $contents ) {
+        $uuid = wp_generate_uuid4();
 
-		$this->shortcodes[ $uuid ] = $contents;
+        $this->shortcodes[ $uuid ] = $contents;
 
-		return $uuid;
-	}
+        return $uuid;
+    }
 
     /**
      * Checks if we have any shortcodes

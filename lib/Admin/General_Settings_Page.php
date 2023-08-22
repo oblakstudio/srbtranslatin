@@ -3,7 +3,6 @@
  * General_Settings_Page class file.
  *
  * @package SrbTransLatin
- * @since 3.0.0
  */
 
 namespace Oblak\STL\Admin;
@@ -12,6 +11,8 @@ use Oblak\WP\Plugin_Settings_Page;
 
 /**
  * Displays general settings
+ *
+ * @since 3.0.0
  */
 class General_Settings_Page extends Plugin_Settings_Page {
 

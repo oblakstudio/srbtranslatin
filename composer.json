@@ -2,8 +2,7 @@
     "license": "GPL-2.0-or-later",
     "autoload": {
         "psr-4": {
-            "Oblak\\STL\\": "lib",
-            "Oblak\\WP\\": "settings-manager"
+            "Oblak\\STL\\": "lib"
         }
     },
     "minimum-stability": "dev",
@@ -12,7 +11,8 @@
         "php": ">=7.4",
         "symfony/css-selector": "^5.4",
         "voku/simple_html_dom": "^4.8",
-        "oblak/transliterator": "^2.0"
+        "oblak/transliterator": "^2.0",
+        "oblak/wp-plugin-settings-manager": "^1.0"
     },
     "require-dev": {
         "oblak/wordpress-coding-standard": "*"

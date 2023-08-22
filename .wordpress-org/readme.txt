@@ -1,11 +1,10 @@
-=== SrbTransLatin - SrbTransLatin ===
-Contributors: seebeen
-Donate link: https://sgi.io/donate
-Tags: letter, serbian, cyrillic, latin, transliteration, latinisation, script, multilanguage, wpml-compatible
-Requires at least: 5.3
-Tested up to: 5.5
-Requires PHP: 7.2
-Stable tag: 2.4
+=== SrbTransLatin - Serbian Latinisation ===
+Contributors: oblakstudio, seebeen
+Tags: transliteration, latinisation, multilanguage, wpml, translatepress
+Requires at least: 6.0
+Tested up to: 6.3.1
+Requires PHP: 7.4
+Stable tag: 0.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,26 +12,45 @@ SrbTransLatin plugin allows you to use both Cyrillic and Latin scripts on your w
 
 == Description ==
 
-### SrbTransLatin: The only WordPress transliteration plugin
+### SrbTransLatin: The BEST WordPress transliteration plugin
 
 SrbTransLatin enables you to have **both cyrillic and latin scripts** on your website. Transliteration is done in-place automatically.
 
-If your content is written in cyrillic script, this plugin will allow your visitors to view the content both in cyrillic and latin scripts.
-This plugin also fixes searching cyrillic posts using latin script.
+### Features (v3+)
 
-### Features
+**Transliteration features**:
 
-* Works everywhere - Plugin hooks into WordPress core transliterating your content inplace
-* **Auto-Fix permalinks** - Your cyrillic permalinks will be automatically saved as latin (optional)
-* **SEARCH FIX** - Search posts written in cyrillic script using both latin and cyrillic script
-* **Partial transliteration** - You can selectively choose which parts of your website to keep in cyrilic
-* **Widget Ready** - Switch script via sidebar widget
-* **Ajax Transliteration** - Transliterates dynamic parts of your website
+* Website content is automatically transliterated into latin
+* Ajax calls are transliterated into latin (both JSON and HTML)
+* Your visitors can search cyrillic content using latin script
+* Selective transliteration via shortcodes - Force parts of your website to stay in cyrillic script, use custom transliteration (_Gutenblocks coming soon_)
+
+**Performance features**
+
+* **Cache plugin compatible** - No reinventing the wheel. Works OOB with all the popular caching plugins.
 * SEO Friendly - no double content or SERP penalties!
-* Lightweight - Plugin does not use any external stylesheets, or js files.
-* WPML Compatible - Fully compatible with WPML. Transliteration only works when Serbian language is active
-* Polylang compatible - Fully compatible with Polylang. Transliteration only works when Serbian language is active
-* Script / Language selector - Integrates into WPML language selectors in menu / widget
+* Optimized autoloading - Plugin is PSR-12 compatible and loads the functionalities only when needed
+
+**File and Media features**
+
+* **Script specific files** - You can have separate versions of images or other files for cyrillic and latin scripts
+* **Filename transliteration** - Cyrillic uploads are automatically converted to latin script
+
+**Script Selector features**
+
+* Append the script selector to any menu of your choosing - Either as a dropdown, or inline
+* Selector widget - place it any sidebar you'd like
+* Custom function - Use `stl_selector` function anywhere in the code (but read the docs first)
+* Works everywhere - Plugin hooks into WordPress core transliterating your content inplace
+
+**MultiLanguage features**
+
+Tested with:
+
+* PolyLang
+* WPML
+* TranslatePress
+* qTranslateX
 
 == Documentation ==
 
@@ -41,11 +59,11 @@ If you can't find your anwsers in the FAQ below, documentation can be found [her
 == Authorship ==
 
 Original version of this plugin was developer by [Predrag Supurović](https://pedja.supurovic.net/).
-Plugin development was handed over to [me](https://oblak.studio) in march 2020. Since then, I am the sole author and maintainer of the plugin
+Plugin development was handed over to [Oblak Solutions](https://oblak.studio) in march 2020. Since then, we am the sole authors and maintainers of the plugin
 
 == Installation ==
 
-1. Upload serbian-latinisation.zip to plugins via WordPress admin panel, or upload unzipped folder to your plugins folder
+1. Upload srbtranslatin.zip to plugins via WordPress admin panel, or upload unzipped folder to your plugins folder
 2. Activate the plugin through the "Plugins" menu in WordPress
 3. Go to Settings->Latinisation to manage the options
 
@@ -79,11 +97,11 @@ Yes it is. It has no compatibility issues with WPML, since the transliteration c
 
 Yes, Plugin fully integrates with all WPML functions on the frontend because it directly extends the available language list
 
-= I'm having search issues - not all posts show up when searching for them using latin characters = 
+= I'm having search issues - not all posts show up when searching for them using latin characters =
 
 Open a support thread, or send me an e-mail.
 
-= Your plugin is converting my cyrilic filenames into latin which prevents them from loading = 
+= Your plugin is converting my cyrilic filenames into latin which prevents them from loading =
 
 First - you shouldn't be using cyrilic filenames in the first place. Due to the fact that most hosting providers do not have full UTF-8 support.
 
@@ -111,52 +129,11 @@ Feel free to contact me via e-mail, and I'll see if I can assist you for your sp
 
 == Changelog ==
 
-= 2.0.2 =
+= 3.0.0 =
 
-Bug Fixes:
-* Fixed PHP Fatal Error on certain hosting configurations
-* Fixed PHP notices on certaing PHP configurations
-* Fixed legacy script selector function
-
-= 2.0.1 =
-Release date: March 22nd, 2020
-
-Breaking changes:
-
-* Complete plugin is namespaced, old functions can still be used without namespace, but they will throw **E_USER_DEPRECATED** error
-* Shortcodes have been renamed, old shortcodes can still be used, but they will throw **E_USER_DEPRECATED** error
-* Minimum WP version bumped to 4.8
-* Minimum PHP version bumped to **7.0**
-
-Improvements:
-
-* Full PSR-1 and PSR-12 compatibility
-* Full PSR-4 compatibility
-* Huge performance increase over version 1.70 of SrbTransLatin and Version 1.4 of Serbian Latinisation
-* Reworked the settings screen
-* Reworked the entire shortcode functionality
-* Moved Transliterator to a composer module, details can be found [here](https://github.com/seebeen/Transliterator)
-
-Features:
-
-* New Script Selector Widget
-* New Script Selector function
-
-Bug Fixes:
-
-* Fixed transliteration not working when WPML is active
-* Fixed buggy transliteration in certain scenarios
-* Fixed issues with performance when using Avada Theme
-* Fixed Shortcodes not behaving properly when WPML is active
-* Fixed Memory leaks
-* Fixed Performance issues on cerain hosting providers
+Complete plugin refactor
 
 == Upgrade Notice ==
 
-When upgrading from 
-
-* SrbTransLatin 1.XX
-* Serbian Latinisation 1.X.X
-
-your options will be migrated from the old versions, please double check settings panel to see if everything is in order.
-
+= 3.0.0 =
+This is a major update. All functionalities have been reworked. Plugin is bug free, and 3x faster.

@@ -6,7 +6,7 @@
  * @since 3.0.0
  */
 
-namespace Oblak\STL;
+namespace Oblak\STL\Core;
 
 use Oblak\Transliterator;
 use voku\helper\HtmlDomParser;
@@ -27,10 +27,10 @@ class Engine {
      * Class constructor
      */
     public function __construct() {
-		$this->transliterator = Transliterator::instance();
+        $this->transliterator = Transliterator::instance();
 
         add_action( 'init', array( $this, 'load_hooks' ), 0 );
-	}
+    }
 
     /**
      * Loads the needed hooks depending on where we are on the website
@@ -91,10 +91,10 @@ class Engine {
         add_action( 'rss2_head', array( $this, 'buffer_start' ), $filter_priority );
         add_action( 'rss2_footer', array( $this, 'buffer_end' ), $filter_priority );
 
-        add_filter( 'gettext', array( $this, 'convert_script' ), $filter_priority );
-        add_filter( 'ngettext', array( $this, 'convert_script' ), $filter_priority );
-        add_filter( 'gettext_with_context', array( $this, 'convert_script' ), $filter_priority );
-        add_filter( 'ngettext_with_context', array( $this, 'convert_script' ), $filter_priority );
+        add_filter( 'gettext', array( $this, 'convert_to_latin' ), $filter_priority );
+        add_filter( 'ngettext', array( $this, 'convert_to_latin' ), $filter_priority );
+        add_filter( 'gettext_with_context', array( $this, 'convert_to_latin' ), $filter_priority );
+        add_filter( 'ngettext_with_context', array( $this, 'convert_to_latin' ), $filter_priority );
 
         if ( 1 === ( 2 - 1 ) ) { // TOODO: Implement option check.
             add_filter( 'the_content', array( $this, 'change_image_urls' ), $filter_priority, 1 );
@@ -108,6 +108,7 @@ class Engine {
      * Basically, this function will hook onto the admin_init action before Ajax actions are peformed.
      * We start the output buffer here, and define a callback function.
      * Theoretically - it should get the contents and transliterate them if needed.
+     * In practices - it does exactly that 😊
      *
      * @since 2.4
      * @uses  Deep Magic
@@ -120,19 +121,31 @@ class Engine {
     /**
      * Transliterates ajax response.
      *
-     * Function checks if we're returning valid json. If so, we need to juggle it.
-     *
      * @param  string $contents Contents of the Deep Magic Output Buffer.
      * @return string          Transliterated string
      *
      * @since 2.4
-     * @uses  Heavy Wizardry
+     * @since 3.0.0 Transliterates JSON responses as well
+     * @uses  Heavy Wizardry and Voodoo Programming
      * @link  http://www.catb.org/jargon/html/H/heavy-wizardry.html
+     * @link  http://www.catb.org/jargon/html/V/voodoo-programming.html
      */
     public function ajax_buffer_end( $contents ) {
         return json_decode( $contents, true ) !== null && is_array( json_decode( $contents, true ) )
-            ? wp_json_encode( $this->convert_script( json_decode( $contents ) ) )
-            : $this->convert_script( $contents );
+            ? wp_json_encode( stl_array_map_recursive( array( $this, 'maybe_transliterate' ), json_decode( $contents, true ) ) )
+            : $this->convert_to_latin( $contents );
+    }
+
+    /**
+     * Transliterates the given value if it's a string
+     *
+     * @param  mixed $value Value to transliterate.
+     * @return mixed        Transliterated value
+     */
+    public function maybe_transliterate( $value ) {
+        return is_string( $value )
+            ? $this->convert_to_latin( $value )
+            : $value;
     }
 
     /**
@@ -158,19 +171,32 @@ class Engine {
 
         // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
         echo STL()->shortcodes->has_shortcodes()
-            ? strtr( $this->convert_script( $contents ), STL()->shortcodes->get_shortcodes() )
-            : $this->convert_script( $contents );
+            ? strtr( $this->convert_to_latin( $contents ), STL()->shortcodes->get_shortcodes() )
+            : $this->convert_to_latin( $contents );
         // phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
     }
 
     /**
-     * Transliterates the script for the given string
+     * Transliterates to latin for the given string
+     *
+     * @param  string $contents String to convert.
+     * @param  bool   $cut_lat  Whether to cut the latin script.
+     * @return string           Transliterated string
+     */
+    public function convert_to_latin( $contents, $cut_lat = false ) {
+        return ! $cut_lat
+            ? $this->transliterator->cirToLat( $contents )
+            : $this->transliterator->cirToCutLat( $contents );
+    }
+
+    /**
+     * Transliterates to cyrillic for the given string
      *
      * @param  string $contents String to convert.
      * @return string           Transliterated string
      */
-    public function convert_script( $contents ) {
-        return $this->transliterator->cirToLat( $contents );
+    public function convert_to_cyrillic( $contents ) {
+        return $this->transliterator->latToCir( $contents );
     }
 
     /**

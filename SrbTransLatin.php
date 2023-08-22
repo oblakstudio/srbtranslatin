@@ -21,6 +21,8 @@ defined( 'STL_PLUGIN_BASENAME' ) || define( 'STL_PLUGIN_BASENAME', plugin_basena
 defined( 'STL_PLUGIN_PATH' ) || define( 'STL_PLUGIN_PATH', plugin_dir_path( STL_PLUGIN_FILE ) );
 
 require_once __DIR__ . '/lib/Utils/core.php';
+require_once __DIR__ . '/lib/Utils/compat.php';
+require_once __DIR__ . '/lib/Utils/compat-sgi.php';
 require_once __DIR__ . '/vendor/autoload.php';
 
 STL();

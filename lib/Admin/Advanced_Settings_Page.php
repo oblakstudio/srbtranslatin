@@ -3,7 +3,6 @@
  * Advanced_Settings_Page class file.
  *
  * @package SrbTransLatin
- * @since 3.0.0
  */
 
 namespace Oblak\STL\Admin;
@@ -12,6 +11,8 @@ use Oblak\WP\Plugin_Settings_Page;
 
 /**
  * Advanced plugin settings
+ *
+ * @since 3.0.0
  */
 class Advanced_Settings_Page extends Plugin_Settings_Page {
     /**

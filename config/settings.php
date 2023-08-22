@@ -34,7 +34,7 @@ return array(
         'prio'       => 99,
     ),
     'settings' => array(
-        'general'  => array(
+        'general'        => array(
             array(
                 'title' => _x( 'General settings', 'section name', 'srbtranslatin' ),
                 'type'  => 'title',
@@ -76,7 +76,7 @@ return array(
                 'id'   => 'srbtranslatin_menu_settings',
             ),
         ),
-        'menu'     => array(
+        'menu'           => array(
             array(
                 'title' => _x( 'Navigation menu settings', 'section name', 'srbtranslatin' ),
                 'type'  => 'title',
@@ -142,7 +142,7 @@ return array(
                 'id'   => 'srbtranslatin_media_settings',
             ),
         ),
-        'media'    => array(
+        'media'          => array(
             array(
                 'title' => _x( 'File and Media settings', 'section name', 'srbtranslatin' ),
                 'type'  => 'title',
@@ -192,7 +192,18 @@ return array(
                 'id'   => 'srbtranslatin_media_settings',
             ),
         ),
-        'advanced' => array(
+        'wpml'           => array(
+            array(
+                'id'      => 'extend_ls',
+                'title'   => __( 'Enable', 'srbtranslatin' ),
+                'type'    => 'checkbox',
+                'default' => 'yes',
+                'desc'    => __( 'Extend WPML Language Switcher', 'srbtranslatin' ),
+            ),
+        ),
+        'polylang'       => array(),
+        'translatepress' => array(),
+        'advanced'       => array(
             array(
                 'title' => _x( 'Advanced settings', 'section name', 'srbtranslatin' ),
                 'type'  => 'title',

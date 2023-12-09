@@ -36,7 +36,7 @@ class Admin_Core {
         $pages[] = new General_Settings_Page();
         $pages[] = new Media_Settings_Page();
         $pages[] = new Menu_Settings_Page();
-        $pages[] = new Multilanguage_Settings_Page();
+        $pages[] = new Multi_Language_Settings_Page();
         $pages[] = new Advanced_Settings_Page();
 
         return $pages;

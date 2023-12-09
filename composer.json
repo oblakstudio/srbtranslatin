@@ -19,6 +19,9 @@
     },
     "scripts": {},
     "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true,
+        "classmap-authoritative": true,
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
         }

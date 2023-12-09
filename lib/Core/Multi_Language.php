@@ -1,6 +1,6 @@
 <?php
 /**
- * Multilanguage class file.
+ * Multi_Language class file.
  *
  * @package SrbTransLatin
  */
@@ -8,13 +8,13 @@
 namespace Oblak\STL\Core;
 
 /**
- * Multilanguage class
+ * Multi_Language class
  *
- * Compatibility with various multilanguage plugins
+ * Compatibility with various Multi_Language plugins
  *
  * @since 3.0.0
  */
-class MultiLanguage {
+class Multi_Language {
 
     /**
      * Class constructor
@@ -23,7 +23,7 @@ class MultiLanguage {
     }
 
     /**
-     * Determines if a multilanguage plugin is active
+     * Determines if a Multi_Language plugin is active
      *
      * @return bool
      */
@@ -34,7 +34,7 @@ class MultiLanguage {
     }
 
     /**
-     * Determines which multilanguage plugin is active
+     * Determines which Multi_Language plugin is active
      *
      * @return string
      */

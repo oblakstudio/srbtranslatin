@@ -47,7 +47,7 @@ class SrbTransLatin {
     /**
      * Multi-language plugin
      *
-     * @var Core\MultiLanguage
+     * @var Core\Multi_Language
      */
     public $ml;
 
@@ -109,7 +109,7 @@ class SrbTransLatin {
     private function load_classes() {
         $this->manager    = new Core\Script_Manager();
         $this->shortcodes = new Shortcode\Shortcode_Manager();
-        $this->ml         = new Core\MultiLanguage();
+        $this->ml         = new Core\Multi_Language();
 
         if ( $this->is_request( 'admin' ) ) {
             new Admin_Core();

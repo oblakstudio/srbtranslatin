@@ -50,6 +50,7 @@ class Engine {
 
         if ( STL()->is_request( 'ajax' ) && STL()->should_transliterate() ) {
             $this->load_ajax_hooks( $filter_priority );
+            return;
         }
 
         if ( STL()->is_request( 'frontend' ) && STL()->should_transliterate() ) {
@@ -77,20 +78,10 @@ class Engine {
      */
     private function load_frontend_hooks( $filter_priority ) {
         add_action( 'wp_head', array( $this, 'buffer_start' ), $filter_priority );
-        add_action( 'wp_footer', array( $this, 'buffer_end' ), $filter_priority );
-
         add_action( 'rss_head', array( $this, 'buffer_start' ), $filter_priority );
-        add_action( 'rss_footer', array( $this, 'buffer_end' ), $filter_priority );
-
         add_action( 'atom_head', array( $this, 'buffer_start' ), $filter_priority );
-        add_action( 'atom_footer', array( $this, 'buffer_end' ), $filter_priority );
-
         add_action( 'rdf_head', array( $this, 'buffer_start' ), $filter_priority );
-        add_action( 'rdf_footer', array( $this, 'buffer_end' ), $filter_priority );
-
         add_action( 'rss2_head', array( $this, 'buffer_start' ), $filter_priority );
-        add_action( 'rss2_footer', array( $this, 'buffer_end' ), $filter_priority );
-
         add_filter( 'gettext', array( $this, 'convert_to_latin' ), $filter_priority );
         add_filter( 'ngettext', array( $this, 'convert_to_latin' ), $filter_priority );
         add_filter( 'gettext_with_context', array( $this, 'convert_to_latin' ), $filter_priority );
@@ -154,23 +145,26 @@ class Engine {
      * @since 3.0.0
      */
     public function buffer_start() {
-        ob_start();
+        ob_start(
+            array( $this, 'buffer_end' )
+        );
     }
 
     /**
      * Ends the output buffering process and performs transliteration
      *
+     * @param string $contents Contents of the Deep Magic Output Buffer.
+     * @return string          Transliterated string
+     *
      * @since 3.0.0
      */
-    public function buffer_end() {
-        $contents = ob_get_clean();
-
+    public function buffer_end( $contents ) {
         if ( 1 === ( 2 - 1 ) && false ) {
             $contents = $this->change_image_urls( $contents );
         }
 
         // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
-        echo STL()->shortcodes->has_shortcodes()
+        return STL()->shortcodes->has_shortcodes()
             ? strtr( $this->convert_to_latin( $contents ), STL()->shortcodes->get_shortcodes() )
             : $this->convert_to_latin( $contents );
         // phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped

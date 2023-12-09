@@ -1,3 +1,10 @@
+# [3.1.0](https://github.com/oblakstudio/srbtranslatin/compare/v3.0.0...v3.1.0) (2023-12-09)
+
+
+### Features
+
+* Elementor 3.18 compat ([d51cff7](https://github.com/oblakstudio/srbtranslatin/commit/d51cff7db94d4ac679b70e7cafa0cc6329b0ba3e))
+
 # [3.0.0](https://github.com/oblakstudio/srbtranslatin/compare/v2.4.0...v3.0.0) (2023-08-22)
 
 

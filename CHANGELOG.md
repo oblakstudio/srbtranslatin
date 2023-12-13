@@ -1,3 +1,10 @@
+# [3.2.0](https://github.com/oblakstudio/srbtranslatin/compare/v3.1.0...v3.2.0) (2023-12-13)
+
+
+### Features
+
+* Added basic MK support ([e292c64](https://github.com/oblakstudio/srbtranslatin/commit/e292c642feb262bd572e23cd3efeeee51922c4f4))
+
 # [3.1.0](https://github.com/oblakstudio/srbtranslatin/compare/v3.0.0...v3.1.0) (2023-12-09)
 
 

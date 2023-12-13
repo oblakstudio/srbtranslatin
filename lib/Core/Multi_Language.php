@@ -124,6 +124,13 @@ class Multi_Language {
      */
     public function get_wpml_locale() {
         // Documented in WPML.
-        return apply_filters( 'wpml_current_language', null ) === 'sr' ? 'sr_RS' : 'other';
+        switch ( apply_filters( 'wpml_current_language', null ) ) {
+            case 'sr':
+                return 'sr_RS';
+            case 'mk':
+                return 'mk_MK';
+            default:
+                return 'other';
+        }
     }
 }

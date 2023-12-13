@@ -104,7 +104,7 @@ class Script_Manager {
      * @return bool True if the site should be transliterated, false otherwise
      */
     public function should_transliterate() {
-        return 'sr_RS' === $this->locale && 'lat' === $this->script;
+        return in_array( $this->locale, array( 'mk_MK', 'sr_RS', 'bs_BA' ), true ) && 'lat' === $this->script;
     }
 
     /**

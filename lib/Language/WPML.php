@@ -12,6 +12,13 @@ namespace Oblak\STL\Language;
  */
 class WPML {
     /**
+     * Primary language
+     *
+     * @var string
+     */
+    protected $primary_lang = null;
+
+    /**
      * Class constructor
      */
     public function __construct() {
@@ -29,7 +36,13 @@ class WPML {
             return $languages;
         }
 
-        $serbian_ls = $languages['sr'];
+        $this->primary_lang = $this->detect_primary_lang( $languages );
+
+        if ( 'sr' !== $this->primary_lang ) {
+            return $languages;
+        }
+
+        $serbian_ls = $languages['sr'] ?? $languages['mk'];
         $script     = STL()->manager->get_script();
 
         $languages['sr'] = array_merge(
@@ -53,5 +66,25 @@ class WPML {
         );
 
         return $languages;
+    }
+
+    /**
+     * Detects primary language from WPML languages
+     *
+     * @param  array<string, array> $languages WPML languages.
+     * @return string                          Primary language
+     */
+    protected function detect_primary_lang( $languages ) {
+        $languages = array_keys( $languages );
+
+        if ( in_array( 'sr', $languages, true ) ) {
+            return 'sr';
+        }
+
+        if ( in_array( 'mk', $languages, true ) ) {
+            return 'mk';
+        }
+
+        return 'en';
     }
 }

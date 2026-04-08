@@ -1,0 +1,10 @@
+#ddev-generated
+override_config: true
+database:
+  type: mysql
+  version: "8.0"
+type: "wordpress"
+
+timezone: Europe/Belgrade
+disable_settings_management: true
+default_container_timeout: 300

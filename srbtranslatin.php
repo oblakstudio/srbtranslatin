@@ -15,14 +15,28 @@
 
 defined( 'ABSPATH' ) || exit;
 
-defined( 'STL_PLUGIN_FILE' ) || define( 'STL_PLUGIN_FILE', __FILE__ );
-defined( 'STL_PLUGIN_VERSION' ) || define( 'STL_PLUGIN_VERSION', '0.0.0' );
-defined( 'STL_PLUGIN_BASENAME' ) || define( 'STL_PLUGIN_BASENAME', plugin_basename( STL_PLUGIN_FILE ) );
-defined( 'STL_PLUGIN_PATH' ) || define( 'STL_PLUGIN_PATH', plugin_dir_path( STL_PLUGIN_FILE ) );
+// phpcs:disable WordPress.WhiteSpace.OperatorSpacing.SpacingBefore
+defined( 'STL_FILE' ) || define( 'STL_FILE', __FILE__ );
+defined( 'STL_ABS' )  || define( 'STL_ABS', dirname( STL_FILE ) . '/' );
+defined( 'STL_BASE' ) || define( 'STL_BASE', plugin_basename( STL_FILE ) );
+defined( 'STL_PATH' ) || define( 'STL_PATH', plugin_dir_path( STL_FILE ) );
+defined( 'STL_VER' )  || define( 'STL_VER', '0.0.2' );
+// phpcs:enable WordPress.WhiteSpace.OperatorSpacing.SpacingBefore
 
 require_once __DIR__ . '/lib/Utils/core.php';
-require_once __DIR__ . '/lib/Utils/compat.php';
-require_once __DIR__ . '/lib/Utils/compat-sgi.php';
-require_once __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload_packages.php';
 
-STL();
+xwp_load_app(
+    app: array(
+        'attributes' => true,
+        'autowiring' => true,
+        'cache'      => false,
+        'id'         => 'stl',
+        'module'     => STL\App::class,
+    ),
+    priority: 10,
+);
+
+// require_once __DIR__ . '/lib/Utils/compat.php';
+// require_once __DIR__ . '/lib/Utils/compat-sgi.php';
+// require_once __DIR__ . '/vendor/autoload.php';

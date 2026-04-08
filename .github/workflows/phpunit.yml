@@ -1,0 +1,56 @@
+name: PHPUnit
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+
+    services:
+      mariadb:
+        image: mariadb:10.11
+        env:
+          MARIADB_DATABASE: wordpress_test
+          MARIADB_USER: wordpress
+          MARIADB_PASSWORD: wordpress
+          MARIADB_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mariadb-admin ping -h 127.0.0.1 -uroot -proot"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          coverage: none
+          tools: composer:v2
+          extensions: mysqli
+
+      - name: Install Composer dependencies
+        uses: php-actions/composer@v6
+        env:
+          COMPOSER_AUTH: '{"http-basic": {"repo.packagist.com": {"username": "seebeen", "password": "${{ secrets.PACKAGIST_TOKEN }}"}}, "github-oauth": {"github.com": "${{ secrets.COMPOSER_PAT }}"}}'
+        with:
+          php_version: '8.1'
+          version: 2
+          args: --prefer-dist
+
+      - name: Prepare WordPress test environment
+        env:
+          WP_TESTS_SKIP_DOCKER: 1
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+        run: bash bin/install-wp-tests.sh
+
+      - name: Run PHPUnit
+        run: vendor/bin/phpunit

@@ -22,8 +22,8 @@ class Admin_Core {
         new Plugin_Settings_Manager( 'srbtranslatin', stl_get_settings_array() );
 
         add_action( 'srbtranslatin_get_settings_pages', array( $this, 'add_settings_pages' ) );
-        add_action( 'sanitize_file_name', array( $this, 'convert_filename_to_latin' ), 999, 1 );
-        add_action( 'sanitize_title', array( $this, 'convert_permalink_to_latin' ), 99, 1 );
+        // add_action( 'sanitize_file_name', array( $this, 'convert_filename_to_latin' ), 999, 1 );
+        // add_action( 'sanitize_title', array( $this, 'convert_permalink_to_latin' ), 99, 1 );
     }
 
     /**

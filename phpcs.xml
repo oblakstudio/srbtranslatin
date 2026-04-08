@@ -1,22 +1,33 @@
 <?xml version="1.0"?>
 <ruleset name="WordPress Theme">
-	<config name="minimum_supported_wp_version" value="6.0"/>
-  <config name="testVersion" value="7.4-"/>
+  <config name="minimum_wp_version" value="6.5" />
+  <config name="testVersion" value="8.0-" />
 
-  <rule ref="Oblak"/>
-  <rule ref="Oblak-Advanced"/>
+  <rule ref="Oblak" />
+  <rule ref="Oblak-Advanced" />
+
 
   <rule ref="WordPress.WP.I18n">
-		<properties>
-			<property name="text_domain" type="array" extend="true">
-				<element value="srbtranslatin"/>
-			</property>
-		</properties>
-	</rule>
+    <properties>
+      <property name="text_domain" type="array" extend="true">
+        <element value="srbtranslatin" />
+        <element value="default" />
+      </property>
+    </properties>
+  </rule>
 
-  <file>config/</file>
-  <file>lib/</file>
-  <file>templates/</file>
-  <file>settings-manager/</file>
-  <file>SrbTransLatin.php</file>
+  <rule ref="WordPress.Security.EscapeOutput">
+    <properties>
+      <property name="customAutoEscapedFunctions" type="array" extend="true">
+        <element value="wp_date" />
+      </property>
+    </properties>
+  </rule>
+
+  <rule ref="SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder">
+    <severity>0</severity>
+  </rule>
+
+  <file>src/</file>
+  <file>srbtranslatin.php</file>
 </ruleset>

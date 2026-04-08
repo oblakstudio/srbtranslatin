@@ -9,6 +9,8 @@ namespace Oblak\STL;
 
 use Oblak\STL\Admin\Admin_Core;
 use Oblak\WP\Settings_Helper_Trait;
+use STL\Common\Settings\Plugin_Settings;
+use STL\Common\Settings\WordPress_Option_Settings;
 
 /**
  * Main plugin class wrapping all of the functionalities
@@ -52,6 +54,11 @@ class SrbTransLatin {
     public $ml;
 
     /**
+     * Settings access service.
+     */
+    private Plugin_Settings $settings_service;
+
+    /**
      * Get plugin instance
      *
      * @return SrbTransLatin
@@ -73,13 +80,13 @@ class SrbTransLatin {
     public function is_request( $type ) {
         switch ( $type ) {
             case 'admin':
-                return is_admin();
+                return \is_admin();
             case 'ajax':
-                return defined( 'DOING_AJAX' );
+                return \defined( 'DOING_AJAX' );
             case 'cron':
-                return defined( 'DOING_CRON' );
+                return \defined( 'DOING_CRON' );
             case 'frontend':
-                return ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' );
+                return ( ! \is_admin() || \defined( 'DOING_AJAX' ) ) && ! \defined( 'DOING_CRON' );
         }
     }
 
@@ -96,12 +103,21 @@ class SrbTransLatin {
      * Class constructor
      */
     private function __construct() {
-        $this->settings = $this->load_settings( 'srbtranslatin', stl_get_settings_array()['settings'], null );
+        $this->settings_service = new WordPress_Option_Settings();
         $this->load_classes();
         $this->init_hooks();
     }
 
-
+    /**
+     * Get a settings value via the builder-backed settings contract.
+     *
+     * @param string $group Group name.
+     * @param string $key   Field key.
+     * @param mixed  $fallback Fallback value.
+     */
+    public function get_settings( $group, $key, $fallback = null ) {
+        return $this->settings_service->get( (string) $group, (string) $key, $fallback );
+    }
 
     /**
      * Loads the plugin classes
@@ -111,9 +127,9 @@ class SrbTransLatin {
         $this->shortcodes = new Shortcode\Shortcode_Manager();
         $this->ml         = new Core\Multi_Language();
 
-        if ( $this->is_request( 'admin' ) ) {
-            new Admin_Core();
-        }
+        // if ( $this->is_request( 'admin' ) ) {
+            // new Admin_Core();
+        // }
 
         new Frontend\Search_Query_Transliterator();
     }
@@ -122,17 +138,17 @@ class SrbTransLatin {
      * Plugin hooks
      */
     public function init_hooks() {
-        add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
-        add_action( 'plugins_loaded', array( $this, 'on_plugins_loaded' ) );
-        add_action( 'plugins_loaded', array( $this, 'ml_plugin_compat' ), -1 );
-        add_action( 'widgets_init', array( $this, 'register_widget' ) );
+        \add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
+        \add_action( 'plugins_loaded', array( $this, 'on_plugins_loaded' ) );
+        \add_action( 'plugins_loaded', array( $this, 'ml_plugin_compat' ), -1 );
+        \add_action( 'widgets_init', array( $this, 'register_widget' ) );
     }
 
     /**
      * Loads the plugin textdomain
      */
     public function load_textdomain() {
-        load_plugin_textdomain( 'srbtranslatin', false, STL_PLUGIN_PATH . 'languages' );
+        \load_plugin_textdomain( 'srbtranslatin', false, STL_PATH . 'languages' );
     }
 
     /**
@@ -151,7 +167,7 @@ class SrbTransLatin {
          *
          * @since 3.0.0
          */
-        do_action( 'srbtranslatin_loaded' );
+        \do_action( 'srbtranslatin_loaded' );
     }
 
     /**
@@ -172,6 +188,6 @@ class SrbTransLatin {
      * Registers the widget
      */
     public function register_widget() {
-        register_widget( Widget\Selector_Widget::class );
+        \register_widget( Widget\Selector_Widget::class );
     }
 }

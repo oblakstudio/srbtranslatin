@@ -23,7 +23,7 @@ function STL() { // phpcs:ignore
  * @return array[][]
  */
 function stl_get_settings_array() {
-    return include STL_PLUGIN_PATH . 'config/settings.php';
+    return include STL_PATH . 'config/settings.php';
 }
 
 /**
@@ -138,7 +138,7 @@ function stl_script_selector( $args, $eecho = true ) {
     $template = locate_template( '/templates/stl/selector-' . $args['selector_type'] . '.php' );
 
     if ( ! $template ) {
-        $template = STL_PLUGIN_PATH . 'templates/selector-' . $args['selector_type'] . '.php';
+        $template = STL_PATH . 'templates/selector-' . $args['selector_type'] . '.php';
     }
 
     if ( ! $eecho ) {

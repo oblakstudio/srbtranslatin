@@ -1,0 +1,13 @@
+parameters:
+  level: 6
+  excludePaths:
+    - lib
+  scanFiles:
+    - vendor/woocommerce/action-scheduler/functions.php
+  scanDirectories:
+    - vendor/wp-cli/wp-cli/php
+  bootstrapFiles:
+    - stubs/constants.php
+  paths:
+    - src
+    - srbtranslatin.php

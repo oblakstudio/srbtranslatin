@@ -1,3 +1,5 @@
+.cache
+.worktrees
 node_modules
 vendor
 lib/Language/TranslatePress.php

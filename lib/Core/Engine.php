@@ -48,6 +48,11 @@ class Engine {
          */
         $filter_priority = apply_filters( 'srbtranslatin_transliteration_priority', $default_priority );
 
+		if ( ! empty( $_GET['wc-ajax'] ) && STL()->should_transliterate() ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            $this->load_wc_ajax_hooks();
+			return;
+        }
+
         if ( STL()->is_request( 'ajax' ) && STL()->should_transliterate() ) {
             $this->load_ajax_hooks( $filter_priority );
             return;
@@ -55,8 +60,9 @@ class Engine {
 
         if ( STL()->is_request( 'frontend' ) && STL()->should_transliterate() ) {
             $this->load_frontend_hooks( $filter_priority );
-        }
+		}
     }
+
 
     /**
      * Load the hooks for ajax
@@ -90,6 +96,13 @@ class Engine {
         if ( 1 === ( 2 - 1 ) ) { // TOODO: Implement option check.
             add_filter( 'the_content', array( $this, 'change_image_urls' ), $filter_priority, 1 );
         }
+    }
+
+    /**
+     * Load the hooks for wc-ajax
+     */
+    private function load_wc_ajax_hooks() {
+        add_action( 'template_redirect', array( $this, 'ajax_buffer_start' ), -1 );
     }
 
 
@@ -135,7 +148,7 @@ class Engine {
      */
     public function maybe_transliterate( $value ) {
         return is_string( $value )
-            ? $this->convert_to_latin( $value )
+            ? $this->convert_to_latin( html_entity_decode( $value ) )
             : $value;
     }
 

@@ -19,6 +19,7 @@ use XWP\DI\Decorators\Module;
     hook: 'plugins_loaded',
     priority: 50,
     imports: array(
+        Core\Core_Module::class,
         Admin\Admin_Module::class,
         Install\Install_Module::class,
         Translit\Translit_Module::class,

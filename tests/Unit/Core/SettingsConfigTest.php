@@ -16,17 +16,18 @@ final class SettingsConfigTest extends TestCase {
         parent::tearDown();
     }
 
-    public function test_disables_permalink_fix_for_serbian_locales(): void {
+    public function test_enables_permalink_fix_for_serbian_locales(): void {
         $GLOBALS['stl_test_locale'] = 'sr_RS';
 
         $schema = require dirname(__DIR__, 3) . '/config/settings.php';
         $field = $this->findField($schema['fields'], 'fix_permalinks');
 
-        self::assertTrue($field['extras']['html_attributes']['disabled']);
-        self::assertStringContainsString('sr_RS', (string) $field['extras']['description']);
+        self::assertFalse($field['extras']['html_attributes']['disabled']);
+        self::assertSame(false, $field['extras']['default']);
+        self::assertStringContainsString('permalinks', (string) $field['extras']['description']);
     }
 
-    public function test_disables_media_fields_while_runtime_support_is_deferred(): void {
+    public function test_enables_filename_transliteration_while_media_variant_support_is_deferred(): void {
         $schema = require dirname(__DIR__, 3) . '/config/settings.php';
 
         $warning = $this->findField($schema['fields'], 'media_warning');
@@ -38,7 +39,8 @@ final class SettingsConfigTest extends TestCase {
         self::assertNotSame('', $warning['extras']['description']);
         self::assertStringNotContainsString('legacy settings', (string) $warning['extras']['description']);
         self::assertStringNotContainsString('not active in the current src runtime yet', (string) $warning['extras']['description']);
-        self::assertTrue($transliterateUploads['extras']['html_attributes']['disabled']);
+        self::assertFalse($transliterateUploads['extras']['html_attributes']['disabled']);
+        self::assertStringContainsString('Script-specific media variants', (string) $warning['extras']['description']);
         self::assertTrue($separateUploads['extras']['html_attributes']['disabled']);
         self::assertTrue($separator['extras']['html_attributes']['disabled']);
         self::assertTrue($method['extras']['html_attributes']['disabled']);

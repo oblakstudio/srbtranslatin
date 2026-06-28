@@ -21,8 +21,7 @@
     "symfony/css-selector": "^5.4",
     "voku/simple_html_dom": "^4.8",
     "wptechnix/wp-settings-builder": "^1.0",
-    "x-wp/di": "^1.7",
-    "x-wp/plugin-settings-api": "^1.0"
+    "x-wp/di": "^1.7"
   },
   "require-dev": {
     "oblak/wordpress-coding-standard": "^1.2",

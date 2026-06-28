@@ -99,6 +99,21 @@ function stl_array_map_recursive( $callback, $arr ) {
  * @return string|void   HTML for the script selector.
  */
 function stl_script_selector( $args, $eecho = true ) {
+    if ( function_exists( 'xwp_has' ) && xwp_has( 'stl' ) ) {
+        $container = xwp_app( 'stl' );
+
+        if ( method_exists( $container, 'has' ) && $container->has( \STL\Translit\Services\Menu_Integration_Service::class ) ) {
+            $markup = $container->get( \STL\Translit\Services\Menu_Integration_Service::class )->render_compat_selector( (array) $args );
+
+            if ( $eecho ) {
+                echo $markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                return;
+            }
+
+            return $markup;
+        }
+    }
+
 	$args = wp_parse_args(
         $args,
         array(

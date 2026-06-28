@@ -1,4 +1,4 @@
-<?php
+<?php //phpcs:disable SlevomatCodingStandard.Functions.RequireMultiLineCall.RequiredMultiLineCall
 /**
  * Settings page schema.
  *
@@ -9,21 +9,24 @@ declare(strict_types=1);
 
 defined( 'ABSPATH' ) || exit;
 
-$locale = \get_locale();
-$disable_permalinks = \in_array( $locale, array( 'sr_RS', 'bs_BA' ), true );
-$navigation_menus = \get_registered_nav_menus();
+$site_locale          = \array_key_exists( 'stl_test_locale', $GLOBALS ) ? (string) $GLOBALS['stl_test_locale'] : \get_locale();
+$locale_handles_permalinks = \in_array( $site_locale, array( 'sr_RS', 'bs_BA' ), true );
+$media_runtime_available   = false;
+$permalink_runtime_available = false;
+$disable_permalinks   = $locale_handles_permalinks || ! $permalink_runtime_available;
+$navigation_menus     = \array_key_exists( 'stl_test_nav_menus', $GLOBALS ) ? (array) $GLOBALS['stl_test_nav_menus'] : \get_registered_nav_menus();
 $has_navigation_menus = 0 < \count( $navigation_menus );
 
 return array(
-    'page' => array(
+    'page'     => array(
         'option_name' => \STL\Common\Settings\Settings_Schema::OPTION_NAME,
         'slug'        => \STL\Common\Settings\Settings_Schema::PAGE_SLUG,
         'page_title'  => \__( 'Latinisation', 'srbtranslatin' ),
-        'menu_title'  => \__( 'Settings', 'default' ),
+        'menu_title'  => \__( 'Latinisation', 'srbtranslatin' ),
         'parent_slug' => 'options-general.php',
         'capability'  => 'manage_options',
     ),
-    'tabs' => array(
+    'tabs'     => array(
         array(
             'id'    => 'general',
             'title' => \__( 'General', 'srbtranslatin' ),
@@ -71,7 +74,7 @@ return array(
             'tab'         => 'advanced',
         ),
     ),
-    'fields' => array(
+    'fields'   => array(
         array(
             'id'      => 'enabled_scripts',
             'type'    => 'buttons_group',
@@ -79,25 +82,24 @@ return array(
             'section' => 'general',
             'extras'  => array(
                 'default'     => 'both',
-                'description' => \__( 'Cyrillic and Latin', 'srbtranslatin' ),
+                'description' => \__( 'Choose between Latin-only mode and Cyrillic / Latin mode.', 'srbtranslatin' ),
                 'options'     => array(
-                    'cir'  => 'Ћ ' . \__( 'Cyrillic', 'srbtranslatin' ),
                     'lat'  => 'Ć ' . \__( 'Latin', 'srbtranslatin' ),
-                    'both' => 'Ć Ћ ' . \__( 'Both', 'srbtranslatin' ),
+                    'both' => 'Ć Ћ ' . \__( 'Cyrillic / Latin', 'srbtranslatin' ),
                 ),
             ),
         ),
         array(
             'id'      => 'default_script',
-            'type'    => 'select',
+            'type'    => 'buttons_group',
             'title'   => \__( 'Default script', 'srbtranslatin' ),
             'section' => 'general',
             'extras'  => array(
                 'default'     => 'cir',
                 'description' => \__( 'Default script used for the website if user did not select a script', 'srbtranslatin' ),
                 'options'     => array(
-                    'cir' => \__( 'Cyrillic', 'srbtranslatin' ),
-                    'lat' => \__( 'Latin', 'srbtranslatin' ),
+                    'cir' => 'Ћ ' . \__( 'Cyrillic', 'srbtranslatin' ),
+                    'lat' => 'Ć ' . \__( 'Latin', 'srbtranslatin' ),
                 ),
                 'conditions'  => array(
                     'rules' => array(
@@ -118,6 +120,16 @@ return array(
             'extras'  => array(
                 'default'     => 'pismo',
                 'description' => \__( 'URL parameter used for script selector', 'srbtranslatin' ),
+            ),
+        ),
+        array(
+            'id'      => 'extend_ls',
+            'type'    => 'checkbox',
+            'title'   => \__( 'Extend WPML language switcher', 'srbtranslatin' ),
+            'section' => 'general',
+            'extras'  => array(
+                'default'     => false,
+                'description' => \__( 'Split Serbian into separate Cyrillic and Latin entries inside the WPML language switcher', 'srbtranslatin' ),
             ),
         ),
         array(
@@ -195,6 +207,20 @@ return array(
             ),
         ),
         array(
+            'id'      => 'media_warning',
+            'type'    => 'description',
+            'title'   => '',
+            'section' => 'media',
+            'extras'  => array(
+                'description'     => ! $media_runtime_available
+                    ? '<strong>' . \__( 'Media filename transliteration options are legacy settings and are not active in the current src runtime yet.', 'srbtranslatin' ) . '</strong>'
+                    : '',
+                'html_attributes' => array(
+                    'class' => 'notice inline notice-warning',
+                ),
+            ),
+        ),
+        array(
             'id'      => 'transliterate_uploads',
             'type'    => 'checkbox',
             'title'   => \__( 'Transliterate uploads', 'srbtranslatin' ),
@@ -202,6 +228,9 @@ return array(
             'extras'  => array(
                 'default'     => true,
                 'description' => \__( 'Transliterate filenames on upload', 'srbtranslatin' ),
+                'html_attributes' => array(
+                    'disabled' => ! $media_runtime_available,
+                ),
             ),
         ),
         array(
@@ -212,6 +241,9 @@ return array(
             'extras'  => array(
                 'default'     => true,
                 'description' => \__( 'Check this box if you want to have separate filenames for each script', 'srbtranslatin' ),
+                'html_attributes' => array(
+                    'disabled' => ! $media_runtime_available,
+                ),
             ),
         ),
         array(
@@ -224,6 +256,7 @@ return array(
                 'description'     => \__( 'Separator used for script specific filenames', 'srbtranslatin' ),
                 'html_attributes' => array(
                     'class' => 'small-text',
+                    'disabled' => ! $media_runtime_available,
                 ),
             ),
         ),
@@ -239,6 +272,9 @@ return array(
                     'website' => \__( 'Entire website', 'srbtranslatin' ),
                     'content' => \__( 'Content only', 'srbtranslatin' ),
                 ),
+                'html_attributes' => array(
+                    'disabled' => ! $media_runtime_available,
+                ),
             ),
         ),
         array(
@@ -248,10 +284,15 @@ return array(
             'section' => 'advanced',
             'extras'  => array(
                 'default'         => false,
-                'description'     => $disable_permalinks
-                    ? \sprintf(
-                        \__( 'Fixes permalinks for cyrillic scripts. This option is currently disabled because your current locale is set to %s which will automatically change permalinks.', 'srbtranslatin' ),
-                        $locale,
+                'description'     => ! $permalink_runtime_available
+                    ? (
+                        $locale_handles_permalinks
+                            ? \sprintf(
+                                // Translators: %s is replaced with the current site locale, e.g. "sr_RS". Do not translate the locale itself.
+                                \__( 'Permalink transliteration is a legacy option and is not active in the current src runtime yet. It also remains disabled because your current locale is set to %s, which already changes permalinks automatically.', 'srbtranslatin' ),
+                                $site_locale,
+                            )
+                            : \__( 'Permalink transliteration is a legacy option and is not active in the current src runtime yet.', 'srbtranslatin' )
                     )
                     : \__( 'Fixes permalinks for cyrillic scripts', 'srbtranslatin' ),
                 'html_attributes' => array(

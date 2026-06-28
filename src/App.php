@@ -20,9 +20,11 @@ use XWP\DI\Decorators\Module;
     priority: 50,
     imports: array(
         Core\Core_Module::class,
-        Admin\Admin_Module::class,
+        // Admin\Admin_Module::class,
         Install\Install_Module::class,
+        ML\ML_Module::class,
         Translit\Translit_Module::class,
+        Support\Support_Module::class,
     ),
     handlers: array(),
 )]
@@ -56,5 +58,33 @@ class App {
          * @since 4.0.0
          */
         \do_action( 'srbtranslatin_loaded' );
+    }
+
+    #[Action( tag: 'init', priority: 0 )]
+    public function on_init(): void {
+        $this->load_textdomain();
+
+        /**
+         * Action triggered before SrbTransLatin initialization.
+         *
+         * @since 4.0.0
+         */
+        \do_action( 'before_srbtranslatin_init' );
+
+        /**
+         * Action triggered after SrbTransLatin initialization.
+         *
+         * @since 4.0.0
+         */
+        \do_action( 'srbtranslatin_init' );
+    }
+
+    /**
+     * Load the plugin textdomain.
+     *
+     * @return void
+     */
+    private function load_textdomain(): void {
+        \load_plugin_textdomain( 'srbtranslatin', false, \dirname( \STL_BASE ) . '/languages' );
     }
 }

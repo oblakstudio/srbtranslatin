@@ -31,6 +31,7 @@ xwp_load_app(
         'attributes' => true,
         'autowiring' => true,
         'cache'      => false,
+        'compile'    => false,
         'id'         => 'stl',
         'module'     => STL\App::class,
     ),

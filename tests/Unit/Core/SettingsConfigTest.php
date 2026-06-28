@@ -26,6 +26,22 @@ final class SettingsConfigTest extends TestCase {
         self::assertStringContainsString('sr_RS', (string) $field['extras']['description']);
     }
 
+    public function test_disables_media_fields_while_runtime_support_is_deferred(): void {
+        $schema = require dirname(__DIR__, 3) . '/config/settings.php';
+
+        $warning = $this->findField($schema['fields'], 'media_warning');
+        $transliterateUploads = $this->findField($schema['fields'], 'transliterate_uploads');
+        $separateUploads = $this->findField($schema['fields'], 'separate_uploads');
+        $separator = $this->findField($schema['fields'], 'filename_separator');
+        $method = $this->findField($schema['fields'], 'transliteration_method');
+
+        self::assertNotSame('', $warning['extras']['description']);
+        self::assertTrue($transliterateUploads['extras']['html_attributes']['disabled']);
+        self::assertTrue($separateUploads['extras']['html_attributes']['disabled']);
+        self::assertTrue($separator['extras']['html_attributes']['disabled']);
+        self::assertTrue($method['extras']['html_attributes']['disabled']);
+    }
+
     public function test_disables_menu_fields_when_no_registered_menus_exist(): void {
         $schema = require dirname(__DIR__, 3) . '/config/settings.php';
 
@@ -51,6 +67,31 @@ final class SettingsConfigTest extends TestCase {
             'primary' => 'Primary menu',
         ], $field['extras']['options']);
         self::assertFalse($field['extras']['html_attributes']['disabled']);
+    }
+
+    public function test_enabled_scripts_exposes_two_plugin_modes(): void {
+        $schema = require dirname(__DIR__, 3) . '/config/settings.php';
+        $field = $this->findField($schema['fields'], 'enabled_scripts');
+
+        self::assertSame('buttons_group', $field['type']);
+        self::assertSame('both', $field['extras']['default']);
+        self::assertSame([
+            'lat' => 'Ć Latin',
+            'both' => 'Ć Ћ Cyrillic / Latin',
+        ], $field['extras']['options']);
+    }
+
+    public function test_default_script_uses_button_group_and_only_shows_for_dual_mode(): void {
+        $schema = require dirname(__DIR__, 3) . '/config/settings.php';
+        $field = $this->findField($schema['fields'], 'default_script');
+
+        self::assertSame('buttons_group', $field['type']);
+        self::assertSame([
+            'cir' => 'Ћ Cyrillic',
+            'lat' => 'Ć Latin',
+        ], $field['extras']['options']);
+        self::assertSame('enabled_scripts', $field['extras']['conditions']['rules'][0]['field']);
+        self::assertSame('both', $field['extras']['conditions']['rules'][0]['value']);
     }
 
     /**

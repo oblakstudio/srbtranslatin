@@ -1,8 +1,20 @@
 {
     "scripts": {
-        "semantic-release": "semantic-release"
+        "build": "npm run build:production",
+        "build:production": "wp-scripts build assets/blocks/script-selector/src/index.js --output-path=assets/blocks/script-selector/build && cp assets/blocks/script-selector/src/block.json assets/blocks/script-selector/build/block.json",
+        "semantic-release": "semantic-release",
+        "start": "npm run start:block",
+        "start:block": "wp-scripts start assets/blocks/script-selector/src/index.js --output-path=assets/blocks/script-selector/build"
     },
     "devDependencies": {
+        "ajv": "^8.18.0",
+        "@wordpress/block-editor": "*",
+        "@wordpress/blocks": "*",
+        "@wordpress/components": "*",
+        "@wordpress/element": "*",
+        "@wordpress/i18n": "*",
+        "@wordpress/scripts": "*",
+        "@wordpress/server-side-render": "*",
         "@semantic-release/wordpress": "^1.5.3",
         "semantic-release": "^21.0.9",
         "semantic-release-wordpress-config": "^1.2.1"

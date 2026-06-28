@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "srbtranslatin/script-selector",
+  "version": "0.0.2",
+  "title": "Script Selector",
+  "category": "widgets",
+  "icon": "translation",
+  "description": "Shows Cyrillic/Latin script links in navigation.",
+  "textdomain": "srbtranslatin",
+  "parent": [
+    "core/navigation"
+  ],
+  "supports": {
+    "html": false,
+    "reusable": false
+  },
+  "attributes": {
+    "displayMode": {
+      "type": "string",
+      "default": "inline"
+    },
+    "cyrillicLabel": {
+      "type": "string"
+    },
+    "latinLabel": {
+      "type": "string"
+    }
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css"
+}

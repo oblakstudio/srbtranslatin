@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "186a2aacf7a3a7887735978c06b33fde",
+    "content-hash": "b9724143bee7b7fea39ca811f93e0c04",
     "packages": [
         {
             "name": "automattic/jetpack-autoloader",
@@ -1230,53 +1230,6 @@
                 }
             ],
             "time": "2025-06-08T10:17:19+00:00"
-        },
-        {
-            "name": "x-wp/plugin-settings-api",
-            "version": "1.0.0",
-            "dist": {
-                "type": "path",
-                "url": "/home/venom/projects/composer/xwp/plugin-settings-api",
-                "reference": "af135b30bfb91c62bd64178129367cf9e23acd86"
-            },
-            "require": {
-                "php": ">=8.0",
-                "x-wp/helper-classes": "^1.19",
-                "x-wp/helper-functions": "^1.19"
-            },
-            "require-dev": {
-                "oblak/wordpress-coding-standard": "^1",
-                "php-stubs/wordpress-stubs": "^6.5",
-                "phpstan/extension-installer": "^1.3",
-                "phpstan/phpstan": "^1.10",
-                "phpstan/phpstan-deprecation-rules": "^1.1",
-                "swissspidy/phpstan-no-private": "^0.2.0",
-                "symfony/var-dumper": "^6.4",
-                "szepeviktor/phpstan-wordpress": "^1.3",
-                "x-wp/di": "^1.7",
-                "x-wp/whoops": "^1.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "XWP\\Settings\\": "src/"
-                },
-                "classmap": [
-                    "src/Core/"
-                ],
-                "files": [
-                    "src/Functions/xwp-settings-api-fns.php",
-                    "src/Functions/xwp-settings-api-init.php"
-                ]
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "description": "WordPress plugin settings manager",
-            "transport-options": {
-                "symlink": true,
-                "relative": false
-            }
         }
     ],
     "packages-dev": [

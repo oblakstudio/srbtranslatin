@@ -37,6 +37,9 @@ final class Settings_Schema {
                 'filename_separator'    => '-',
                 'transliteration_method'=> 'website',
             ),
+            'wpml'     => array(
+                'extend_ls' => false,
+            ),
             'advanced' => array(
                 'fix_permalinks' => false,
                 'fix_search'     => true,

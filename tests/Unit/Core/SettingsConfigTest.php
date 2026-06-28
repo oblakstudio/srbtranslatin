@@ -27,20 +27,16 @@ final class SettingsConfigTest extends TestCase {
         self::assertStringContainsString('permalinks', (string) $field['extras']['description']);
     }
 
-    public function test_enables_filename_transliteration_while_media_variant_support_is_deferred(): void {
+    public function test_enables_filename_transliteration_without_media_variant_notice(): void {
         $schema = require dirname(__DIR__, 3) . '/config/settings.php';
 
-        $warning = $this->findField($schema['fields'], 'media_warning');
         $transliterateUploads = $this->findField($schema['fields'], 'transliterate_uploads');
         $separateUploads = $this->findField($schema['fields'], 'separate_uploads');
         $separator = $this->findField($schema['fields'], 'filename_separator');
         $method = $this->findField($schema['fields'], 'transliteration_method');
 
-        self::assertNotSame('', $warning['extras']['description']);
-        self::assertStringNotContainsString('legacy settings', (string) $warning['extras']['description']);
-        self::assertStringNotContainsString('not active in the current src runtime yet', (string) $warning['extras']['description']);
+        self::assertFalse($this->hasField($schema['fields'], 'media_warning'));
         self::assertFalse($transliterateUploads['extras']['html_attributes']['disabled']);
-        self::assertStringContainsString('Script-specific media variants', (string) $warning['extras']['description']);
         self::assertTrue($separateUploads['extras']['html_attributes']['disabled']);
         self::assertTrue($separator['extras']['html_attributes']['disabled']);
         self::assertTrue($method['extras']['html_attributes']['disabled']);
@@ -110,5 +106,18 @@ final class SettingsConfigTest extends TestCase {
         }
 
         self::fail(sprintf('Field "%s" was not found in schema.', $id));
+    }
+
+    /**
+     * @param array<int,array<string,mixed>> $fields
+     */
+    private function hasField(array $fields, string $id): bool {
+        foreach ($fields as $field) {
+            if (($field['id'] ?? null) === $id) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

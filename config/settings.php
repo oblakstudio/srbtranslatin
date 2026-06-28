@@ -208,20 +208,6 @@ return array(
             ),
         ),
         array(
-            'id'      => 'media_warning',
-            'type'    => 'description',
-            'title'   => '',
-            'section' => 'media',
-            'extras'  => array(
-                'description'     => ! $media_variant_runtime_available
-                    ? '<strong>' . \__( 'Script-specific media variants remain deferred. Filename transliteration on upload is available separately.', 'srbtranslatin' ) . '</strong>'
-                    : '',
-                'html_attributes' => array(
-                    'class' => 'notice inline notice-warning',
-                ),
-            ),
-        ),
-        array(
             'id'      => 'transliterate_uploads',
             'type'    => 'checkbox',
             'title'   => \__( 'Transliterate uploads', 'srbtranslatin' ),

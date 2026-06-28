@@ -9,6 +9,8 @@
 namespace STL\Tests\Unit\Translit;
 
 use PHPUnit\Framework\TestCase;
+use STL\Common\Settings\Array_Settings;
+use STL\Translit\Services\Media_Service;
 use STL\Translit\Services\Script_Manager;
 use STL\Translit\Services\Translit_Service;
 
@@ -46,6 +48,28 @@ final class TranslitServiceTest extends TestCase {
         $service = new Translit_Service($manager);
 
         self::assertSame('Ћирилица', $service->buffer_end('Ћирилица'));
+    }
+
+    /**
+     * @return void
+     */
+    public function test_buffer_end_rewrites_image_urls_before_returning_website_output(): void {
+        $manager = $this->create_manager('lat');
+        $media = new Media_Service(
+            $manager,
+            new Array_Settings(
+                array(
+                    'separate_uploads'       => true,
+                    'transliteration_method' => 'website',
+                )
+            )
+        );
+        $service = new Translit_Service($manager, null, null, $media);
+
+        self::assertSame(
+            '<img src="/uploads/photo-lat.jpg" alt="Ćirilica">',
+            $service->buffer_end('<img src="/uploads/photo-cir.jpg" alt="Ћирилица">')
+        );
     }
 
     /**

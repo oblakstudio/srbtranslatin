@@ -17,13 +17,16 @@ final class Translit_Service {
     /**
      * Constructor.
      *
-     * @param Script_Manager $script_manager Script manager instance.
-     * @param Transliterator|null $transliterator Transliterator instance.
+     * @param Script_Manager         $script_manager Script manager instance.
+     * @param Transliterator|null    $transliterator Transliterator instance.
+     * @param Shortcode_Service|null $shortcodes Shortcode service.
+     * @param Media_Service|null     $media Media service.
      */
     public function __construct(
         private Script_Manager $script_manager,
         private ?Transliterator $transliterator = null,
         private ?Shortcode_Service $shortcodes = null,
+        private ?Media_Service $media = null,
     ) {
         $this->transliterator ??= Transliterator::instance();
     }
@@ -45,6 +48,7 @@ final class Translit_Service {
      */
     public function buffer_end( string $contents ): string {
         $transliterated = $this->transliterate( $contents );
+        $transliterated = $this->media?->rewrite_image_urls( $transliterated ) ?? $transliterated;
 
         return $this->shortcodes?->restore_placeholders( $transliterated ) ?? $transliterated;
     }
@@ -63,7 +67,10 @@ final class Translit_Service {
         $decoded = \json_decode( $contents, true );
 
         if ( null !== $decoded && \is_array( $decoded ) ) {
-            return (string) \wp_json_encode( $this->transliterate_ajax_payload( $decoded ), JSON_UNESCAPED_UNICODE );
+            return (string) \wp_json_encode(
+                $this->transliterate_ajax_payload( $decoded ),
+                JSON_UNESCAPED_UNICODE,
+            );
         }
 
         return $this->transliterate( $contents );
@@ -149,7 +156,9 @@ final class Translit_Service {
             return $value;
         }
 
-        return $this->transliterate( \html_entity_decode( $value, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8' ) );
+        return $this->transliterate(
+            \html_entity_decode( $value, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8' ),
+        );
     }
 
     /**

@@ -9,13 +9,13 @@ declare(strict_types=1);
 
 defined( 'ABSPATH' ) || exit;
 
-$site_locale          = \array_key_exists( 'stl_test_locale', $GLOBALS ) ? (string) $GLOBALS['stl_test_locale'] : \get_locale();
-$locale_handles_permalinks = \in_array( $site_locale, array( 'sr_RS', 'bs_BA' ), true );
-$media_runtime_available   = false;
+$site_locale                 = \array_key_exists( 'stl_test_locale', $GLOBALS ) ? (string) $GLOBALS['stl_test_locale'] : \get_locale();
+$locale_handles_permalinks   = \in_array( $site_locale, array( 'sr_RS', 'bs_BA' ), true );
+$media_runtime_available     = true;
 $permalink_runtime_available = false;
-$disable_permalinks   = $locale_handles_permalinks || ! $permalink_runtime_available;
-$navigation_menus     = \array_key_exists( 'stl_test_nav_menus', $GLOBALS ) ? (array) $GLOBALS['stl_test_nav_menus'] : \get_registered_nav_menus();
-$has_navigation_menus = 0 < \count( $navigation_menus );
+$disable_permalinks          = $locale_handles_permalinks || ! $permalink_runtime_available;
+$navigation_menus            = \array_key_exists( 'stl_test_nav_menus', $GLOBALS ) ? (array) $GLOBALS['stl_test_nav_menus'] : \get_registered_nav_menus();
+$has_navigation_menus        = 0 < \count( $navigation_menus );
 
 return array(
     'page'     => array(
@@ -226,11 +226,9 @@ return array(
             'title'   => \__( 'Transliterate uploads', 'srbtranslatin' ),
             'section' => 'media',
             'extras'  => array(
-                'default'     => true,
-                'description' => \__( 'Transliterate filenames on upload', 'srbtranslatin' ),
-                'html_attributes' => array(
-                    'disabled' => ! $media_runtime_available,
-                ),
+                'default'         => true,
+                'description'     => \__( 'Transliterate filenames on upload', 'srbtranslatin' ),
+                'html_attributes' => array(),
             ),
         ),
         array(
@@ -239,11 +237,9 @@ return array(
             'title'   => \__( 'Script specific filenames', 'srbtranslatin' ),
             'section' => 'media',
             'extras'  => array(
-                'default'     => true,
-                'description' => \__( 'Check this box if you want to have separate filenames for each script', 'srbtranslatin' ),
-                'html_attributes' => array(
-                    'disabled' => ! $media_runtime_available,
-                ),
+                'default'         => true,
+                'description'     => \__( 'Check this box if you want to have separate filenames for each script', 'srbtranslatin' ),
+                'html_attributes' => array(),
             ),
         ),
         array(
@@ -256,7 +252,6 @@ return array(
                 'description'     => \__( 'Separator used for script specific filenames', 'srbtranslatin' ),
                 'html_attributes' => array(
                     'class' => 'small-text',
-                    'disabled' => ! $media_runtime_available,
                 ),
             ),
         ),
@@ -266,15 +261,13 @@ return array(
             'title'   => \__( 'Transliteration method', 'srbtranslatin' ),
             'section' => 'media',
             'extras'  => array(
-                'default'     => 'website',
-                'description' => \__( 'Choose if you want to limit the script specific filenames on the entire website, or in content only', 'srbtranslatin' ),
-                'options'     => array(
+                'default'         => 'website',
+                'description'     => \__( 'Choose if you want to limit the script specific filenames on the entire website, or in content only', 'srbtranslatin' ),
+                'options'         => array(
                     'website' => \__( 'Entire website', 'srbtranslatin' ),
                     'content' => \__( 'Content only', 'srbtranslatin' ),
                 ),
-                'html_attributes' => array(
-                    'disabled' => ! $media_runtime_available,
-                ),
+                'html_attributes' => array(),
             ),
         ),
         array(

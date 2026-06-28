@@ -11,6 +11,7 @@ namespace STL\Tests\Unit\Translit;
 use PHPUnit\Framework\TestCase;
 use STL\Translit\Services\Script_Manager;
 use STL\Translit\Translit_Module;
+use XWP\DI\Decorators\Module;
 
 require_once dirname(__DIR__, 2) . '/unit-bootstrap.php';
 
@@ -37,5 +38,15 @@ final class TranslitModuleTest extends TestCase {
         $config = Translit_Module::configure();
 
         self::assertArrayHasKey(\STL\Translit\Services\Translit_Service::class, $config);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_module_registers_media_handler(): void {
+        $attributes = (new \ReflectionClass(Translit_Module::class))->getAttributes(Module::class);
+        $module = $attributes[0]->newInstance();
+
+        self::assertContains(\STL\Translit\Handlers\Media_Handler::class, $module->handlers);
     }
 }

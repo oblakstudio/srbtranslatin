@@ -13,8 +13,10 @@ use STL\Common\Settings\Plugin_Settings;
 use STL\Translit\Contracts\Persists_Script_Cookie;
 use STL\Translit\Contracts\Resolves_Language;
 use STL\Translit\Services\Cookie_Persister;
+use STL\Translit\Services\Media_Service;
 use STL\Translit\Services\Menu_Integration_Service;
 use STL\Translit\Services\Script_Manager;
+use STL\Translit\Services\Shortcode_Service;
 use STL\Translit\Services\Translit_Service;
 use XWP\DI\Decorators\Action;
 use XWP\DI\Decorators\Module;
@@ -28,6 +30,7 @@ use XWP\DI\Decorators\Module;
     priority: 30,
     handlers: array(
         Handlers\Menu_Integration_Handler::class,
+        Handlers\Media_Handler::class,
         Handlers\Search_Handler::class,
         Handlers\Shortcode_Handler::class,
         Handlers\Translit_Handler::class,
@@ -42,30 +45,42 @@ class Translit_Module {
      */
     public static function configure(): array {
         return array(
-            'stl.enabled_scripts'         => \DI\factory(
-                static fn( Plugin_Settings $settings ): string => (string) $settings->get( 'general', 'enabled_scripts', 'both' )
+            'stl.enabled_scripts'           => \DI\factory(
+                static fn( Plugin_Settings $settings ): string => (string) $settings->get(
+                    'general',
+                    'enabled_scripts',
+                    'both',
+                ),
             ),
-            'stl.script.default'          => \DI\factory(
-                static fn( Plugin_Settings $settings ): string => (string) $settings->get( 'general', 'default_script', 'cir' )
+            'stl.script.default'            => \DI\factory(
+                static fn( Plugin_Settings $settings ): string => (string) $settings->get(
+                    'general',
+                    'default_script',
+                    'cir',
+                ),
             ),
-            'stl.script.param'            => \DI\factory(
-                static fn( Plugin_Settings $settings ): string => (string) $settings->get( 'general', 'url_param', 'pismo' )
+            'stl.script.param'              => \DI\factory(
+                static fn( Plugin_Settings $settings ): string => (string) $settings->get(
+                    'general',
+                    'url_param',
+                    'pismo',
+                ),
             ),
-            'stl.script.req'              => \DI\factory(
-                static fn( string $key, string $def = '' ): string => (string) \xwp_fetch_req_var( $key, $def )
+            'stl.script.req'                => \DI\factory(
+                static fn( string $key, string $def = '' ): string => (string) \xwp_fetch_req_var( $key, $def ),
             )
                 ->parameter( 'key', \DI\get( 'stl.script.param' ) )
                 ->parameter( 'def', '' ),
-            'stl.script.cookie'           => \DI\factory(
-                static fn( string $key, string $def = '' ): string => \xwp_fetch_cookie_var( $key, $def )
+            'stl.script.cookie'             => \DI\factory(
+                static fn( string $key, string $def = '' ): string => \xwp_fetch_cookie_var( $key, $def ),
             )
                 ->parameter( 'key', 'stl_script' )
                 ->parameter( 'def', '' ),
-            'stl.language.resolver'       => \DI\value( null ),
-            Transliterator::class         => \DI\factory( static fn() => Transliterator::instance() ),
-            Persists_Script_Cookie::class => \DI\autowire( Cookie_Persister::class ),
-            Script_Manager::class         => \DI\factory(
-                static function (
+            'stl.language.resolver'         => \DI\value( null ),
+            Transliterator::class           => \DI\factory( static fn() => Transliterator::instance() ),
+            Persists_Script_Cookie::class   => \DI\autowire( Cookie_Persister::class ),
+            Script_Manager::class           => \DI\factory(
+                static fn(
                     string $enabled_scripts,
                     string $default_script,
                     string $request_script,
@@ -73,17 +88,15 @@ class Translit_Module {
                     string $url_param,
                     ?Resolves_Language $language_resolver,
                     Persists_Script_Cookie $cookie_persister,
-                ): Script_Manager {
-                    return new Script_Manager(
-                        $enabled_scripts,
-                        $default_script,
-                        $request_script,
-                        $cookie_script,
-                        $url_param,
-                        $language_resolver,
-                        $cookie_persister,
-                    );
-                }
+                ): Script_Manager => new Script_Manager(
+                    $enabled_scripts,
+                    $default_script,
+                    $request_script,
+                    $cookie_script,
+                    $url_param,
+                    $language_resolver,
+                    $cookie_persister,
+                ),
             )
                 ->parameter( 'enabled_scripts', \DI\get( 'stl.enabled_scripts' ) )
                 ->parameter( 'default_script', \DI\get( 'stl.script.default' ) )
@@ -92,17 +105,28 @@ class Translit_Module {
                 ->parameter( 'url_param', \DI\get( 'stl.script.param' ) )
                 ->parameter( 'language_resolver', \DI\get( 'stl.language.resolver' ) )
                 ->parameter( 'cookie_persister', \DI\get( Persists_Script_Cookie::class ) ),
-            Translit_Service::class       => \DI\autowire(),
+            Media_Service::class            => \DI\autowire(),
+            Translit_Service::class         => \DI\factory(
+                static fn(
+                    Script_Manager $script_manager,
+                    Transliterator $transliterator,
+                    Shortcode_Service $shortcodes,
+                    Media_Service $media,
+                ): Translit_Service => new Translit_Service(
+                    $script_manager,
+                    $transliterator,
+                    $shortcodes,
+                    $media,
+                ),
+            ),
             Menu_Integration_Service::class => \DI\factory(
-                static function ( Script_Manager $script_manager, Plugin_Settings $settings ): Menu_Integration_Service {
-                    return new Menu_Integration_Service(
-                        $script_manager,
-                        (bool) $settings->get( 'menu', 'extend', true ),
-                        (string) $settings->get( 'menu', 'extend_menu', '' ),
-                        (string) $settings->get( 'menu', 'selector_type', 'submenu' ),
-                        (string) $settings->get( 'menu', 'menu_title', 'Script' ),
-                    );
-                }
+                static fn( Script_Manager $script_manager, Plugin_Settings $settings ): Menu_Integration_Service => new Menu_Integration_Service(
+                    $script_manager,
+                    (bool) $settings->get( 'menu', 'extend', true ),
+                    (string) $settings->get( 'menu', 'extend_menu', '' ),
+                    (string) $settings->get( 'menu', 'selector_type', 'submenu' ),
+                    (string) $settings->get( 'menu', 'menu_title', 'Script' ),
+                ),
             ),
         );
     }

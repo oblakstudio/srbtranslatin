@@ -23,7 +23,8 @@ SrbTransLatin enables you to have **both cyrillic and latin scripts** on your we
 * Website content is automatically transliterated into latin
 * Ajax calls are transliterated into latin (both JSON and HTML)
 * Your visitors can search cyrillic content using latin script
-* Selective transliteration via shortcodes - Force parts of your website to stay in cyrillic script, use custom transliteration (_Gutenblocks coming soon_)
+* Selective transliteration via shortcodes - force parts of your website to stay in cyrillic script or use custom transliteration
+* Page titles, document titles, search SQL, menus, blocks, and compatible AJAX responses are handled by the active runtime
 
 **Performance features**
 
@@ -35,19 +36,21 @@ SrbTransLatin enables you to have **both cyrillic and latin scripts** on your we
 
 * **Script specific files** - You can have separate versions of images or other files for cyrillic and latin scripts
 * **Filename transliteration** - Cyrillic uploads are automatically converted to latin script
+* Media URLs can be switched across whole-page output or post content only, using the configured separator and legacy `__cir` / `__lat` filenames
+* Optional permalink transliteration is available for locales where WordPress does not already handle Serbian or Bosnian slugs
 
 **Script Selector features**
 
 * Append the script selector to any menu of your choosing - Either as a dropdown, or inline
 * Selector widget - place it any sidebar you'd like
-* Custom function - Use `stl_selector` function anywhere in the code (but read the docs first)
+* Custom functions - use `stl_selector()` or `stl_script_selector()` anywhere in the code
 * Works everywhere - Plugin hooks into WordPress core transliterating your content inplace
 
 **MultiLanguage features**
 
-Tested with:
+Compatible active-language resolution is available for:
 
-* PolyLang
+* Polylang
 * WPML
 * TranslatePress
 * qTranslateX
@@ -101,13 +104,11 @@ Yes, Plugin fully integrates with all WPML functions on the frontend because it 
 
 Open a support thread, or send me an e-mail.
 
-= Your plugin is converting my cyrilic filenames into latin which prevents them from loading =
+= How does the plugin handle cyrillic filenames and script-specific media files? =
 
-First - you shouldn't be using cyrilic filenames in the first place. Due to the fact that most hosting providers do not have full UTF-8 support.
+Cyrillic filenames can be transliterated to latin during upload when "Transliterate uploads" is enabled.
 
-I'm working on a tool which will convert filenames and post / page content on your website, so the errors will be automagically fixed
-
-Temporary fix: redownload all attachments with cyrilic filenames and reupload them. This plugin will do an on-the-fly conversion of filenames.
+When "Script specific filenames" is enabled, URLs containing configured script markers are switched for the active script. The current runtime supports both the configured separator and legacy `__cir` / `__lat` markers.
 
 = Will this plugin transliterate dynamic content (ajax) =
 

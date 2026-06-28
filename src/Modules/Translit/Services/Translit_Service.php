@@ -24,6 +24,7 @@ final class Translit_Service {
         private Script_Manager $script_manager,
         private ?Transliterator $transliterator = null,
         private ?Shortcode_Service $shortcodes = null,
+        private ?Media_Service $media = null,
     ) {
         $this->transliterator ??= Transliterator::instance();
     }
@@ -45,6 +46,7 @@ final class Translit_Service {
      */
     public function buffer_end( string $contents ): string {
         $transliterated = $this->transliterate( $contents );
+        $transliterated = $this->media?->rewrite_page_output( $transliterated ) ?? $transliterated;
 
         return $this->shortcodes?->restore_placeholders( $transliterated ) ?? $transliterated;
     }

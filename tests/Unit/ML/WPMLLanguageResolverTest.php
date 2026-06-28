@@ -43,6 +43,15 @@ final class WPMLLanguageResolverTest extends TestCase {
     /**
      * @return void
      */
+    public function test_resolve_language_maps_bosnian_language_code_to_locale(): void {
+        $resolver = new WPML_Language_Resolver(static fn (): string => 'bs');
+
+        self::assertSame('bs_BA', $resolver->resolve_language());
+    }
+
+    /**
+     * @return void
+     */
     public function test_resolve_language_returns_null_for_unknown_wpml_language(): void {
         $resolver = new WPML_Language_Resolver(static fn (): string => 'en');
 

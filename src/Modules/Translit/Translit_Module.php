@@ -13,7 +13,9 @@ use STL\Common\Settings\Plugin_Settings;
 use STL\Translit\Contracts\Persists_Script_Cookie;
 use STL\Translit\Contracts\Resolves_Language;
 use STL\Translit\Services\Cookie_Persister;
+use STL\Translit\Services\Media_Service;
 use STL\Translit\Services\Menu_Integration_Service;
+use STL\Translit\Services\Permalink_Service;
 use STL\Translit\Services\Script_Manager;
 use STL\Translit\Services\Translit_Service;
 use XWP\DI\Decorators\Action;
@@ -27,8 +29,11 @@ use XWP\DI\Decorators\Module;
     hook: 'srbtranslatin_loaded',
     priority: 30,
     handlers: array(
+        Handlers\Media_Handler::class,
         Handlers\Menu_Integration_Handler::class,
+        Handlers\Permalink_Handler::class,
         Handlers\Search_Handler::class,
+        Handlers\Selector_Widget_Handler::class,
         Handlers\Shortcode_Handler::class,
         Handlers\Translit_Handler::class,
         Handlers\Title_Handler::class,
@@ -64,6 +69,22 @@ class Translit_Module {
             'stl.language.resolver'       => \DI\value( null ),
             Transliterator::class         => \DI\factory( static fn() => Transliterator::instance() ),
             Persists_Script_Cookie::class => \DI\autowire( Cookie_Persister::class ),
+            Media_Service::class          => \DI\factory(
+                static function ( Script_Manager $script_manager, Plugin_Settings $settings ): Media_Service {
+                    return new Media_Service(
+                        $script_manager,
+                        (bool) $settings->get( 'media', 'transliterate_uploads', true ),
+                        (bool) $settings->get( 'media', 'separate_uploads', true ),
+                        (string) $settings->get( 'media', 'filename_separator', '-' ),
+                        (string) $settings->get( 'media', 'transliteration_method', 'website' ),
+                    );
+                }
+            ),
+            Permalink_Service::class      => \DI\factory(
+                static fn( Plugin_Settings $settings ): Permalink_Service => new Permalink_Service(
+                    (bool) $settings->get( 'advanced', 'fix_permalinks', false )
+                )
+            ),
             Script_Manager::class         => \DI\factory(
                 static function (
                     string $enabled_scripts,

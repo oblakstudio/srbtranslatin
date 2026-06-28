@@ -26,7 +26,17 @@ final class SettingsConfigTest extends TestCase {
         self::assertStringContainsString('sr_RS', (string) $field['extras']['description']);
     }
 
-    public function test_disables_media_fields_while_runtime_support_is_deferred(): void {
+    public function test_enables_permalink_fix_for_non_serbian_locales(): void {
+        $GLOBALS['stl_test_locale'] = 'en_US';
+
+        $schema = require dirname(__DIR__, 3) . '/config/settings.php';
+        $field = $this->findField($schema['fields'], 'fix_permalinks');
+
+        self::assertFalse($field['extras']['html_attributes']['disabled']);
+        self::assertSame('Fixes permalinks for cyrillic scripts', $field['extras']['description']);
+    }
+
+    public function test_enables_media_fields_when_runtime_support_is_available(): void {
         $schema = require dirname(__DIR__, 3) . '/config/settings.php';
 
         $warning = $this->findField($schema['fields'], 'media_warning');
@@ -35,11 +45,11 @@ final class SettingsConfigTest extends TestCase {
         $separator = $this->findField($schema['fields'], 'filename_separator');
         $method = $this->findField($schema['fields'], 'transliteration_method');
 
-        self::assertNotSame('', $warning['extras']['description']);
-        self::assertTrue($transliterateUploads['extras']['html_attributes']['disabled']);
-        self::assertTrue($separateUploads['extras']['html_attributes']['disabled']);
-        self::assertTrue($separator['extras']['html_attributes']['disabled']);
-        self::assertTrue($method['extras']['html_attributes']['disabled']);
+        self::assertSame('', $warning['extras']['description']);
+        self::assertFalse($transliterateUploads['extras']['html_attributes']['disabled']);
+        self::assertFalse($separateUploads['extras']['html_attributes']['disabled']);
+        self::assertFalse($separator['extras']['html_attributes']['disabled']);
+        self::assertFalse($method['extras']['html_attributes']['disabled']);
     }
 
     public function test_disables_menu_fields_when_no_registered_menus_exist(): void {

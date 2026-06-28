@@ -114,17 +114,27 @@ function stl_script_selector( $args, $eecho = true ) {
         }
     }
 
+    $args = (array) $args;
+
+    if ( ! isset( $args['active_script'], $args['cir_link'], $args['lat_link'] ) ) {
+        $manager = STL()->manager;
+        $url     = stl_get_current_url();
+
+        $args += array(
+            'active_script' => $manager->get_script(),
+            'cir_link'      => add_query_arg( $manager->get_url_param(), 'cir', $url ),
+            'lat_link'      => add_query_arg( $manager->get_url_param(), 'lat', $url ),
+        );
+    }
+
 	$args = wp_parse_args(
         $args,
         array(
-			'selector_type' => 'online',
+			'selector_type' => 'oneline',
 			'separator'     => '<span>&nbsp; | &nbsp;</span>',
 			'cir_caption'   => 'Ћирилица',
 			'lat_caption'   => 'Latinica',
 			'inactive_only' => false,
-			'active_script' => STL()->manager->get_script(),
-			'cir_link'      => add_query_arg( STL()->manager->get_url_param(), 'cir', stl_get_current_url() ),
-			'lat_link'      => add_query_arg( STL()->manager->get_url_param(), 'lat', stl_get_current_url() ),
         )
 	);
 
@@ -169,4 +179,17 @@ function stl_script_selector( $args, $eecho = true ) {
     if ( ! $eecho ) {
         return ob_get_clean();
     }
+}
+
+/**
+ * Display the script selector.
+ *
+ * Legacy compatibility alias for stl_script_selector().
+ *
+ * @param array $args  Arguments.
+ * @param bool  $eecho Whether to echo or return the output.
+ * @return string|void HTML for the script selector.
+ */
+function stl_selector( $args = array(), $eecho = true ) {
+    return stl_script_selector( $args, $eecho );
 }

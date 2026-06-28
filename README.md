@@ -8,7 +8,16 @@
 
 ## Welcome to the SrbTransLatin GitHub Repository
 
-Although the documentation for the [SrbTransLatin](https://wordpress.org/plugins/srbtranslatin) can be found [on SGi.io](https://rtfm.sgi.io/srbtranslatin), you can browser the source code here, discuss issues and feautres, and contribute yourself, if you want to 🤗
+Although the documentation for the [SrbTransLatin](https://wordpress.org/plugins/srbtranslatin) can be found on WordPress.org, you can browse the source code here, discuss issues and features, and contribute yourself.
+
+## Runtime Features
+
+* Automatic Cyrillic-to-Latin frontend transliteration for supported Serbian, Bosnian, and Macedonian locales
+* AJAX, search, title, shortcode, classic menu, navigation block, and selector rendering support
+* Upload filename transliteration and script-specific media URL switching
+* Optional permalink transliteration when WordPress locale behavior does not already handle it
+* WPML language switcher support plus active-language resolution for WPML, Polylang, TranslatePress, and qTranslateX
+* Legacy selector compatibility through `stl_script_selector()`, `stl_selector()`, and the selector widget
 
 ## Installation
 
@@ -22,7 +31,6 @@ I use specific tools to develop SrbTransLatin. You'll need the following tools i
 
 * [Composer](https://getcomposer.org/)
 * [npm](https://www.npmjs.com/)
-* [gulp](https://gulpjs.com/)
 
 ### Getting started
 
@@ -39,10 +47,13 @@ To install all the dependencies please run the following commands:
 ```bash
 composer install
 npm install
-gulp
 ```
 
-If you change anything in JS or SCSS files, you'll have to run `gulp` if it's a one-time change, or `gulp watch` if you want to continuously edit the files
+Run the project test suite with Composer:
+
+```bash
+composer test
+```
 
 ## Support
 

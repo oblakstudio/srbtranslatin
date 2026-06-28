@@ -9,8 +9,12 @@
 namespace STL\Tests\Unit\Translit;
 
 use PHPUnit\Framework\TestCase;
+use STL\Translit\Handlers\Media_Permalink_Handler;
+use STL\Translit\Services\Media_Permalink_Service;
 use STL\Translit\Services\Script_Manager;
+use STL\Translit\Services\Translit_Service;
 use STL\Translit\Translit_Module;
+use XWP\DI\Decorators\Module;
 
 require_once dirname(__DIR__, 2) . '/unit-bootstrap.php';
 
@@ -36,6 +40,18 @@ final class TranslitModuleTest extends TestCase {
     public function test_configure_exposes_ajax_setting_for_translit_service(): void {
         $config = Translit_Module::configure();
 
-        self::assertArrayHasKey(\STL\Translit\Services\Translit_Service::class, $config);
+        self::assertArrayHasKey(Translit_Service::class, $config);
+        self::assertArrayHasKey(Media_Permalink_Service::class, $config);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_module_registers_media_permalink_handler(): void {
+        $module = (new \ReflectionClass(Translit_Module::class))
+            ->getAttributes(Module::class)[0]
+            ->newInstance();
+
+        self::assertContains(Media_Permalink_Handler::class, $module->handlers);
     }
 }

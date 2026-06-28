@@ -13,6 +13,7 @@ use STL\Common\Settings\Plugin_Settings;
 use STL\Translit\Contracts\Persists_Script_Cookie;
 use STL\Translit\Contracts\Resolves_Language;
 use STL\Translit\Services\Cookie_Persister;
+use STL\Translit\Services\Media_Permalink_Service;
 use STL\Translit\Services\Menu_Integration_Service;
 use STL\Translit\Services\Script_Manager;
 use STL\Translit\Services\Translit_Service;
@@ -28,6 +29,7 @@ use XWP\DI\Decorators\Module;
     priority: 30,
     handlers: array(
         Handlers\Menu_Integration_Handler::class,
+        Handlers\Media_Permalink_Handler::class,
         Handlers\Search_Handler::class,
         Handlers\Shortcode_Handler::class,
         Handlers\Translit_Handler::class,
@@ -93,6 +95,7 @@ class Translit_Module {
                 ->parameter( 'language_resolver', \DI\get( 'stl.language.resolver' ) )
                 ->parameter( 'cookie_persister', \DI\get( Persists_Script_Cookie::class ) ),
             Translit_Service::class       => \DI\autowire(),
+            Media_Permalink_Service::class => \DI\autowire(),
             Menu_Integration_Service::class => \DI\factory(
                 static function ( Script_Manager $script_manager, Plugin_Settings $settings ): Menu_Integration_Service {
                     return new Menu_Integration_Service(

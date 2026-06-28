@@ -10,6 +10,7 @@ WP_DOWNLOADS_DIR="${CACHE_DIR}/wp-tests/downloads"
 PLUGIN_SLUG="srbtranslatin"
 PLUGIN_SOURCE_DIR="${REPO_ROOT}"
 PLUGIN_TARGET_DIR="${WP_CORE_DIR}/wp-content/plugins/${PLUGIN_SLUG}"
+WP_CLI_BIN="${WP_CLI_BIN:-wp}"
 
 # Support WP_TESTS_DB_HOST (host:port) from CI environments.
 if [ -n "${WP_TESTS_DB_HOST:-}" ]; then
@@ -32,7 +33,7 @@ log() {
 }
 
 wp_cli() {
-  php -d memory_limit=512M "$(command -v wp)" "$@"
+  WP_CLI_PHP_ARGS="${WP_CLI_PHP_ARGS:--d memory_limit=512M}" "${WP_CLI_BIN}" "$@"
 }
 
 require_command() {
@@ -190,7 +191,7 @@ main() {
   require_command mysqladmin
   require_command php
   require_command unzip
-  require_command wp
+  require_command "${WP_CLI_BIN}"
 
   if [ -z "${WP_TESTS_SKIP_DOCKER:-}" ]; then
     require_command docker

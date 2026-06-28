@@ -36,6 +36,8 @@ final class SettingsConfigTest extends TestCase {
         $method = $this->findField($schema['fields'], 'transliteration_method');
 
         self::assertNotSame('', $warning['extras']['description']);
+        self::assertStringNotContainsString('legacy settings', (string) $warning['extras']['description']);
+        self::assertStringNotContainsString('not active in the current src runtime yet', (string) $warning['extras']['description']);
         self::assertTrue($transliterateUploads['extras']['html_attributes']['disabled']);
         self::assertTrue($separateUploads['extras']['html_attributes']['disabled']);
         self::assertTrue($separator['extras']['html_attributes']['disabled']);

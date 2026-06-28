@@ -213,7 +213,7 @@ return array(
             'section' => 'media',
             'extras'  => array(
                 'description'     => ! $media_runtime_available
-                    ? '<strong>' . \__( 'Media filename transliteration options are legacy settings and are not active in the current src runtime yet.', 'srbtranslatin' ) . '</strong>'
+                    ? '<strong>' . \__( 'Script-specific media variants remain deferred. Filename transliteration on upload is available separately.', 'srbtranslatin' ) . '</strong>'
                     : '',
                 'html_attributes' => array(
                     'class' => 'notice inline notice-warning',

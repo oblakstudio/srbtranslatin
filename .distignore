@@ -17,3 +17,5 @@ package-lock.json
 /phpcs.xml
 /README.md
 /release.config.js
+/DOCKER_ENV
+/output.log

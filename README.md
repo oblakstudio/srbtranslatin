@@ -59,6 +59,8 @@ The settings page uses the native WordPress Settings API and reads existing 3.x 
 
 Production packages require `composer install --no-dev --optimize-autoloader --classmap-authoritative`, built block assets, `src`, and `languages`. The release staging guard rejects incomplete packages, build-environment artifacts, symlinks and PHPUnit development dependencies. Node dependencies are never shipped. Transitive npm development-tool advisories remain upstream; do not use forced major overrides merely to make the audit report clean.
 
+The scoped `copy-webpack-plugin` override upgrades the copy tool used by `@wordpress/scripts` to version 14, resolving its vulnerable serializer dependency. The Node requirement is already covered by the project's Node 26 target. Build output and block-metadata copying/transformation were checked for compatibility. `npm` still bundles an affected `undici` version; npm overrides do not replace that bundled copy.
+
 ## Support
 
 This is a developer's section for SrbTransLatin and should not be used for support. Please visit the [support forums](https://wordpress.org/support/plugin/srbtranslatin) if you need assistance

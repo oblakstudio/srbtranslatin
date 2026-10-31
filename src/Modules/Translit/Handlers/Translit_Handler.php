@@ -57,6 +57,12 @@ final class Translit_Handler {
     public function __construct( private Translit_Service $service ) {
     }
 
+    /** Preserve script-specific image links from the 3.x release. */
+    #[Filter( tag: 'the_content', priority: 9999, context: Filter::CTX_FRONTEND, args: 1, invoke: Action::INV_PROXIED )]
+    public function change_image_urls( string $contents ): string {
+        return $this->service->change_image_urls( $contents );
+    }
+
     /**
      * Start output buffering for frontend and feed rendering.
      *

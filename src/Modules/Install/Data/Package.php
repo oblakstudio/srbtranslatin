@@ -125,7 +125,7 @@ class Package {
     /**
      * Get the available version.
      *
-     * @param  'core'|'db'|'schema' $type Version type.
+     * @param  string $type Version type (core, db or schema).
      * @return string
      */
     public function get_code_version( string $type = 'core' ): string {
@@ -135,7 +135,7 @@ class Package {
     /**
      * Get the current version.
      *
-     * @param  'core'|'db'|'schema' $type Version type.
+     * @param  string $type Version type (core, db or schema).
      * @return string
      */
     public function get_curr_version( string $type = 'core' ): string {
@@ -227,7 +227,7 @@ class Package {
     /**
      * Determine if an update is needed.
      *
-     * @param  'core'|'db'|'schema' $type Version type.
+     * @param  string $type Version type (core, db or schema).
      * @return bool
      */
     public function needs_update( string $type = 'core' ): bool {
@@ -265,7 +265,7 @@ class Package {
      * Update the stored version.
      *
      * @param  string|null          $version Optional. Version to set. Default null (code version).
-     * @param  'core'|'db'|'schema' $type Version type.
+     * @param  string $type Version type (core, db or schema).
      * @return static
      */
     protected function update_version( ?string $version = null, string $type = 'core' ): static {
@@ -342,7 +342,7 @@ class Package {
     /**
      * Get the option name for storing version.
      *
-     * @param  'core'|'db'|'schema' $type Version type.
+     * @param  string $type Version type (core, db or schema).
      * @return string
      */
     private function get_option( string $type ): string {

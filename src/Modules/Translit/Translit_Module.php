@@ -27,6 +27,7 @@ use XWP\DI\Decorators\Module;
     hook: 'srbtranslatin_loaded',
     priority: 30,
     handlers: array(
+        Handlers\Filename_Handler::class,
         Handlers\Menu_Integration_Handler::class,
         Handlers\Search_Handler::class,
         Handlers\Shortcode_Handler::class,
@@ -62,7 +63,7 @@ class Translit_Module {
                 ->parameter( 'key', 'stl_script' )
                 ->parameter( 'def', '' ),
             'stl.language.resolver'       => \DI\value( null ),
-            Transliterator::class         => \DI\factory( static fn() => Transliterator::instance() ),
+            Transliterator::class         => \DI\autowire(),
             Persists_Script_Cookie::class => \DI\autowire( Cookie_Persister::class ),
             Script_Manager::class         => \DI\factory(
                 static function (

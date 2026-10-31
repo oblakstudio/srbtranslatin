@@ -114,7 +114,6 @@ final class Menu_Integration_Service {
 
         if (
             \class_exists( '\WP_Block_Type_Registry' ) &&
-            \method_exists( '\WP_Block_Type_Registry', 'get_instance' ) &&
             \WP_Block_Type_Registry::get_instance()->is_registered( 'srbtranslatin/script-selector' )
         ) {
             return;
@@ -132,6 +131,7 @@ final class Menu_Integration_Service {
                 'render_callback' => array( $this, 'render_selector_block' ),
             ),
         );
+        \wp_set_script_translations( 'srbtranslatin-script-selector-editor-script', 'srbtranslatin', \STL_PATH . 'languages' );
     }
 
     /**

@@ -7,7 +7,14 @@ on:
   pull_request:
 
 jobs:
+  actionlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: raven-actions/actionlint@v2
+
   phpunit:
+    needs: actionlint
     runs-on: ubuntu-latest
 
     services:
@@ -27,30 +34,48 @@ jobs:
           --health-retries=10
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '8.4'
+          ini-values: memory_limit=512M
           coverage: none
           tools: composer:v2
           extensions: mysqli
 
       - name: Install Composer dependencies
-        uses: php-actions/composer@v6
-        env:
-          COMPOSER_AUTH: '{"http-basic": {"repo.packagist.com": {"username": "seebeen", "password": "${{ secrets.PACKAGIST_TOKEN }}"}}, "github-oauth": {"github.com": "${{ secrets.COMPOSER_PAT }}"}}'
-        with:
-          php_version: '8.1'
-          version: 2
-          args: --prefer-dist
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Install WP-CLI
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -o /tmp/wp-cli.phar
+          php /tmp/wp-cli.phar --info
+          chmod +x /tmp/wp-cli.phar
+          sudo mv /tmp/wp-cli.phar /usr/local/bin/wp
 
       - name: Prepare WordPress test environment
         env:
-          WP_TESTS_SKIP_DOCKER: 1
           DB_HOST: 127.0.0.1
           DB_PORT: 3306
         run: bash bin/install-wp-tests.sh
 
       - name: Run PHPUnit
         run: vendor/bin/phpunit
+
+      - name: Validate Composer metadata
+        run: composer validate --strict
+
+      - name: Analyze PHP
+        run: vendor/bin/phpstan analyse --memory-limit=512M --no-progress
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '26'
+          cache: npm
+
+      - name: Build block assets
+        run: |
+          npm ci
+          npm run build
+          npm run test:package

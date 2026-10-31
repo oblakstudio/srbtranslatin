@@ -25,7 +25,24 @@ final class Translit_Service {
         private ?Transliterator $transliterator = null,
         private ?Shortcode_Service $shortcodes = null,
     ) {
-        $this->transliterator ??= Transliterator::instance();
+        $this->transliterator ??= new Transliterator();
+    }
+
+    /** Restore the legacy __cir / __lat image URL convention in post content. */
+    public function change_image_urls( string $contents ): string {
+        if ( ! $this->script_manager->should_transliterate() || ! \str_contains( $contents, '__cir' ) ) {
+            return $contents;
+        }
+        $dom = \voku\helper\HtmlDomParser::str_get_html( $contents );
+        foreach ( $dom->findMulti( 'img' ) as $image ) {
+            foreach ( array( 'src', 'srcset' ) as $attribute ) {
+                $value = $image->getAttribute( $attribute );
+                if ( \str_contains( $value, '__cir' ) ) {
+                    $image->setAttribute( $attribute, \str_replace( '__cir', '__lat', $value ) );
+                }
+            }
+        }
+        return (string) $dom;
     }
 
     /**

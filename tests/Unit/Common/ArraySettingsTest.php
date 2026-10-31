@@ -25,7 +25,8 @@ final class ArraySettingsTest extends TestCase {
 
         self::assertSame('cir', $settings->get('general', 'default_script'));
         self::assertSame('pismo', $settings->get('general', 'url_param'));
-        self::assertTrue($settings->get('advanced', 'fix_search'));
+        self::assertFalse($settings->get('advanced', 'fix_search'));
+        self::assertTrue($settings->get('wpml', 'extend_ls'));
         self::assertFalse($settings->get('advanced', 'fix_titles'));
     }
 

@@ -4,7 +4,7 @@ namespace STL\Core;
 
 use STL\Common\Settings\Plugin_Settings;
 use STL\Common\Settings\WordPress_Option_Settings;
-use WPTechnix\WP_Settings_Builder\Settings_Page;
+use STL\Core\Services\Settings_Page;
 use XWP\DI\Decorators\Action;
 use XWP\DI\Decorators\Module;
 
@@ -39,26 +39,5 @@ class Core_Module {
     #[Action( tag: 'before_srbtranslatin_init', priority: 0, invoke: Action::INV_PROXIED, args: 0 )]
     public function load_settings( Settings_Page $page ): void {
         $page->init();
-        $this->capture_test_settings_hooks();
-    }
-
-    /**
-     * Mirror settings page hooks into the unit-test harness when present.
-     *
-     * @return void
-     */
-    private function capture_test_settings_hooks(): void {
-        if ( ! \array_key_exists( 'stl_test_registered_actions', $GLOBALS ) || ! \is_array( $GLOBALS['stl_test_registered_actions'] ) ) {
-            return;
-        }
-
-        foreach ( array( 'admin_menu', 'admin_init', 'admin_enqueue_scripts' ) as $hook ) {
-            $GLOBALS['stl_test_registered_actions'][] = array(
-                'hook' => $hook,
-                'callback' => null,
-                'priority' => 10,
-                'accepted_args' => 1,
-            );
-        }
     }
 }

@@ -18,6 +18,22 @@ require_once dirname(__DIR__, 2) . '/unit-bootstrap.php';
  * Test transliteration service behavior.
  */
 final class TranslitServiceTest extends TestCase {
+    public function test_legacy_image_variant_links_change_only_image_attributes(): void {
+        $service = new Translit_Service($this->create_manager('lat'));
+        $result = $service->change_image_urls('<p>file__cir.jpg</p><img src="file__cir.jpg" srcset="file__cir.jpg 1x, file__cir-2.jpg 2x" alt="file__cir">');
+        self::assertStringContainsString('<p>file__cir.jpg</p>', $result);
+        self::assertStringContainsString('src="file__lat.jpg"', $result);
+        self::assertStringContainsString('srcset="file__lat.jpg 1x, file__lat-2.jpg 2x"', $result);
+        self::assertStringContainsString('alt="file__cir"', $result);
+    }
+
+    public function test_image_links_are_preserved_for_cyrillic_and_ordinary_content(): void {
+        $html = '<img src="file__cir.jpg">';
+        self::assertSame($html, (new Translit_Service($this->create_manager('cir')))->change_image_urls($html));
+        $ordinary = '<img src="normal.jpg">';
+        self::assertSame($ordinary, (new Translit_Service($this->create_manager('lat')))->change_image_urls($ordinary));
+    }
+
     /**
      * @return void
      */

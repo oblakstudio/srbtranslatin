@@ -21,6 +21,12 @@ $GLOBALS['stl_test_theme_supports'] = [];
 $GLOBALS['stl_test_registered_shortcodes'] = [];
 $GLOBALS['stl_test_uuid_counter'] = 0;
 
+if (! function_exists('add_settings_error')) {
+    function add_settings_error(string $setting, string $code, string $message, string $type = 'error'): void {
+        $GLOBALS['stl_test_settings_errors'][] = compact('setting', 'code', 'message', 'type');
+    }
+}
+
 if (! function_exists('__')) {
     function __(string $text, ?string $domain = null): string {
         return $text;

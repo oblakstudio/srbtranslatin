@@ -29,7 +29,7 @@ final class Search_Query_Service {
         private ?Transliterator $transliterator = null,
         private mixed $wpdb = null,
     ) {
-        $this->transliterator ??= Transliterator::instance();
+        $this->transliterator ??= new Transliterator();
     }
 
     /**
@@ -170,12 +170,10 @@ final class Search_Query_Service {
 
         $wp_query->query_vars = $q;
 
-        if ( '' !== $search ) {
-            $search = " AND ({$search}) ";
+        $search = " AND ({$search}) ";
 
-            if ( ! \is_user_logged_in() ) {
-                $search .= " AND ({$wpdb->posts}.post_password = '') ";
-            }
+        if ( ! \is_user_logged_in() ) {
+            $search .= " AND ({$wpdb->posts}.post_password = '') ";
         }
 
         return $search;

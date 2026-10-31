@@ -1,0 +1,397 @@
+# Copyright (C) 2026 Oblak Studio
+# This file is distributed under the same license as the SrbTransLatin - Serbian Latinisation plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: SrbTransLatin - Serbian Latinisation 0.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/srbtranslatin\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-31T08:43:32+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: srbtranslatin\n"
+
+#. Plugin Name of the plugin
+#: srbtranslatin.php
+#: src/Modules/Install/Install_Module.php:49
+msgid "SrbTransLatin - Serbian Latinisation"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: srbtranslatin.php
+msgid "https://oblak.studio/plugins/srbtranslatin/"
+msgstr ""
+
+#. Description of the plugin
+#: srbtranslatin.php
+msgid "SrbTransLatin - Serbian Latinisation plugin allows you to have a website in both cyrillic and latin scripts"
+msgstr ""
+
+#. Author of the plugin
+#: srbtranslatin.php
+msgid "Oblak Studio"
+msgstr ""
+
+#. Author URI of the plugin
+#: srbtranslatin.php
+msgid "https://oblak.studio"
+msgstr ""
+
+#: config/settings.php:22
+#: config/settings.php:23
+msgid "Latinisation"
+msgstr ""
+
+#: config/settings.php:30
+msgid "General"
+msgstr ""
+
+#: config/settings.php:35
+msgid "Menus"
+msgstr ""
+
+#: config/settings.php:40
+msgid "Media"
+msgstr ""
+
+#: config/settings.php:45
+msgid "Advanced"
+msgstr ""
+
+#: config/settings.php:52
+msgctxt "section name"
+msgid "General settings"
+msgstr ""
+
+#: config/settings.php:53
+msgid "General settings control main functionality of the plugin"
+msgstr ""
+
+#: config/settings.php:58
+msgctxt "section name"
+msgid "Navigation menu settings"
+msgstr ""
+
+#: config/settings.php:59
+msgid "Menu settings control extending and tweaking the script selector in theme menus"
+msgstr ""
+
+#: config/settings.php:64
+msgctxt "section name"
+msgid "File and Media settings"
+msgstr ""
+
+#: config/settings.php:65
+msgid "File and media settings control filename transliteration and media saving"
+msgstr ""
+
+#: config/settings.php:70
+msgctxt "section name"
+msgid "Advanced settings"
+msgstr ""
+
+#: config/settings.php:71
+msgid "Advanced settings control permalink and search settings"
+msgstr ""
+
+#: config/settings.php:79
+msgid "Enabled scripts"
+msgstr ""
+
+#: config/settings.php:83
+msgid "Choose between Latin-only mode and Cyrillic / Latin mode."
+msgstr ""
+
+#: config/settings.php:85
+#: config/settings.php:100
+#: src/Modules/Translit/Services/Menu_Integration_Service.php:496
+#: assets/blocks/script-selector/src/edit.js:42
+msgid "Latin"
+msgstr ""
+
+#: config/settings.php:86
+msgid "Cyrillic / Latin"
+msgstr ""
+
+#: config/settings.php:93
+msgid "Default script"
+msgstr ""
+
+#: config/settings.php:97
+msgid "Default script used for the website if user did not select a script"
+msgstr ""
+
+#: config/settings.php:99
+#: src/Modules/Translit/Services/Menu_Integration_Service.php:495
+#: assets/blocks/script-selector/src/edit.js:35
+msgid "Cyrillic"
+msgstr ""
+
+#: config/settings.php:116
+msgid "URL Parameter"
+msgstr ""
+
+#: config/settings.php:120
+msgid "URL parameter used for script selector"
+msgstr ""
+
+#: config/settings.php:126
+msgid "Extend WPML language switcher"
+msgstr ""
+
+#: config/settings.php:130
+msgid "Split Serbian into separate Cyrillic and Latin entries inside the WPML language switcher"
+msgstr ""
+
+#: config/settings.php:140
+msgid "Options in this section are disabled because you do not have any navigation menus registered"
+msgstr ""
+
+#: config/settings.php:150
+msgid "Extend navigation menu"
+msgstr ""
+
+#: config/settings.php:154
+msgid "Adds a script selector to the navigation menu"
+msgstr ""
+
+#: config/settings.php:163
+msgid "Navigation menu to extend"
+msgstr ""
+
+#: config/settings.php:167
+msgid "Select the navigation menu you want to extend"
+msgstr ""
+
+#: config/settings.php:169
+msgid "Select a menu"
+msgstr ""
+
+#: config/settings.php:180
+msgid "Selector type"
+msgstr ""
+
+#: config/settings.php:184
+msgid "Choose the type of the script selector"
+msgstr ""
+
+#: config/settings.php:186
+msgid "Submenu"
+msgstr ""
+
+#: config/settings.php:187
+#: assets/blocks/script-selector/src/edit.js:7
+msgid "Inline"
+msgstr ""
+
+#: config/settings.php:197
+msgid "Menu item title"
+msgstr ""
+
+#: config/settings.php:200
+msgid "Script"
+msgstr ""
+
+#: config/settings.php:201
+msgid "Title of the menu item"
+msgstr ""
+
+#: config/settings.php:213
+msgid "Creating script-specific file variants is not available in this version. Existing settings are preserved."
+msgstr ""
+
+#: config/settings.php:222
+msgid "Transliterate uploads"
+msgstr ""
+
+#: config/settings.php:226
+msgid "Transliterate filenames on upload"
+msgstr ""
+
+#: config/settings.php:235
+msgid "Script specific filenames"
+msgstr ""
+
+#: config/settings.php:239
+msgid "Check this box if you want to have separate filenames for each script"
+msgstr ""
+
+#: config/settings.php:248
+msgid "Filename separator"
+msgstr ""
+
+#: config/settings.php:252
+msgid "Separator used for script specific filenames"
+msgstr ""
+
+#: config/settings.php:262
+msgid "Transliteration method"
+msgstr ""
+
+#: config/settings.php:266
+msgid "Choose if you want to limit the script specific filenames on the entire website, or in content only"
+msgstr ""
+
+#: config/settings.php:268
+msgid "Entire website"
+msgstr ""
+
+#: config/settings.php:269
+msgid "Content only"
+msgstr ""
+
+#: config/settings.php:279
+msgid "Fix Permalinks"
+msgstr ""
+
+#. Translators: %s: current locale, such as sr_RS.
+#: config/settings.php:286
+#, php-format
+msgid "Your current locale (%s) already handles permalink transliteration."
+msgstr ""
+
+#: config/settings.php:289
+msgid "Fixes permalinks for cyrillic scripts"
+msgstr ""
+
+#: config/settings.php:298
+msgid "Fix Search"
+msgstr ""
+
+#: config/settings.php:302
+msgid "Enables searching cyrillic content via latin script"
+msgstr ""
+
+#: config/settings.php:308
+msgid "Fix Ajax"
+msgstr ""
+
+#: config/settings.php:312
+msgid "Transliterates ajax calls"
+msgstr ""
+
+#: config/settings.php:318
+msgid "Fix Titles"
+msgstr ""
+
+#: config/settings.php:322
+msgid "Fixes titles for cyrillic scripts"
+msgstr ""
+
+#: src/Modules/Core/Services/Settings_Page.php:94
+msgid "You do not have permission to manage these settings."
+msgstr ""
+
+#: src/Modules/Core/Services/Settings_Page.php:104
+msgid "Settings sections"
+msgstr ""
+
+#: src/Modules/Core/Services/Settings_Page.php:141
+msgid "An invalid setting was submitted. Its previous value has been kept."
+msgstr ""
+
+#: src/Modules/Install/Handlers/Migration_Handler.php:82
+msgid "Database schema is up to date."
+msgstr ""
+
+#: src/Modules/Install/Handlers/Migration_Handler.php:86
+msgid "Database schema issues detected:"
+msgstr ""
+
+#: src/Modules/Install/Handlers/Migration_Handler.php:94
+msgid "Run the command again with --create to create the missing tables."
+msgstr ""
+
+#: src/Modules/Install/Handlers/Migration_Handler.php:102
+msgid "Creating missing tables..."
+msgstr ""
+
+#: src/Modules/Install/Handlers/Migration_Handler.php:105
+msgid "Database schema is now up to date."
+msgstr ""
+
+#: src/Modules/Install/Handlers/Migration_Handler.php:106
+msgid "There were errors updating the database schema."
+msgstr ""
+
+#: src/Modules/Install/Services/Migrator.php:128
+msgid "Table {{tbl}} is missing {{col}}"
+msgstr ""
+
+#: src/Modules/Install/Services/Migrator.php:129
+msgid "Table {{tbl}} is missing"
+msgstr ""
+
+#: src/Modules/Install/Services/Migrator.php:130
+msgid "Table {{tbl}} is missing {{col}} column"
+msgstr ""
+
+#: src/Modules/Install/Services/Migrator.php:131
+msgid "Table {{tbl}} has an error in {{col}} column"
+msgstr ""
+
+#: src/Modules/Install/Services/Migrator.php:132
+msgid "Error in table {{tbl}}"
+msgstr ""
+
+#: src/Modules/Install/Services/Migrator.php:141
+msgid "unknown"
+msgstr ""
+
+#: src/Modules/Install/Services/Migrator.php:143
+msgid "index"
+msgstr ""
+
+#: src/Modules/Install/Services/Migrator.php:144
+msgid "unique"
+msgstr ""
+
+#: src/Modules/Install/Services/Notifier.php:25
+msgid "Schema creation failed"
+msgstr ""
+
+#: assets/blocks/script-selector/src/edit.js:8
+msgid "List"
+msgstr ""
+
+#: assets/blocks/script-selector/src/edit.js:9
+msgid "Dropdown"
+msgstr ""
+
+#: assets/blocks/script-selector/src/edit.js:25
+msgid "Display settings"
+msgstr ""
+
+#: assets/blocks/script-selector/src/edit.js:27
+msgid "Display mode"
+msgstr ""
+
+#: assets/blocks/script-selector/src/edit.js:33
+msgid "Cyrillic label"
+msgstr ""
+
+#: assets/blocks/script-selector/src/edit.js:36
+#: assets/blocks/script-selector/src/edit.js:43
+msgid "Leave empty to use the default label."
+msgstr ""
+
+#: assets/blocks/script-selector/src/edit.js:40
+msgid "Latin label"
+msgstr ""
+
+#: assets/blocks/script-selector/src/edit.js:55
+msgid "Script selector preview is unavailable."
+msgstr ""
+
+#: assets/blocks/script-selector/src/block.json
+msgctxt "block title"
+msgid "Script Selector"
+msgstr ""
+
+#: assets/blocks/script-selector/src/block.json
+msgctxt "block description"
+msgid "Shows Cyrillic/Latin script links in navigation."
+msgstr ""

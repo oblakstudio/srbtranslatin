@@ -1,6 +1,8 @@
 assets
 config
 lib
+src
+languages
 templates
 vendor
 srbtranslatin.php

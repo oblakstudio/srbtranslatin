@@ -86,5 +86,10 @@ class App {
      */
     private function load_textdomain(): void {
         \load_plugin_textdomain( 'srbtranslatin', false, \dirname( \STL_BASE ) . '/languages' );
+        $locale = \determine_locale();
+        $file   = \STL_PATH . 'languages/srbtranslatin-' . $locale . '.mo';
+        if ( \is_readable( $file ) ) {
+            \load_textdomain( 'srbtranslatin', $file, $locale );
+        }
     }
 }

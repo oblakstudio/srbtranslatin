@@ -38,11 +38,11 @@ final class Settings_Schema {
                 'transliteration_method'=> 'website',
             ),
             'wpml'     => array(
-                'extend_ls' => false,
+                'extend_ls' => true,
             ),
             'advanced' => array(
                 'fix_permalinks' => false,
-                'fix_search'     => true,
+                'fix_search'     => false,
                 'fix_ajax'       => false,
                 'fix_titles'     => false,
             ),

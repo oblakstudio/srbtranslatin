@@ -11,20 +11,17 @@ use STL\Core\Core_Module;
 use STL\Core\Services\Settings_Page_Factory;
 use STL\Translit\Services\Script_Manager;
 use STL\Translit\Translit_Module;
-use WPTechnix\WP_Settings_Builder\Settings_Builder;
-use WPTechnix\WP_Settings_Builder\Settings_Page;
+use STL\Core\Services\Settings_Page;
 
 require_once dirname(__DIR__, 2) . '/unit-bootstrap.php';
 
 final class CoreModuleTest extends TestCase {
     protected function setUp(): void {
         $GLOBALS['stl_test_registered_actions'] = [];
-        $this->resetBuilderInstances();
     }
 
     protected function tearDown(): void {
         $GLOBALS['stl_test_registered_actions'] = [];
-        $this->resetBuilderInstances();
 
         parent::tearDown();
     }
@@ -68,15 +65,12 @@ final class CoreModuleTest extends TestCase {
 
         $hooks = array_column($GLOBALS['stl_test_registered_actions'], 'hook');
 
-        self::assertContains('admin_menu', $hooks);
-        self::assertContains('admin_init', $hooks);
-        self::assertContains('admin_enqueue_scripts', $hooks);
-    }
-
-    private function resetBuilderInstances(): void {
-        $reflection = new \ReflectionClass(Settings_Builder::class);
-        $property = $reflection->getProperty('instances');
-        $property->setAccessible(true);
-        $property->setValue([]);
+        if (function_exists('has_action')) {
+            self::assertNotFalse(has_action('admin_menu', [$page, 'register_menu']));
+            self::assertNotFalse(has_action('admin_init', [$page, 'register_settings']));
+        } else {
+            self::assertContains('admin_menu', $hooks);
+            self::assertContains('admin_init', $hooks);
+        }
     }
 }

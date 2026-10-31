@@ -26,7 +26,7 @@ final class SettingsConfigTest extends TestCase {
         self::assertStringContainsString('sr_RS', (string) $field['extras']['description']);
     }
 
-    public function test_disables_media_fields_while_runtime_support_is_deferred(): void {
+    public function test_enables_filename_transliteration_and_preserves_deferred_variant_options(): void {
         $schema = require dirname(__DIR__, 3) . '/config/settings.php';
 
         $warning = $this->findField($schema['fields'], 'media_warning');
@@ -36,7 +36,7 @@ final class SettingsConfigTest extends TestCase {
         $method = $this->findField($schema['fields'], 'transliteration_method');
 
         self::assertNotSame('', $warning['extras']['description']);
-        self::assertTrue($transliterateUploads['extras']['html_attributes']['disabled']);
+        self::assertFalse($transliterateUploads['extras']['html_attributes']['disabled']);
         self::assertTrue($separateUploads['extras']['html_attributes']['disabled']);
         self::assertTrue($separator['extras']['html_attributes']['disabled']);
         self::assertTrue($method['extras']['html_attributes']['disabled']);

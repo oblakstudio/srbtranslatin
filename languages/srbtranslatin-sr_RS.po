@@ -1,0 +1,386 @@
+# Serbian translations, reviewed against the current plugin source.
+# Distributed under the same GPL license as SrbTransLatin.
+msgid ""
+msgstr "Project-Id-Version: SrbTransLatin\nPO-Revision-Date: 2026-10-31 12:00+0100\nLast-Translator: SrbTransLatin contributors\nLanguage-Team: Serbian\nLanguage: sr_RS\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);\nX-Domain: srbtranslatin\n"
+
+#. Plugin Name of the plugin
+#: srbtranslatin.php
+#: src/Modules/Install/Install_Module.php:49
+msgid "SrbTransLatin - Serbian Latinisation"
+msgstr "SrbTransLatin — пресловљавање српског језика"
+
+#. Plugin URI of the plugin
+#: srbtranslatin.php
+msgid "https://oblak.studio/plugins/srbtranslatin/"
+msgstr "https://oblak.studio/plugins/srbtranslatin/"
+
+#. Description of the plugin
+#: srbtranslatin.php
+msgid "SrbTransLatin - Serbian Latinisation plugin allows you to have a website in both cyrillic and latin scripts"
+msgstr "Додатак SrbTransLatin омогућава приказ веб-места на ћирилици и латиници."
+
+#. Author of the plugin
+#: srbtranslatin.php
+msgid "Oblak Studio"
+msgstr "Oblak Studio"
+
+#. Author URI of the plugin
+#: srbtranslatin.php
+msgid "https://oblak.studio"
+msgstr "https://oblak.studio"
+
+#: config/settings.php:22
+#: config/settings.php:23
+msgid "Latinisation"
+msgstr "Пресловљавање"
+
+#: config/settings.php:30
+msgid "General"
+msgstr "Општа"
+
+#: config/settings.php:35
+msgid "Menus"
+msgstr "Изборници"
+
+#: config/settings.php:40
+msgid "Media"
+msgstr "Медији"
+
+#: config/settings.php:45
+msgid "Advanced"
+msgstr "Напредна"
+
+#: config/settings.php:52
+msgctxt "section name"
+msgid "General settings"
+msgstr "Општа подешавања"
+
+#: config/settings.php:53
+msgid "General settings control main functionality of the plugin"
+msgstr "Општа подешавања управљају основним функцијама додатка."
+
+#: config/settings.php:58
+msgctxt "section name"
+msgid "Navigation menu settings"
+msgstr "Подешавања навигационог изборника"
+
+#: config/settings.php:59
+msgid "Menu settings control extending and tweaking the script selector in theme menus"
+msgstr "Подешавања изборника одређују положај и изглед избора писма у изборницима теме."
+
+#: config/settings.php:64
+msgctxt "section name"
+msgid "File and Media settings"
+msgstr "Подешавања датотека и медија"
+
+#: config/settings.php:65
+msgid "File and media settings control filename transliteration and media saving"
+msgstr "Подешавања датотека и медија управљају пресловљавањем назива датотека и чувањем медија."
+
+#: config/settings.php:70
+msgctxt "section name"
+msgid "Advanced settings"
+msgstr "Напредна подешавања"
+
+#: config/settings.php:71
+msgid "Advanced settings control permalink and search settings"
+msgstr "Напредна подешавања управљају сталним везама и претрагом."
+
+#: config/settings.php:79
+msgid "Enabled scripts"
+msgstr "Омогућена писма"
+
+#: config/settings.php:83
+msgid "Choose between Latin-only mode and Cyrillic / Latin mode."
+msgstr "Изаберите приказ само на латиници или на ћирилици и латиници."
+
+#: config/settings.php:85
+#: config/settings.php:100
+#: src/Modules/Translit/Services/Menu_Integration_Service.php:496
+#: assets/blocks/script-selector/src/edit.js:42
+msgid "Latin"
+msgstr "Латиница"
+
+#: config/settings.php:86
+msgid "Cyrillic / Latin"
+msgstr "Ћирилица / латиница"
+
+#: config/settings.php:93
+msgid "Default script"
+msgstr "Подразумевано писмо"
+
+#: config/settings.php:97
+msgid "Default script used for the website if user did not select a script"
+msgstr "Писмо које се користи када посетилац није изабрао писмо."
+
+#: config/settings.php:99
+#: src/Modules/Translit/Services/Menu_Integration_Service.php:495
+#: assets/blocks/script-selector/src/edit.js:35
+msgid "Cyrillic"
+msgstr "Ћирилица"
+
+#: config/settings.php:116
+msgid "URL Parameter"
+msgstr "Параметар URL-а"
+
+#: config/settings.php:120
+msgid "URL parameter used for script selector"
+msgstr "Параметар URL-а који се користи за избор писма."
+
+#: config/settings.php:126
+msgid "Extend WPML language switcher"
+msgstr "Прошири WPML избор језика"
+
+#: config/settings.php:130
+msgid "Split Serbian into separate Cyrillic and Latin entries inside the WPML language switcher"
+msgstr "Прикажи ћирилицу и латиницу као засебне ставке за српски језик у WPML избору језика."
+
+#: config/settings.php:140
+msgid "Options in this section are disabled because you do not have any navigation menus registered"
+msgstr "Опције у овом одељку су онемогућене јер нема регистрованих навигационих изборника."
+
+#: config/settings.php:150
+msgid "Extend navigation menu"
+msgstr "Прошири навигациони изборник"
+
+#: config/settings.php:154
+msgid "Adds a script selector to the navigation menu"
+msgstr "Додаје избор писма у навигациони изборник."
+
+#: config/settings.php:163
+msgid "Navigation menu to extend"
+msgstr "Навигациони изборник за проширивање"
+
+#: config/settings.php:167
+msgid "Select the navigation menu you want to extend"
+msgstr "Изаберите навигациони изборник у који желите да додате избор писма."
+
+#: config/settings.php:169
+msgid "Select a menu"
+msgstr "Изаберите изборник"
+
+#: config/settings.php:180
+msgid "Selector type"
+msgstr "Начин приказа избора писма"
+
+#: config/settings.php:184
+msgid "Choose the type of the script selector"
+msgstr "Изаберите начин приказа избора писма."
+
+#: config/settings.php:186
+msgid "Submenu"
+msgstr "Подизборник"
+
+#: config/settings.php:187
+#: assets/blocks/script-selector/src/edit.js:7
+msgid "Inline"
+msgstr "У једном реду"
+
+#: config/settings.php:197
+msgid "Menu item title"
+msgstr "Назив ставке изборника"
+
+#: config/settings.php:200
+msgid "Script"
+msgstr "Писмо"
+
+#: config/settings.php:201
+msgid "Title of the menu item"
+msgstr "Назив ставке у изборнику."
+
+#: config/settings.php:213
+msgid "Creating script-specific file variants is not available in this version. Existing settings are preserved."
+msgstr "Прављење посебних верзија датотека за свако писмо није доступно у овој верзији. Постојећа подешавања су очувана."
+
+#: config/settings.php:222
+msgid "Transliterate uploads"
+msgstr "Преслови називе отпремљених датотека"
+
+#: config/settings.php:226
+msgid "Transliterate filenames on upload"
+msgstr "Пресловљава називе датотека приликом отпремања."
+
+#: config/settings.php:235
+msgid "Script specific filenames"
+msgstr "Посебни називи датотека за свако писмо"
+
+#: config/settings.php:239
+msgid "Check this box if you want to have separate filenames for each script"
+msgstr "Означите ако желите посебне називе датотека за свако писмо."
+
+#: config/settings.php:248
+msgid "Filename separator"
+msgstr "Раздвајач у називу датотеке"
+
+#: config/settings.php:252
+msgid "Separator used for script specific filenames"
+msgstr "Раздвајач у називима датотека који се разликују према писму."
+
+#: config/settings.php:262
+msgid "Transliteration method"
+msgstr "Начин пресловљавања"
+
+#: config/settings.php:266
+msgid "Choose if you want to limit the script specific filenames on the entire website, or in content only"
+msgstr "Изаберите да ли се називи датотека прилагођени писму користе на целом веб-месту или само у садржају."
+
+#: config/settings.php:268
+msgid "Entire website"
+msgstr "Цело веб-место"
+
+#: config/settings.php:269
+msgid "Content only"
+msgstr "Само садржај"
+
+#: config/settings.php:279
+msgid "Fix Permalinks"
+msgstr "Преслови сталне везе"
+
+#. Translators: %s: current locale, such as sr_RS.
+#: config/settings.php:286
+#, php-format
+msgid "Your current locale (%s) already handles permalink transliteration."
+msgstr "Тренутно језичко подешавање (%s) већ омогућава пресловљавање сталних веза."
+
+#: config/settings.php:289
+msgid "Fixes permalinks for cyrillic scripts"
+msgstr "Пресловљава сталне везе са ћирилице на латиницу."
+
+#: config/settings.php:298
+msgid "Fix Search"
+msgstr "Прошири претрагу"
+
+#: config/settings.php:302
+msgid "Enables searching cyrillic content via latin script"
+msgstr "Омогућава претраживање ћириличног садржаја упитом на латиници."
+
+#: config/settings.php:308
+msgid "Fix Ajax"
+msgstr "Преслови AJAX одговоре"
+
+#: config/settings.php:312
+msgid "Transliterates ajax calls"
+msgstr "Пресловљава садржај AJAX одговора."
+
+#: config/settings.php:318
+msgid "Fix Titles"
+msgstr "Преслови наслове"
+
+#: config/settings.php:322
+msgid "Fixes titles for cyrillic scripts"
+msgstr "Пресловљава наслове са ћирилице на латиницу."
+
+#: src/Modules/Core/Services/Settings_Page.php:94
+msgid "You do not have permission to manage these settings."
+msgstr "Немате дозволу да мењате ова подешавања."
+
+#: src/Modules/Core/Services/Settings_Page.php:104
+msgid "Settings sections"
+msgstr "Одељци подешавања"
+
+#: src/Modules/Core/Services/Settings_Page.php:141
+msgid "An invalid setting was submitted. Its previous value has been kept."
+msgstr "Послата је неисправна вредност подешавања. Претходна вредност је задржана."
+
+#: src/Modules/Install/Handlers/Migration_Handler.php:82
+msgid "Database schema is up to date."
+msgstr "Структура базе података је ажурна."
+
+#: src/Modules/Install/Handlers/Migration_Handler.php:86
+msgid "Database schema issues detected:"
+msgstr "Откривени су проблеми са структуром базе података:"
+
+#: src/Modules/Install/Handlers/Migration_Handler.php:94
+msgid "Run the command again with --create to create the missing tables."
+msgstr "Поново покрените наредбу са опцијом --create да бисте направили табеле које недостају."
+
+#: src/Modules/Install/Handlers/Migration_Handler.php:102
+msgid "Creating missing tables..."
+msgstr "Прављење табела које недостају…"
+
+#: src/Modules/Install/Handlers/Migration_Handler.php:105
+msgid "Database schema is now up to date."
+msgstr "Структура базе података је сада ажурна."
+
+#: src/Modules/Install/Handlers/Migration_Handler.php:106
+msgid "There were errors updating the database schema."
+msgstr "Дошло је до грешака при ажурирању структуре базе података."
+
+#: src/Modules/Install/Services/Migrator.php:128
+msgid "Table {{tbl}} is missing {{col}}"
+msgstr "У табели {{tbl}} недостаје {{col}}"
+
+#: src/Modules/Install/Services/Migrator.php:129
+msgid "Table {{tbl}} is missing"
+msgstr "Недостаје табела {{tbl}}"
+
+#: src/Modules/Install/Services/Migrator.php:130
+msgid "Table {{tbl}} is missing {{col}} column"
+msgstr "У табели {{tbl}} недостаје колона {{col}}"
+
+#: src/Modules/Install/Services/Migrator.php:131
+msgid "Table {{tbl}} has an error in {{col}} column"
+msgstr "У табели {{tbl}} постоји грешка у колони {{col}}"
+
+#: src/Modules/Install/Services/Migrator.php:132
+msgid "Error in table {{tbl}}"
+msgstr "Грешка у табели {{tbl}}"
+
+#: src/Modules/Install/Services/Migrator.php:141
+msgid "unknown"
+msgstr "непознато"
+
+#: src/Modules/Install/Services/Migrator.php:143
+msgid "index"
+msgstr "индекс"
+
+#: src/Modules/Install/Services/Migrator.php:144
+msgid "unique"
+msgstr "јединствени индекс"
+
+#: src/Modules/Install/Services/Notifier.php:25
+msgid "Schema creation failed"
+msgstr "Прављење структуре базе података није успело"
+
+#: assets/blocks/script-selector/src/edit.js:8
+msgid "List"
+msgstr "Листа"
+
+#: assets/blocks/script-selector/src/edit.js:9
+msgid "Dropdown"
+msgstr "Падајућа листа"
+
+#: assets/blocks/script-selector/src/edit.js:25
+msgid "Display settings"
+msgstr "Подешавања приказа"
+
+#: assets/blocks/script-selector/src/edit.js:27
+msgid "Display mode"
+msgstr "Начин приказа"
+
+#: assets/blocks/script-selector/src/edit.js:33
+msgid "Cyrillic label"
+msgstr "Ознака за ћирилицу"
+
+#: assets/blocks/script-selector/src/edit.js:36
+#: assets/blocks/script-selector/src/edit.js:43
+msgid "Leave empty to use the default label."
+msgstr "Оставите празно да бисте користили подразумевану ознаку."
+
+#: assets/blocks/script-selector/src/edit.js:40
+msgid "Latin label"
+msgstr "Ознака за латиницу"
+
+#: assets/blocks/script-selector/src/edit.js:55
+msgid "Script selector preview is unavailable."
+msgstr "Преглед избора писма није доступан."
+
+#: assets/blocks/script-selector/src/block.json
+msgctxt "block title"
+msgid "Script Selector"
+msgstr "Избор писма"
+
+#: assets/blocks/script-selector/src/block.json
+msgctxt "block description"
+msgid "Shows Cyrillic/Latin script links in navigation."
+msgstr "Приказује везе за избор ћирилице или латинице у навигацији."

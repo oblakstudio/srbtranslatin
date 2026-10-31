@@ -11,9 +11,7 @@ defined( 'ABSPATH' ) || exit;
 
 $site_locale          = \array_key_exists( 'stl_test_locale', $GLOBALS ) ? (string) $GLOBALS['stl_test_locale'] : \get_locale();
 $locale_handles_permalinks = \in_array( $site_locale, array( 'sr_RS', 'bs_BA' ), true );
-$media_runtime_available   = false;
-$permalink_runtime_available = false;
-$disable_permalinks   = $locale_handles_permalinks || ! $permalink_runtime_available;
+$disable_permalinks   = $locale_handles_permalinks;
 $navigation_menus     = \array_key_exists( 'stl_test_nav_menus', $GLOBALS ) ? (array) $GLOBALS['stl_test_nav_menus'] : \get_registered_nav_menus();
 $has_navigation_menus = 0 < \count( $navigation_menus );
 
@@ -44,7 +42,7 @@ return array(
         ),
         array(
             'id'    => 'advanced',
-            'title' => \__( 'Advanced', 'default' ),
+            'title' => \__( 'Advanced', 'srbtranslatin' ),
             'icon'  => 'dashicons-admin-tools',
         ),
     ),
@@ -128,7 +126,7 @@ return array(
             'title'   => \__( 'Extend WPML language switcher', 'srbtranslatin' ),
             'section' => 'general',
             'extras'  => array(
-                'default'     => false,
+                'default'     => true,
                 'description' => \__( 'Split Serbian into separate Cyrillic and Latin entries inside the WPML language switcher', 'srbtranslatin' ),
             ),
         ),
@@ -212,9 +210,7 @@ return array(
             'title'   => '',
             'section' => 'media',
             'extras'  => array(
-                'description'     => ! $media_runtime_available
-                    ? '<strong>' . \__( 'Media filename transliteration options are legacy settings and are not active in the current src runtime yet.', 'srbtranslatin' ) . '</strong>'
-                    : '',
+                'description'     => '<strong>' . \__( 'Creating script-specific file variants is not available in this version. Existing settings are preserved.', 'srbtranslatin' ) . '</strong>',
                 'html_attributes' => array(
                     'class' => 'notice inline notice-warning',
                 ),
@@ -229,7 +225,7 @@ return array(
                 'default'     => true,
                 'description' => \__( 'Transliterate filenames on upload', 'srbtranslatin' ),
                 'html_attributes' => array(
-                    'disabled' => ! $media_runtime_available,
+                    'disabled' => false,
                 ),
             ),
         ),
@@ -242,7 +238,7 @@ return array(
                 'default'     => true,
                 'description' => \__( 'Check this box if you want to have separate filenames for each script', 'srbtranslatin' ),
                 'html_attributes' => array(
-                    'disabled' => ! $media_runtime_available,
+                    'disabled' => true,
                 ),
             ),
         ),
@@ -256,7 +252,7 @@ return array(
                 'description'     => \__( 'Separator used for script specific filenames', 'srbtranslatin' ),
                 'html_attributes' => array(
                     'class' => 'small-text',
-                    'disabled' => ! $media_runtime_available,
+                    'disabled' => true,
                 ),
             ),
         ),
@@ -273,7 +269,7 @@ return array(
                     'content' => \__( 'Content only', 'srbtranslatin' ),
                 ),
                 'html_attributes' => array(
-                    'disabled' => ! $media_runtime_available,
+                    'disabled' => true,
                 ),
             ),
         ),
@@ -284,15 +280,11 @@ return array(
             'section' => 'advanced',
             'extras'  => array(
                 'default'         => false,
-                'description'     => ! $permalink_runtime_available
-                    ? (
-                        $locale_handles_permalinks
-                            ? \sprintf(
-                                // Translators: %s is replaced with the current site locale, e.g. "sr_RS". Do not translate the locale itself.
-                                \__( 'Permalink transliteration is a legacy option and is not active in the current src runtime yet. It also remains disabled because your current locale is set to %s, which already changes permalinks automatically.', 'srbtranslatin' ),
-                                $site_locale,
-                            )
-                            : \__( 'Permalink transliteration is a legacy option and is not active in the current src runtime yet.', 'srbtranslatin' )
+                'description'     => $locale_handles_permalinks
+                    ? \sprintf(
+                        /* Translators: %s: current locale, such as sr_RS. */
+                        \__( 'Your current locale (%s) already handles permalink transliteration.', 'srbtranslatin' ),
+                        $site_locale,
                     )
                     : \__( 'Fixes permalinks for cyrillic scripts', 'srbtranslatin' ),
                 'html_attributes' => array(
@@ -306,7 +298,7 @@ return array(
             'title'   => \__( 'Fix Search', 'srbtranslatin' ),
             'section' => 'advanced',
             'extras'  => array(
-                'default'     => true,
+                'default'     => false,
                 'description' => \__( 'Enables searching cyrillic content via latin script', 'srbtranslatin' ),
             ),
         ),

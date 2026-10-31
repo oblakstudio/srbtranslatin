@@ -117,10 +117,7 @@ download_wordpress_develop() {
 
     if [ ! -f "${archive_path}" ]; then
       log "Downloading wordpress-develop ${wp_core_version}"
-      if ! curl -fsSL -o "${archive_path}" "https://github.com/WordPress/wordpress-develop/archive/refs/tags/${wp_core_version}.zip"; then
-        log "Falling back to trunk for wordpress-develop ${wp_core_version}"
-        curl -fsSL -o "${archive_path}" "https://github.com/WordPress/wordpress-develop/archive/refs/heads/trunk.zip"
-      fi
+      curl -fsSL -o "${archive_path}" "https://github.com/WordPress/wordpress-develop/archive/refs/tags/${wp_core_version}.zip"
     fi
 
     rm -rf "${extract_root}"
@@ -192,10 +189,6 @@ main() {
   require_command php
   require_command unzip
   require_command "${WP_CLI_BIN}"
-
-  if [ -z "${WP_TESTS_SKIP_DOCKER:-}" ]; then
-    require_command docker
-  fi
 
   export WP_CLI_CACHE_DIR="${CACHE_DIR}/wp-cli"
 

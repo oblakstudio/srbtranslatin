@@ -12,6 +12,7 @@ jobs:
       - uses: raven-actions/actionlint@v2
 
   release:
+    if: github.repository == 'oblakstudio/srbtranslatin' && github.ref == 'refs/heads/master' && github.event_name == 'push'
     needs: actionlint
     name: Release next version
     runs-on: ubuntu-latest
